@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box;
   font-size: 62.5%;
+  /* overflow: hidden; */
 }
 body {
   font-size: 1.6rem;
@@ -24,52 +25,49 @@ header {
   width: 100%;
   height: 7rem;
   background-color: #000000;
-  flex-shrink: 0;
+  position: fixed;
+  z-index: 15;
 }
 .tabBars {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100%;
+  justify-content: space-around;
 }
+
+/* toolBarLeft */
 .tabBars .toolBarLeft {
   display: flex;
   gap: 1rem;
-  padding-left: 2rem;
-  align-items: center;
 }
 .toolBarLeft img {
   width: 5rem;
   height: 5rem;
-  object-fit: contain;
 }
 .toolBarLeft .titleMemeShirt {
   color: #fff;
-  margin: auto 0;
-}
-.toolBarLeft .titleMemeShirt h1 {
+  font-size: 5.4rem;
   font-family: "Black Ops One";
-  margin: 0;
-  line-height: 1;
-  font-size: 3.3rem !important;
 }
+
+/* toolBarCenter */
 .tabBars .toolBarCenter {
   display: flex;
   width: 70%;
   justify-content: center;
   align-items: center;
+  /* margin: auto 0rem; */
 }
 .toolBarCenter ul {
   list-style: none;
   display: flex;
   margin: auto 0;
-  padding: 0 !important;
 }
 .toolBarCenter li {
   font-size: 4rem;
   font-family: "inter", sans-serif;
   margin: 0rem 2.5rem;
+  margin-bottom: 1rem;
 }
 .toolBarCenter li a {
   text-decoration: none;
@@ -81,18 +79,15 @@ header {
   transform: translateY(-4px);
   transition: all 0.2s;
 }
+
+/* toolBarRight */
 .tabBars .toolBarRight {
   display: flex;
-  margin-left: auto;
-  padding-right: 2rem;
-  align-items: center;
 }
 .toolBarRight .searchBar,
 .userAccount,
 .notification {
-  margin: 0 0.5rem;
-  display: flex;
-  align-items: center;
+  margin: 2rem 0.5rem;
 }
 .iconSearch,
 .iconNoti,
@@ -105,25 +100,23 @@ header {
 /* --- Layout --- */
 .design-wrapper {
   width: 100%;
-  height: 93rem;
+  height: 100%;
   background-color: var(--bg-ivory);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  position: relative;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 .body-container {
   display: flex;
-  height: 776px;
   width: 100%;
-  position: relative;
 }
 
 /* --- Toolbar --- */
 .toolbar {
-  width: 123px;
-  height: 798px;
+  width: 12.3rem;
+  height: 104.5vh;
+  margin-top: 6.9rem;
   background-color: var(--primary-blue);
   display: flex;
   flex-direction: column;
@@ -169,9 +162,10 @@ header {
   position: absolute;
   left: 123px;
   top: 0;
+  margin-top: 7rem;
   width: 323px;
-  height: 798px;
-  z-index: 20;
+  height: 104.4vh;
+  z-index: 2;
   background-color: var(--panel-bg);
   border-right: 1px solid #e0e0e0;
   display: none;
@@ -186,7 +180,7 @@ header {
   display: none;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
+
   background-color: #4a8db7;
   overflow-y: auto;
   overflow-x: hidden;
@@ -213,11 +207,11 @@ header {
 
 /* Draggable Items */
 .text-style-item {
-  width: 267px;
+  width: 100%;
   height: 60px;
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  justify-content: center;
   color: white;
   cursor: grab;
   transition: background 0.2s;
@@ -230,7 +224,7 @@ header {
   background-color: rgba(255, 255, 255, 0.1);
 }
 .text-style-item span {
-  font-size: 5rem;
+  font-size: 4rem;
   line-height: 1;
   white-space: nowrap;
   pointer-events: none;
@@ -318,8 +312,10 @@ header {
   margin: 0 0 40px 0;
   color: var(--dark-black);
   letter-spacing: 2px;
+  margin-top: 5rem;
 }
 .content-layout {
+  width: 100%;
   display: flex;
   justify-content: right;
   gap: 30px;
@@ -398,16 +394,18 @@ div.box-small.drag-over {
 }
 
 .buttons-group {
-  margin-top: 58px;
+  margin-top: 28px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 36px;
 }
 .btn-design {
-  width: 259px;
-  height: 78px;
+  width: 250px;
+  height: 58px;
   border-radius: 50px;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: normal;
   cursor: pointer;
   border: none;
   display: flex;
@@ -425,13 +423,15 @@ div.box-small.drag-over {
   color: white;
 }
 .btn-blue:hover {
-  background-color: #0f5482;
+  background-color: white;
+  color: var(--primary-blue);
 }
 .btn-white {
-  background-color: white;
-  color: var(--dark-black);
+  background-color: #2a2a2a;
+  color: white;
   border: 1px solid #ccc;
 }
 .btn-white:hover {
-  background-color: #f8f9fa;
+  background-color: white;
+  color: #2a2a2a;
 }

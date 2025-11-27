@@ -8,7 +8,7 @@
     <link
       rel="icon"
       type="image/png"
-      href="/Meme2Shirt/client/assets/img/logo/logoMemeShirt.png"
+      href="/client/assets/img/logo/logoMemeShirt.png"
     />
 
     <!-- Fonts -->
@@ -31,445 +31,8 @@
       href="https://fonts.googleapis.com/css2?family=Freehand&family=Black+Ops+One&family=Inter:wght@400;500;600&family=Lobster&family=Oswald&family=Pacifico&family=Anton&family=Dancing+Script&display=swap"
       rel="stylesheet"
     />
-
-    <style>
-      /* --- Global Resets & Vars --- */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-size: 62.5%;
-      }
-      body {
-        font-size: 1.6rem;
-        background-color: #f8f5ed;
-        font-family: sans-serif;
-      }
-      :root {
-        --primary-blue: #116396;
-        --bg-ivory: #f8f5ed;
-        --dark-black: #2a2a2a;
-        --shadow-hover: rgba(45, 71, 76, 0.7);
-        --panel-bg: #4a8db7;
-      }
-
-      /* --- Header --- */
-      header {
-        width: 100%;
-        height: 7rem;
-        background-color: #000000;
-        flex-shrink: 0;
-      }
-      .tabBars {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-      }
-      .tabBars .toolBarLeft {
-        display: flex;
-        gap: 1rem;
-        padding-left: 2rem;
-        align-items: center;
-      }
-      .toolBarLeft img {
-        width: 5rem;
-        height: 5rem;
-        object-fit: contain;
-      }
-      .toolBarLeft .titleMemeShirt {
-        color: #fff;
-        margin: auto 0;
-      }
-      .toolBarLeft .titleMemeShirt h1 {
-        font-family: "Black Ops One";
-        margin: 0;
-        line-height: 1;
-        font-size: 3.3rem !important;
-      }
-      .tabBars .toolBarCenter {
-        display: flex;
-        width: 70%;
-        justify-content: center;
-        align-items: center;
-      }
-      .toolBarCenter ul {
-        list-style: none;
-        display: flex;
-        margin: auto 0;
-        padding: 0 !important;
-      }
-      .toolBarCenter li {
-        font-size: 4rem;
-        font-family: "inter", sans-serif;
-        margin: 0rem 2.5rem;
-      }
-      .toolBarCenter li a {
-        text-decoration: none;
-        color: #fff;
-      }
-      .toolBarCenter li:hover {
-        color: #3ba7e6;
-        text-shadow: 0 0 15px #fefefe;
-        transform: translateY(-4px);
-        transition: all 0.2s;
-      }
-      .tabBars .toolBarRight {
-        display: flex;
-        margin-left: auto;
-        padding-right: 2rem;
-        align-items: center;
-      }
-      .toolBarRight .searchBar,
-      .userAccount,
-      .notification {
-        margin: 0 0.5rem;
-        display: flex;
-        align-items: center;
-      }
-      .iconSearch,
-      .iconNoti,
-      .iconAccount {
-        width: 3rem;
-        height: 3rem;
-        cursor: pointer;
-      }
-
-      /* --- Layout --- */
-      .design-wrapper {
-        width: 1440px;
-        height: 869px;
-        background-color: var(--bg-ivory);
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        position: relative;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-      }
-      .body-container {
-        display: flex;
-        height: 776px;
-        width: 100%;
-        position: relative;
-      }
-
-      /* --- Toolbar --- */
-      .toolbar {
-        width: 123px;
-        height: 798px;
-        background-color: var(--primary-blue);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex-shrink: 0;
-        z-index: 10;
-      }
-      .tool-box {
-        width: 123px;
-        height: 123px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        cursor: pointer;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        transition: background-color 0.2s;
-      }
-      .tool-box:hover,
-      .tool-box.active {
-        background-color: rgba(0, 0, 0, 0.2);
-      }
-      .tool-box i {
-        font-size: 40px;
-        margin-bottom: 8px;
-      }
-      .cursive-txt {
-        font-family: "Freehand", cursive;
-        font-size: 50px;
-        line-height: 1;
-      }
-      .meme-text-icon {
-        font-size: 1.4rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        margin-top: 5px;
-        letter-spacing: 1px;
-      }
-
-      /* --- Panels --- */
-      .panels-container {
-        position: absolute;
-        left: 123px;
-        top: 0;
-        width: 323px;
-        height: 798px;
-        z-index: 20;
-        background-color: var(--panel-bg);
-        border-right: 1px solid #e0e0e0;
-        display: none;
-        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-      }
-      .control-panel {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 20px;
-        background-color: #4a8db7;
-        overflow-y: auto;
-        overflow-x: hidden;
-        animation: fadeIn 0.3s ease-in-out;
-      }
-      .control-panel::-webkit-scrollbar {
-        width: 6px;
-      }
-      .control-panel::-webkit-scrollbar-thumb {
-        background-color: rgba(255, 255, 255, 0.3);
-        border-radius: 3px;
-      }
-      .control-panel.active {
-        display: flex;
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      /* Draggable Items */
-      .text-style-item {
-        width: 267px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        padding-left: 20px;
-        color: white;
-        cursor: grab;
-        transition: background 0.2s;
-        flex-shrink: 0;
-        overflow: hidden;
-        -webkit-user-select: none;
-        user-select: none;
-      }
-      .text-style-item:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-      .text-style-item span {
-        font-size: 5rem;
-        line-height: 1;
-        white-space: nowrap;
-        pointer-events: none;
-      }
-
-      .grid-container-2col {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        padding-bottom: 20px;
-        width: 100%;
-      }
-      .square-item {
-        width: 127px;
-        height: 127px;
-        background-color: #e0e0e0;
-        cursor: grab;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: transform 0.2s;
-        overflow: hidden;
-        flex-shrink: 0;
-        -webkit-user-select: none;
-        user-select: none;
-        position: relative;
-      }
-      .square-item:hover {
-        transform: scale(1.02);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      }
-      .square-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        pointer-events: none;
-      }
-
-      /* Image Panel Specific */
-      .panel-image-item {
-        background-color: white;
-        color: #333;
-        text-align: center;
-      }
-      .panel-image-item i {
-        font-size: 4rem;
-        margin-bottom: 10px;
-        color: #000;
-        pointer-events: none;
-      }
-      .panel-image-item .fa-cloud-arrow-up {
-        color: #00acee;
-      }
-      .panel-image-label {
-        font-size: 1.4rem;
-        font-weight: 500;
-        color: white;
-        margin-top: 5px;
-        text-align: center;
-        width: 127px;
-      }
-      .image-tool-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-
-      /* --- Main Content Area --- */
-      .main-content {
-        width: 1192px;
-        height: 776px;
-        background-color: var(--bg-ivory);
-        padding: 40px;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-      }
-      .page-title {
-        font-family: "Black Ops One", "Stencil", "Impact", sans-serif;
-        font-size: 48px;
-        text-align: center;
-        margin: 0 0 40px 0;
-        color: var(--dark-black);
-        letter-spacing: 2px;
-      }
-      .content-layout {
-        display: flex;
-        justify-content: right;
-        gap: 30px;
-      }
-      .col-left {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-      .col-right {
-        display: flex;
-        flex-direction: column;
-      }
-      .grey-box {
-        background-color: #d9d9d9;
-        border-radius: 4px;
-      }
-
-      /* Drop Zones */
-      div.box-small {
-        width: 210px;
-        height: 210px;
-        border: none;
-        outline: none;
-        text-align: center;
-        font-size: 20px;
-        color: #555;
-        font-weight: 500;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: all 0.2s;
-        overflow: hidden;
-        position: relative;
-      }
-      div.box-small:hover {
-        background-color: #e6e6e6;
-      }
-      div.box-small.drag-over {
-        background-color: #c1e1c1;
-        border: 2px dashed #4caf50;
-        transform: scale(1.02);
-      }
-      /* Style cho nội dung sau khi drop */
-      .dropped-content-text {
-        font-size: 3.5rem;
-        text-align: center;
-        word-break: break-word;
-        pointer-events: none;
-      }
-      .dropped-content-img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        pointer-events: none;
-      }
-
-      /* Result Area */
-      .box-large {
-        width: 554px;
-        height: 445px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        background-color: #fff;
-        border: 1px solid #ccc;
-      }
-      #result-canvas {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: none;
-      }
-
-      .buttons-group {
-        margin-top: 58px;
-        display: flex;
-        gap: 36px;
-      }
-      .btn-design {
-        width: 259px;
-        height: 78px;
-        border-radius: 50px;
-        font-size: 24px;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-      }
-      .btn-design:hover {
-        box-shadow: 0 4px 15px var(--shadow-hover);
-        transform: translateY(-2px);
-      }
-      .btn-blue {
-        background-color: var(--primary-blue);
-        color: white;
-      }
-      .btn-blue:hover {
-        background-color: #0f5482;
-      }
-      .btn-white {
-        background-color: white;
-        color: var(--dark-black);
-        border: 1px solid #ccc;
-      }
-      .btn-white:hover {
-        background-color: #f8f9fa;
-      }
-    </style>
+    <link rel="stylesheet" href="/client/pages/page_design/design.css">
+    
   </head>
   <body>
     <div class="design-wrapper">
@@ -477,33 +40,77 @@
         <div class="tabBars">
           <div class="toolBarLeft">
             <div class="logoMeme">
-              <h1
-                style="
-                  font-family: 'Black Ops One';
-                  color: white;
-                  font-size: 3rem;
-                "
-              >
-                MEME
-              </h1>
+              <img
+                src="/client/assets/img/logo/logoMemeShirt.png"
+                alt="Logo Meme Shirt"
+              />
             </div>
+            <!-- <div class="titleMemeShirt" style="margin: auto 0">
+              <h1>Meme Shirt</h1>
+            </div> -->
           </div>
           <div class="toolBarCenter">
             <nav>
               <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Menu</a></li>
-                <li><a href="#">Design</a></li>
-                <li><a href="#">Cart</a></li>
+                <li><a href="/client/pages/page_home/index.html">Home</a></li>
+                <li><a href="/">Menu</a></li>
+                <li><a href="#designNow">Design</a></li>
+                <li><a href="/client/pages/page_cart/cart.html">Cart</a></li>
+                <li><a href="/client/pages/">Orders</a></li>
               </ul>
             </nav>
           </div>
           <div class="toolBarRight">
+            <div class="searchBar">
+              <svg
+                class="iconSearch"
+                width="35"
+                height="35"
+                viewBox="0 0 35 35"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M30.625 30.625L24.2812 24.2812M27.7083 16.0417C27.7083 22.485 22.485 27.7083 16.0417 27.7083C9.59834 27.7083 4.375 22.485 4.375 16.0417C4.375 9.59834 9.59834 4.375 16.0417 4.375C22.485 4.375 27.7083 9.59834 27.7083 16.0417Z"
+                  stroke="#F3F3F3"
+                  stroke-width="4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
             <div class="userAccount">
-              <i
-                class="fas fa-user"
-                style="color: white; font-size: 2.5rem"
-              ></i>
+              <svg
+                class="iconAccount"
+                width="35"
+                height="35"
+                viewBox="0 0 35 35"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M29.1667 30.625V27.7083C29.1667 26.1612 28.5521 24.6775 27.4582 23.5835C26.3642 22.4896 24.8805 21.875 23.3334 21.875H11.6667C10.1196 21.875 8.63588 22.4896 7.54192 23.5835C6.44796 24.6775 5.83337 26.1612 5.83337 27.7083V30.625M23.3334 10.2083C23.3334 13.43 20.7217 16.0417 17.5 16.0417C14.2784 16.0417 11.6667 13.43 11.6667 10.2083C11.6667 6.98667 14.2784 4.375 17.5 4.375C20.7217 4.375 23.3334 6.98667 23.3334 10.2083Z"
+                  stroke="#F3F3F3"
+                  stroke-width="4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <div class="notification">
+              <svg
+                class="iconNoti"
+                width="35"
+                height="35"
+                viewBox="0 0 35 35"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5.83337 27.7084V24.7917H8.75004V14.5834C8.75004 12.5661 9.35768 10.7796 10.573 9.22404C11.7882 7.64418 13.3681 6.61119 15.3125 6.12508V5.10425C15.3125 4.49661 15.5191 3.98619 15.9323 3.573C16.3698 3.1355 16.8924 2.91675 17.5 2.91675C18.1077 2.91675 18.6181 3.1355 19.0313 3.573C19.4688 3.98619 19.6875 4.49661 19.6875 5.10425V6.12508C21.632 6.61119 23.2118 7.64418 24.4271 9.22404C25.6424 10.7796 26.25 12.5661 26.25 14.5834V24.7917H29.1667V27.7084H5.83337ZM17.5 32.0834C16.698 32.0834 16.0053 31.8039 15.4219 31.2449C14.8629 30.6615 14.5834 29.9688 14.5834 29.1667H20.4167C20.4167 29.9688 20.125 30.6615 19.5417 31.2449C18.9827 31.8039 18.3021 32.0834 17.5 32.0834ZM11.6667 24.7917H23.3334V14.5834C23.3334 12.9792 22.7622 11.606 21.6198 10.4636C20.4775 9.32126 19.1042 8.75008 17.5 8.75008C15.8959 8.75008 14.5226 9.32126 13.3802 10.4636C12.2379 11.606 11.6667 12.9792 11.6667 14.5834V24.7917Z"
+                  fill="#FEF7FF"
+                />
+              </svg>
             </div>
           </div>
         </div>
@@ -755,7 +362,7 @@
                   Gender
                 </button>
                 <button class="btn-design btn-white" onclick="downloadMeme()">
-                  Next
+                 Add to cart
                 </button>
               </div>
             </div>

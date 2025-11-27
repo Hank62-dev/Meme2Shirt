@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meme Shirt Final</title>
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="/Meme2Shirt/client/assets/img/logo/logoMemeShirt.png"
+    />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Freehand&family=Black+Ops+One&family=Inter:wght@400;500;600&family=Lobster&family=Oswald&family=Pacifico&family=Anton&family=Dancing+Script&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* --- Global Resets & Vars --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 62.5%;
+      }
+      body {
+        font-size: 1.6rem;
+        background-color: #f8f5ed;
+        font-family: sans-serif;
+      }
+      :root {
+        --primary-blue: #116396;
+        --bg-ivory: #f8f5ed;
+        --dark-black: #2a2a2a;
+        --shadow-hover: rgba(45, 71, 76, 0.7);
+        --panel-bg: #4a8db7;
+      }
+
+      /* --- Header --- */
+      header {
+        width: 100%;
+        height: 7rem;
+        background-color: #000000;
+        flex-shrink: 0;
+      }
+      .tabBars {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+      .tabBars .toolBarLeft {
+        display: flex;
+        gap: 1rem;
+        padding-left: 2rem;
+        align-items: center;
+      }
+      .toolBarLeft img {
+        width: 5rem;
+        height: 5rem;
+        object-fit: contain;
+      }
+      .toolBarLeft .titleMemeShirt {
+        color: #fff;
+        margin: auto 0;
+      }
+      .toolBarLeft .titleMemeShirt h1 {
+        font-family: "Black Ops One";
+        margin: 0;
+        line-height: 1;
+        font-size: 3.3rem !important;
+      }
+      .tabBars .toolBarCenter {
+        display: flex;
+        width: 70%;
+        justify-content: center;
+        align-items: center;
+      }
+      .toolBarCenter ul {
+        list-style: none;
+        display: flex;
+        margin: auto 0;
+        padding: 0 !important;
+      }
+      .toolBarCenter li {
+        font-size: 4rem;
+        font-family: "inter", sans-serif;
+        margin: 0rem 2.5rem;
+      }
+      .toolBarCenter li a {
+        text-decoration: none;
+        color: #fff;
+      }
+      .toolBarCenter li:hover {
+        color: #3ba7e6;
+        text-shadow: 0 0 15px #fefefe;
+        transform: translateY(-4px);
+        transition: all 0.2s;
+      }
+      .tabBars .toolBarRight {
+        display: flex;
+        margin-left: auto;
+        padding-right: 2rem;
+        align-items: center;
+      }
+      .toolBarRight .searchBar,
+      .userAccount,
+      .notification {
+        margin: 0 0.5rem;
+        display: flex;
+        align-items: center;
+      }
+      .iconSearch,
+      .iconNoti,
+      .iconAccount {
+        width: 3rem;
+        height: 3rem;
+        cursor: pointer;
+      }
+
+      /* --- Layout --- */
+      .design-wrapper {
+        width: 1440px;
+        height: 869px;
+        background-color: var(--bg-ivory);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      }
+      .body-container {
+        display: flex;
+        height: 776px;
+        width: 100%;
+        position: relative;
+      }
+
+      /* --- Toolbar --- */
+      .toolbar {
+        width: 123px;
+        height: 798px;
+        background-color: var(--primary-blue);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        z-index: 10;
+      }
+      .tool-box {
+        width: 123px;
+        height: 123px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        cursor: pointer;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: background-color 0.2s;
+      }
+      .tool-box:hover,
+      .tool-box.active {
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+      .tool-box i {
+        font-size: 40px;
+        margin-bottom: 8px;
+      }
+      .cursive-txt {
+        font-family: "Freehand", cursive;
+        font-size: 50px;
+        line-height: 1;
+      }
+      .meme-text-icon {
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-top: 5px;
+        letter-spacing: 1px;
+      }
+
+      /* --- Panels --- */
+      .panels-container {
+        position: absolute;
+        left: 123px;
+        top: 0;
+        width: 323px;
+        height: 798px;
+        z-index: 20;
+        background-color: var(--panel-bg);
+        border-right: 1px solid #e0e0e0;
+        display: none;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .control-panel {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+        background-color: #4a8db7;
+        overflow-y: auto;
+        overflow-x: hidden;
+        animation: fadeIn 0.3s ease-in-out;
+      }
+      .control-panel::-webkit-scrollbar {
+        width: 6px;
+      }
+      .control-panel::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+      }
+      .control-panel.active {
+        display: flex;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Draggable Items */
+      .text-style-item {
+        width: 267px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        color: white;
+        cursor: grab;
+        transition: background 0.2s;
+        flex-shrink: 0;
+        overflow: hidden;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      .text-style-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      .text-style-item span {
+        font-size: 5rem;
+        line-height: 1;
+        white-space: nowrap;
+        pointer-events: none;
+      }
+
+      .grid-container-2col {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding-bottom: 20px;
+        width: 100%;
+      }
+      .square-item {
+        width: 127px;
+        height: 127px;
+        background-color: #e0e0e0;
+        cursor: grab;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.2s;
+        overflow: hidden;
+        flex-shrink: 0;
+        -webkit-user-select: none;
+        user-select: none;
+        position: relative;
+      }
+      .square-item:hover {
+        transform: scale(1.02);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+      .square-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+      }
+
+      /* Image Panel Specific */
+      .panel-image-item {
+        background-color: white;
+        color: #333;
+        text-align: center;
+      }
+      .panel-image-item i {
+        font-size: 4rem;
+        margin-bottom: 10px;
+        color: #000;
+        pointer-events: none;
+      }
+      .panel-image-item .fa-cloud-arrow-up {
+        color: #00acee;
+      }
+      .panel-image-label {
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: white;
+        margin-top: 5px;
+        text-align: center;
+        width: 127px;
+      }
+      .image-tool-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      /* --- Main Content Area --- */
+      .main-content {
+        width: 1192px;
+        height: 776px;
+        background-color: var(--bg-ivory);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      .page-title {
+        font-family: "Black Ops One", "Stencil", "Impact", sans-serif;
+        font-size: 48px;
+        text-align: center;
+        margin: 0 0 40px 0;
+        color: var(--dark-black);
+        letter-spacing: 2px;
+      }
+      .content-layout {
+        display: flex;
+        justify-content: right;
+        gap: 30px;
+      }
+      .col-left {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .col-right {
+        display: flex;
+        flex-direction: column;
+      }
+      .grey-box {
+        background-color: #d9d9d9;
+        border-radius: 4px;
+      }
+
+      /* Drop Zones */
+      div.box-small {
+        width: 210px;
+        height: 210px;
+        border: none;
+        outline: none;
+        text-align: center;
+        font-size: 20px;
+        color: #555;
+        font-weight: 500;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.2s;
+        overflow: hidden;
+        position: relative;
+      }
+      div.box-small:hover {
+        background-color: #e6e6e6;
+      }
+      div.box-small.drag-over {
+        background-color: #c1e1c1;
+        border: 2px dashed #4caf50;
+        transform: scale(1.02);
+      }
+      /* Style cho nội dung sau khi drop */
+      .dropped-content-text {
+        font-size: 3.5rem;
+        text-align: center;
+        word-break: break-word;
+        pointer-events: none;
+      }
+      .dropped-content-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        pointer-events: none;
+      }
+
+      /* Result Area */
+      .box-large {
+        width: 554px;
+        height: 445px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background-color: #fff;
+        border: 1px solid #ccc;
+      }
+      #result-canvas {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: none;
+      }
+
+      .buttons-group {
+        margin-top: 58px;
+        display: flex;
+        gap: 36px;
+      }
+      .btn-design {
+        width: 259px;
+        height: 78px;
+        border-radius: 50px;
+        font-size: 24px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .btn-design:hover {
+        box-shadow: 0 4px 15px var(--shadow-hover);
+        transform: translateY(-2px);
+      }
+      .btn-blue {
+        background-color: var(--primary-blue);
+        color: white;
+      }
+      .btn-blue:hover {
+        background-color: #0f5482;
+      }
+      .btn-white {
+        background-color: white;
+        color: var(--dark-black);
+        border: 1px solid #ccc;
+      }
+      .btn-white:hover {
+        background-color: #f8f9fa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="design-wrapper">
+      <header>
+        <div class="tabBars">
+          <div class="toolBarLeft">
+            <div class="logoMeme">
+              <h1
+                style="
+                  font-family: 'Black Ops One';
+                  color: white;
+                  font-size: 3rem;
+                "
+              >
+                MEME
+              </h1>
+            </div>
+          </div>
+          <div class="toolBarCenter">
+            <nav>
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Design</a></li>
+                <li><a href="#">Cart</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="toolBarRight">
+            <div class="userAccount">
+              <i
+                class="fas fa-user"
+                style="color: white; font-size: 2.5rem"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="body-container">
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="tool-box" onclick="activatePanel('text', this)">
+            <span class="cursive-txt">Text</span>
+          </div>
+          <div class="tool-box" onclick="activatePanel('meme', this)">
+            <i class="far fa-star"></i>
+            <span class="meme-text-icon">MEME</span>
+          </div>
+          <div class="tool-box" onclick="activatePanel('image', this)">
+            <i class="far fa-image"></i>
+          </div>
+        </div>
+
+        <!-- Panels Container -->
+        <div class="panels-container" id="panels-container">
+          <!-- Panel 1: Text Items -->
+          <div id="panel-text" class="control-panel">
+            <div
+              class="text-style-item"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              style="font-family: 'Black Ops One'"
+            >
+              <span>Meme shirt</span>
+            </div>
+            <div
+              class="text-style-item"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              style="font-family: 'Freehand'"
+            >
+              <span>Meme shirt</span>
+            </div>
+            <div
+              class="text-style-item"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              style="font-family: 'Inter'"
+            >
+              <span>Meme shirt</span>
+            </div>
+            <div
+              class="text-style-item"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              style="font-family: 'Lobster'"
+            >
+              <span>Meme shirt</span>
+            </div>
+            <div
+              class="text-style-item"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              style="font-family: 'Oswald'"
+            >
+              <span>Meme shirt</span>
+            </div>
+            <div
+              class="text-style-item"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              style="font-family: 'Pacifico'"
+            >
+              <span>Meme shirt</span>
+            </div>
+            <div
+              class="text-style-item"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              style="font-family: 'Anton'"
+            >
+              <span>Meme shirt</span>
+            </div>
+            <div
+              class="text-style-item"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              style="font-family: 'Dancing Script'"
+            >
+              <span>Meme shirt</span>
+            </div>
+          </div>
+
+          <!-- Panel 2: Meme Items (Có Ngôi sao) -->
+          <div id="panel-meme" class="control-panel">
+            <div class="grid-container-2col">
+              <!-- ITEM NGÔI SAO -->
+              <div
+                class="square-item"
+                draggable="true"
+                ondragstart="handleDragStart(event)"
+              >
+                <div
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    background: #a03030;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  "
+                >
+                  <i
+                    class="fas fa-star"
+                    style="font-size: 5rem; color: gold"
+                  ></i>
+                </div>
+              </div>
+
+              <!-- ITEM MẶT CƯỜI -->
+              <div
+                class="square-item"
+                draggable="true"
+                ondragstart="handleDragStart(event)"
+              >
+                <div
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    background: #4a8db7;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  "
+                >
+                  <i
+                    class="fas fa-smile"
+                    style="font-size: 5rem; color: white"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 3: Image Tools (Có Camera) -->
+          <div id="panel-image" class="control-panel">
+            <div class="grid-container-2col">
+              <!-- 1. Upload -->
+              <div class="image-tool-wrapper">
+                <label
+                  class="square-item panel-image-item"
+                  draggable="true"
+                  ondragstart="handleDragStart(event)"
+                >
+                  <input
+                    type="file"
+                    hidden
+                    onchange="handlePanelFileUpload(this)"
+                    accept="image/*"
+                  />
+                  <img src="../../assets/img/design_page/uploadImage.png"></img>
+                </label>
+                <div class="panel-image-label">
+                  Upload <i class="far fa-image"></i>
+                </div>
+              </div>
+
+              <!-- 2. URL -->
+              <div class="image-tool-wrapper">
+                <div
+                  class="square-item panel-image-item"
+                  draggable="true"
+                  ondragstart="handleDragStart(event)"
+                  onclick="handleUrlInput(this)"
+                >
+                  <img src="../../assets/img/design_page/url.png"></img>
+                </div>
+                <div class="panel-image-label">
+                  URL <i class="far fa-image"></i>
+                </div>
+              </div>
+
+              <!-- 3. ITEM CAMERA (Đã bổ sung) -->
+              <div class="image-tool-wrapper">
+                <div
+                  class="square-item panel-image-item"
+                  draggable="true"
+                  ondragstart="handleDragStart(event)"
+                >
+                  <img src="../../assets/img/design_page/camera.png"></img>
+                </div>
+                <div class="panel-image-label">Camera</div>
+              </div>
+
+              <!-- 4. Upload Meme -->
+              <div class="image-tool-wrapper">
+                <label
+                  class="square-item panel-image-item"
+                  draggable="true"
+                  ondragstart="handleDragStart(event)"
+                >
+                  <input
+                    type="file"
+                    hidden
+                    onchange="handlePanelFileUpload(this)"
+                    accept="image/*"
+                  />
+                  <img src="../../assets/img/design_page/meme.png"></img>
+                </label>
+                <div class="panel-image-label">Upload meme</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+          <h1 class="page-title">Meme Gender</h1>
+          <div class="content-layout">
+            <div class="col-left">
+              <!-- Drop Zone 1 -->
+              <div
+                class="grey-box box-small"
+                ondrop="handleDrop(event, 'zone1')"
+                ondragover="handleDragOver(event)"
+                ondragleave="handleDragLeave(event)"
+              >
+                <span>Input Meme</span>
+              </div>
+              <!-- Drop Zone 2 -->
+              <div
+                class="grey-box box-small"
+                ondrop="handleDrop(event, 'zone2')"
+                ondragover="handleDragOver(event)"
+                ondragleave="handleDragLeave(event)"
+              >
+                <span>Input Your Image</span>
+              </div>
+            </div>
+
+            <div class="col-right">
+              <div class="grey-box box-large">
+                <canvas id="result-canvas"></canvas>
+                <span
+                  id="canvas-placeholder"
+                  style="color: #666; font-size: 2rem"
+                  >Result will appear here</span
+                >
+              </div>
+              <div class="buttons-group">
+                <button class="btn-design btn-blue" onclick="generateMeme()">
+                  Gender
+                </button>
+                <button class="btn-design btn-white" onclick="downloadMeme()">
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+      const canvasData = {
+        zone1: null,
+        zone2: null,
+      };
+
+      // 1. Navigation
+      function activatePanel(panelId, element) {
+        document
+          .querySelectorAll(".control-panel")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".tool-box")
+          .forEach((t) => t.classList.remove("active"));
+
+        document.getElementById("panels-container").style.display = "block";
+
+        const target = document.getElementById(`panel-${panelId}`);
+        if (target) target.classList.add("active");
+        if (element) element.classList.add("active");
+      }
+
+      // 2. Upload & URL
+      function handlePanelFileUpload(input) {
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const parentLabel = input.closest(".square-item");
+            parentLabel.querySelectorAll("i, span").forEach((i) => i.remove());
+
+            let existingImg = parentLabel.querySelector("img");
+            if (existingImg) {
+              existingImg.src = e.target.result;
+            } else {
+              const imgHTML = `<img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover; pointer-events:none;">`;
+              parentLabel.insertAdjacentHTML("beforeend", imgHTML);
+            }
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      function handleUrlInput(element) {
+        const url = prompt(
+          "Please enter image URL:",
+          "https://via.placeholder.com/150"
+        );
+        if (url) {
+          element.innerHTML = "";
+          const imgHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover; pointer-events:none;" onerror="this.src=''; alert('Invalid URL');">`;
+          element.innerHTML = imgHTML;
+        }
+      }
+
+      // 3. Drag
+      function handleDragStart(e) {
+        const target =
+          e.target.closest(".text-style-item") ||
+          e.target.closest(".square-item");
+        if (!target) return;
+
+        let dragData = { type: "unknown", content: "" };
+
+        if (target.classList.contains("text-style-item")) {
+          dragData.type = "text";
+          dragData.content = target.innerText.trim();
+          dragData.font = target.style.fontFamily.replace(/['"]/g, "");
+        } else if (target.classList.contains("square-item")) {
+          const imgInside = target.querySelector("img");
+          if (imgInside) {
+            dragData.type = "image";
+            dragData.src = imgInside.src;
+          } else {
+            dragData.type = "element";
+            // CLONE & CLEAN INPUTS
+            let clone = target.cloneNode(true);
+            let inputs = clone.querySelectorAll("input");
+            inputs.forEach((i) => i.remove());
+            dragData.content = clone.innerHTML;
+
+            const coloredDiv = target.querySelector("div[style*='background']");
+            if (coloredDiv) {
+              dragData.bgColor = coloredDiv.style.backgroundColor;
+            }
+          }
+        }
+
+        e.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+        e.dataTransfer.effectAllowed = "copy";
+      }
+
+      // 4. Drop
+      function handleDragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "copy";
+        e.currentTarget.classList.add("drag-over");
+      }
+
+      function handleDragLeave(e) {
+        e.currentTarget.classList.remove("drag-over");
+      }
+
+      function handleDrop(e, zoneId) {
+        e.preventDefault();
+        const dropZone = e.currentTarget;
+        dropZone.classList.remove("drag-over");
+
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          const file = e.dataTransfer.files[0];
+          if (!file.type.startsWith("image/")) return;
+
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            dropZone.innerHTML = "";
+            const img = document.createElement("img");
+            img.src = evt.target.result;
+            img.className = "dropped-content-img";
+            dropZone.appendChild(img);
+            canvasData[zoneId] = { type: "image", src: evt.target.result };
+          };
+          reader.readAsDataURL(file);
+          return;
+        }
+
+        try {
+          const rawData = e.dataTransfer.getData("text/plain");
+          if (!rawData) return;
+          const data = JSON.parse(rawData);
+
+          dropZone.innerHTML = "";
+
+          if (data.type === "text") {
+            const textEl = document.createElement("div");
+            textEl.className = "dropped-content-text";
+            textEl.innerText = data.content;
+            textEl.style.fontFamily = data.font;
+            dropZone.appendChild(textEl);
+            canvasData[zoneId] = data;
+          } else if (data.type === "image") {
+            const img = document.createElement("img");
+            img.src = data.src;
+            img.className = "dropped-content-img";
+            dropZone.appendChild(img);
+            canvasData[zoneId] = data;
+          } else if (data.type === "element") {
+            const elContainer = document.createElement("div");
+            elContainer.style.width = "100%";
+            elContainer.style.height = "100%";
+            elContainer.style.display = "flex";
+            elContainer.style.justifyContent = "center";
+            elContainer.style.alignItems = "center";
+            elContainer.innerHTML = data.content;
+            dropZone.appendChild(elContainer);
+            canvasData[zoneId] = data;
+          }
+        } catch (err) {
+          console.error("Drop error:", err);
+        }
+      }
+    </script>
+  </body>
+</html>

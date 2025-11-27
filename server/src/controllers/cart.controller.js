@@ -6,7 +6,7 @@ export const getCart = async (req, res) => {
   try {
     // cho thằng này từ middleware auth
     const userID = req.user.id;
-    const cart = await User.findUser(userID);
+    const cart = await User.findCartById(userID);
     if (!cart) {
       // nếu rỗng thì báo
       return res.status(200).json({ cart: [], total: 0 });
@@ -64,7 +64,7 @@ export const updateItem = async (req, res) => {
   try {
     const userId = req.user.id;
     const { productID, quantity } = req.body;
-    const cart = await User.findOne(userId);
+    const cart = await User.findCartById(userId);
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
@@ -88,7 +88,7 @@ export const removeItem = async (req, res) => {
   try {
     const userId = req.user.id;
     const { productID } = req.body;
-    const cart = await User.findUser(userId);
+    const cart = await User.findCartById(userId);
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     } else {

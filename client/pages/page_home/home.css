@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem;
+  background-color: #0a051c;
+}
+header {
+  width: 100%;
+  height: 7rem;
+  background-color: #000000;
+}
+.tabBars {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* toolBarLeft */
+.tabBars .toolBarLeft {
+  display: flex;
+  gap: 1rem;
+}
+.toolBarLeft img {
+  width: 5rem;
+  height: 5rem;
+}
+.toolBarLeft .titleMemeShirt {
+  color: #fff;
+  font-size: 5.4rem;
+  font-family: "Black Ops One";
+}
+
+/* toolBarCenter */
+.tabBars .toolBarCenter {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+  /* margin: auto 0rem; */
+}
+.toolBarCenter ul {
+  list-style: none;
+  display: flex;
+  margin: auto 0;
+}
+.toolBarCenter li {
+  font-size: 4rem;
+  font-family: "inter", sans-serif;
+  margin: 0rem 2.5rem;
+  margin-bottom: 1rem;
+}
+.toolBarCenter li a {
+  text-decoration: none;
+  color: #fff;
+}
+.toolBarCenter li:hover {
+  color: #3ba7e6;
+  text-shadow: 0 0 15px #fefefe;
+  transform: translateY(-4px);
+  transition: all 0.2s;
+}
+
+/* toolBarRight */
+.tabBars .toolBarRight {
+  display: flex;
+}
+.toolBarRight .searchBar,
+.userAccount,
+.notification {
+  margin: 2rem 0.5rem;
+}
+.iconSearch,
+.iconNoti,
+.iconAccount {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+}

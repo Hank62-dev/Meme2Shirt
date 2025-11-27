@@ -2,14 +2,11 @@
 import Product from "../models/Product";
 import User from "../models/User";
 // 1 Lấy thông tin để hiện thị giỏ hàng
-const getCart = async (req, res) => {
+export const getCart = async (req, res) => {
   try {
     // cho thằng này từ middleware auth
     const userID = req.user.id;
-    const cart = await User.findUser(userID).populate(
-      "cart.product",
-      "name price customLink"
-    );
+    const cart = await User.findUser(userID);
     if (!cart) {
       // nếu rỗng thì báo
       return res.status(200).json({ cart: [], total: 0 });
@@ -21,7 +18,7 @@ const getCart = async (req, res) => {
   }
 };
 // 2 Thêm mới sản phẩm
-const addItemToCart = async (req, res) => {
+export const addItemToCart = async (req, res) => {
   try {
     const userID = req.user.id;
     const { productID, quantity, customLink } = req.body;
@@ -33,20 +30,26 @@ const addItemToCart = async (req, res) => {
       return res.status(404).json({ message: "ERROR!!Don't find this item" });
     }
     // tạo giỏ hàng
-    const cart = await User.findOne(userID);
+    const cart = await User.findUser(userID);
     if (!cart) {
       // không thấy thì tạo mới
-      cart = await User.create(userID, []); //hàm nhận vào id ng dùng và giỏ hàng sẽ là rỗng
+      cart = await User.createCart(userID, []); //hàm nhận vào id ng dùng và giỏ hàng sẽ là rỗng
     }
     // nếu thêm trùng sản phẩm thì số lượng tăng thêm
     const itemIndex = cart.items.findIndex((item) => {
-      item.product.toString() === productID && item.customLink === customLink;
+      return (
+        item.product.toString() === productID && item.customLink === customLink
+      );
     });
     if (itemIndex > -1) {
       cart.items[itemIndex].quantity += 1; //đoạn này là khi mà nếu chọn trùng thì tăng lên 1
     } else {
       //chưa có thì thêm vào
-      cart.items.push(productID, quantity, customLink);
+      cart.items.push({
+        product: productID,
+        quantity: quantity,
+        customLink: customLink,
+      });
     }
     // xong r thì lưu và cập nhậ lại
     await cart.save();
@@ -57,7 +60,7 @@ const addItemToCart = async (req, res) => {
   }
 };
 // 3 Cập nhật lại số lượng và các sản phẩm
-const updateItem = async (req, res) => {
+export const updateItem = async (req, res) => {
   try {
     const userId = req.user.id;
     const { productID, quantity } = req.body;
@@ -81,11 +84,11 @@ const updateItem = async (req, res) => {
   }
 };
 // 4 Xoá sản phẩm khỏi giỏ hàng
-const removeItem = async (req, res) => {
+export const removeItem = async (req, res) => {
   try {
     const userId = req.user.id;
     const { productID } = req.body;
-    const cart = await User.findOne(userId);
+    const cart = await User.findUser(userId);
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     } else {

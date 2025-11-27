@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page Home</title>
+    <title>MemeShirt.vn - World's Top Clothing Design Website</title>
     <link
       rel="icon"
       type="image/png"
@@ -13,6 +13,23 @@
       href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@splidejs/splide/dist/css/splide.min.css"
+    />
+
     <link rel="stylesheet" href="./home.css" />
   </head>
   <body>
@@ -27,16 +44,16 @@
                 alt="Logo Meme Shirt"
               />
             </div>
-            <div class="titleMemeShirt" style="margin: auto 0">
+            <!-- <div class="titleMemeShirt" style="margin: auto 0">
               <h1>Meme Shirt</h1>
-            </div>
+            </div> -->
           </div>
           <div class="toolBarCenter">
             <nav>
               <ul>
                 <li><a href="/client/pages/page_home/index.html">Home</a></li>
                 <li><a href="/">Menu</a></li>
-                <li><a href="/">Design</a></li>
+                <li><a href="#designNow">Design</a></li>
                 <li><a href="/client/pages/page_cart/cart.html">Cart</a></li>
                 <li><a href="/client/pages/">Orders</a></li>
               </ul>
@@ -97,9 +114,583 @@
           </div>
         </div>
       </header>
+      <div class="homeIntro">
+        <div id="particles-js"></div>
+        <div class="containerHome">
+          <div class="boxHomeLeft">
+            <div class="titleHome">
+              Simple design at <br />
+              <p style="font-size: 5rem; color: #116396">Meme Shirt</p>
+            </div>
+            <div class="description">
+              <p>
+                With just a few simple steps on the online design tool, <br />
+                you can create your own shirt in your style and order <br />
+                immediately. No need to register an account, Meme Shirt <br />
+                accepts printing from just a few lines - fast, convenient,
+                quality.
+              </p>
+            </div>
+            <!-- LOGO CONTACT -->
+            <div class="contactLogo">
+              <div class="logoFacebook">
+                <a href="https://www.facebook.com/vo.gia.huy.622929"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+              </div>
+              <div class="logoInstagram">
+                <a href="https://www.instagram.com"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+              </div>
+              <div class="logoYoutube">
+                <a href="https://www.youtube.com/@HuyVo-62"
+                  ><i class="fab fa-youtube"></i
+                ></a>
+              </div>
+            </div>
+            <!-- Btn Design Now -->
+            <a class="btnDesignNow" href="#designNow"
+              ><div class="btnDesignNow">Design Now</div></a
+            >
+          </div>
+          <div class="boxHomeRight">
+            <div class="textMemeShirt">MEME SHIRT</div>
+            <div id="model3d" allow="autoplay; fullscreen; vr"></div>
+          </div>
+        </div>
+      </div>
+      <!-- 3 step design simple -->
+      <div id="designNow" class="instruction">
+        <div class="titleInstruction">
+          3 STEP
+          <p style="font-size: 3rem; margin: 0 1rem; color: #116396">DESIGN</p>
+          SIMPLE
+        </div>
+        <div class="threeStep">
+          <div class="stepOne">
+            <div class="titleStep1">Step 1</div>
+            <div class="iconHand"><i class="fa-solid fa-hand-paper"></i></div>
+            <div class="descriptStep1">
+              <p style="color: #116396; font-size: 1.6rem; font-weight: bolder">
+                SELECT PRODUCT
+              </p>
+              Choose the right product type then choose shirt color, shirt size,
+              printing technology...
+            </div>
+          </div>
+          <div class="stepTwo">
+            <div class="titleStep2">Step 2</div>
+            <div class="iconTShirt"><i class="fa-solid fa-shirt"></i></div>
+            <div class="descriptStep2">
+              <p style="color: #f0c013; font-size: 1.6rem; font-weight: bolder">
+                DESIGN
+              </p>
+              Upload a PNG image or design your own with our smart design
+              tools...
+            </div>
+          </div>
+          <div class="stepThree">
+            <div class="titleStep3">Step 3</div>
+            <div class="iconCart"><i class="fa-solid fa-cart-plus"></i></div>
+            <div class="descriptStep3">
+              <p style="color: #08882c; font-size: 1.6rem; font-weight: bolder">
+                ORDER
+              </p>
+              Choose payment method and enjoy your results
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- itemCartClothes -->
+      <div class="cartClothesT_Shirt">
+        <div class="titleCartTShirt">T-Shirt</div>
+        <!-- Cards -->
+        <div class="splide" id="spildeTShirt">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <li class="splide__slide">
+                <div class="card">
+                  <div class="card-img">
+                    <img
+                      src="/client/assets/img/mockups/T-ShirtBlack.png"
+                      alt="T-ShirtBlack"
+                    />
+                  </div>
+                  <div class="card-infor">
+                    <div class="card-detail">
+                      <p
+                        class="typeClothes"
+                        style="
+                          color: #116396;
+                          font-size: 2rem;
+                          font-weight: bold;
+                        "
+                      >
+                        T - Shirt
+                      </p>
+                      <p
+                        class="nameClothes"
+                        style="font-size: 1.5rem; font-weight: 500"
+                      >
+                        76000 Premium Cotton T-Shirt
+                      </p>
+                      <p
+                        class="oldPrice"
+                        style="
+                          font-size: 1.5rem;
+                          font-weight: 500;
+                          text-decoration: line-through;
+                          color: gray;
+                        "
+                      >
+                        200.000 VND
+                      </p>
+                      <p
+                        class="newPrice"
+                        style="font-size: 1.8rem; font-weight: 500"
+                      >
+                        160.000 VND
+                      </p>
+                    </div>
+                    <div class="card-control">
+                      <button class="btnDesign">DESIGN</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="splide__slide">
+                <div class="card">
+                  <div class="card-img">
+                    <img
+                      src="/client/assets/img/mockups/T-ShirtBlack.png"
+                      alt="T-ShirtBlack"
+                    />
+                  </div>
+                  <div class="card-infor">
+                    <div class="card-detail">
+                      <p
+                        class="typeClothes"
+                        style="
+                          color: #116396;
+                          font-size: 2rem;
+                          font-weight: bold;
+                        "
+                      >
+                        T - Shirt
+                      </p>
+                      <p
+                        class="nameClothes"
+                        style="font-size: 1.5rem; font-weight: 500"
+                      >
+                        76000 Premium Cotton T-Shirt
+                      </p>
+                      <p
+                        class="oldPrice"
+                        style="
+                          font-size: 1.5rem;
+                          font-weight: 500;
+                          text-decoration: line-through;
+                          color: gray;
+                        "
+                      >
+                        200.000 VND
+                      </p>
+                      <p
+                        class="newPrice"
+                        style="font-size: 1.8rem; font-weight: 500"
+                      >
+                        160.000 VND
+                      </p>
+                    </div>
+                    <div class="card-control">
+                      <button class="btnDesign">DESIGN</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="splide__slide">
+                <div class="card">
+                  <div class="card-img">
+                    <img
+                      src="/client/assets/img/mockups/T-ShirtBlack.png"
+                      alt="T-ShirtBlack"
+                    />
+                  </div>
+                  <div class="card-infor">
+                    <div class="card-detail">
+                      <p
+                        class="typeClothes"
+                        style="
+                          color: #116396;
+                          font-size: 2rem;
+                          font-weight: bold;
+                        "
+                      >
+                        T - Shirt
+                      </p>
+                      <p
+                        class="nameClothes"
+                        style="font-size: 1.5rem; font-weight: 500"
+                      >
+                        76000 Premium Cotton T-Shirt
+                      </p>
+                      <p
+                        class="oldPrice"
+                        style="
+                          font-size: 1.5rem;
+                          font-weight: 500;
+                          text-decoration: line-through;
+                          color: gray;
+                        "
+                      >
+                        200.000 VND
+                      </p>
+                      <p
+                        class="newPrice"
+                        style="font-size: 1.8rem; font-weight: 500"
+                      >
+                        160.000 VND
+                      </p>
+                    </div>
+                    <div class="card-control">
+                      <button class="btnDesign">DESIGN</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="splide__slide">
+                <div class="card">
+                  <div class="card-img">
+                    <img
+                      src="/client/assets/img/mockups/T-ShirtBlack.png"
+                      alt="T-ShirtBlack"
+                    />
+                  </div>
+                  <div class="card-infor">
+                    <div class="card-detail">
+                      <p
+                        class="typeClothes"
+                        style="
+                          color: #116396;
+                          font-size: 2rem;
+                          font-weight: bold;
+                        "
+                      >
+                        T - Shirt
+                      </p>
+                      <p
+                        class="nameClothes"
+                        style="font-size: 1.5rem; font-weight: 500"
+                      >
+                        76000 Premium Cotton T-Shirt
+                      </p>
+                      <p
+                        class="oldPrice"
+                        style="
+                          font-size: 1.5rem;
+                          font-weight: 500;
+                          text-decoration: line-through;
+                          color: gray;
+                        "
+                      >
+                        200.000 VND
+                      </p>
+                      <p
+                        class="newPrice"
+                        style="font-size: 1.8rem; font-weight: 500"
+                      >
+                        160.000 VND
+                      </p>
+                    </div>
+                    <div class="card-control">
+                      <button class="btnDesign">DESIGN</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- itemCartClothes -->
+      <div class="cartClothesGraphicTees">
+        <div class="titleCartGraphicTees">Graphic Tees</div>
+        <!-- Cards -->
+        <div class="splide" id="spildeGraphicTees">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <li class="splide__slide">
+                <div class="card">
+                  <div class="card-img">
+                    <img
+                      src="/client/assets/img/mockups/T-ShirtBlack.png"
+                      alt="T-ShirtBlack"
+                    />
+                  </div>
+                  <div class="card-infor">
+                    <div class="card-detail">
+                      <p
+                        class="typeClothes"
+                        style="
+                          color: #116396;
+                          font-size: 2rem;
+                          font-weight: bold;
+                        "
+                      >
+                        T - Shirt
+                      </p>
+                      <p
+                        class="nameClothes"
+                        style="font-size: 1.5rem; font-weight: 500"
+                      >
+                        76000 Premium Cotton T-Shirt
+                      </p>
+                      <p
+                        class="oldPrice"
+                        style="
+                          font-size: 1.5rem;
+                          font-weight: 500;
+                          text-decoration: line-through;
+                          color: gray;
+                        "
+                      >
+                        200.000 VND
+                      </p>
+                      <p
+                        class="newPrice"
+                        style="font-size: 1.8rem; font-weight: 500"
+                      >
+                        160.000 VND
+                      </p>
+                    </div>
+                    <div class="card-control">
+                      <button class="btnDesign">DESIGN</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="splide__slide">
+                <div class="card">
+                  <div class="card-img">
+                    <img
+                      src="/client/assets/img/mockups/T-ShirtBlack.png"
+                      alt="T-ShirtBlack"
+                    />
+                  </div>
+                  <div class="card-infor">
+                    <div class="card-detail">
+                      <p
+                        class="typeClothes"
+                        style="
+                          color: #116396;
+                          font-size: 2rem;
+                          font-weight: bold;
+                        "
+                      >
+                        T - Shirt
+                      </p>
+                      <p
+                        class="nameClothes"
+                        style="font-size: 1.5rem; font-weight: 500"
+                      >
+                        76000 Premium Cotton T-Shirt
+                      </p>
+                      <p
+                        class="oldPrice"
+                        style="
+                          font-size: 1.5rem;
+                          font-weight: 500;
+                          text-decoration: line-through;
+                          color: gray;
+                        "
+                      >
+                        200.000 VND
+                      </p>
+                      <p
+                        class="newPrice"
+                        style="font-size: 1.8rem; font-weight: 500"
+                      >
+                        160.000 VND
+                      </p>
+                    </div>
+                    <div class="card-control">
+                      <button class="btnDesign">DESIGN</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="splide__slide">
+                <div class="card">
+                  <div class="card-img">
+                    <img
+                      src="/client/assets/img/mockups/T-ShirtBlack.png"
+                      alt="T-ShirtBlack"
+                    />
+                  </div>
+                  <div class="card-infor">
+                    <div class="card-detail">
+                      <p
+                        class="typeClothes"
+                        style="
+                          color: #116396;
+                          font-size: 2rem;
+                          font-weight: bold;
+                        "
+                      >
+                        T - Shirt
+                      </p>
+                      <p
+                        class="nameClothes"
+                        style="font-size: 1.5rem; font-weight: 500"
+                      >
+                        76000 Premium Cotton T-Shirt
+                      </p>
+                      <p
+                        class="oldPrice"
+                        style="
+                          font-size: 1.5rem;
+                          font-weight: 500;
+                          text-decoration: line-through;
+                          color: gray;
+                        "
+                      >
+                        200.000 VND
+                      </p>
+                      <p
+                        class="newPrice"
+                        style="font-size: 1.8rem; font-weight: 500"
+                      >
+                        160.000 VND
+                      </p>
+                    </div>
+                    <div class="card-control">
+                      <button class="btnDesign">DESIGN</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="splide__slide">
+                <div class="card">
+                  <div class="card-img">
+                    <img
+                      src="/client/assets/img/mockups/T-ShirtBlack.png"
+                      alt="T-ShirtBlack"
+                    />
+                  </div>
+                  <div class="card-infor">
+                    <div class="card-detail">
+                      <p
+                        class="typeClothes"
+                        style="
+                          color: #116396;
+                          font-size: 2rem;
+                          font-weight: bold;
+                        "
+                      >
+                        T - Shirt
+                      </p>
+                      <p
+                        class="nameClothes"
+                        style="font-size: 1.5rem; font-weight: 500"
+                      >
+                        76000 Premium Cotton T-Shirt
+                      </p>
+                      <p
+                        class="oldPrice"
+                        style="
+                          font-size: 1.5rem;
+                          font-weight: 500;
+                          text-decoration: line-through;
+                          color: gray;
+                        "
+                      >
+                        200.000 VND
+                      </p>
+                      <p
+                        class="newPrice"
+                        style="font-size: 1.8rem; font-weight: 500"
+                      >
+                        160.000 VND
+                      </p>
+                    </div>
+                    <div class="card-control">
+                      <button class="btnDesign">DESIGN</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer information -->
+      <footer class="informationAboutUS">
+        <div class="allInformation">
+          <div class="inforContact">
+            <div class="title">INFORMATION CONTACT</div>
+            <div class="inforZalo">Zalo: 0123456789</div>
+            <div class="inforEmail">Email: abc@gmail.com</div>
+            <div class="inforAddress1">
+              Address 1: 9 Award, Ho Chi Minh City
+            </div>
+            <div class="inforAddress2">Address 2: USA</div>
+            <div class="Operator">Vo Gia Huy</div>
+          </div>
+          <div class="information">
+            <div class="title">INFORMATION</div>
+            <div class="article">Article</div>
+            <div class="aboutUs">About Us</div>
+            <div class="orderingInstructions">Ordering instructions</div>
+            <div class="paymentMethod">Payment method</div>
+            <div class="Frequently">Frequently asked questions</div>
+          </div>
+          <div class="policy">
+            <div class="title">POLICY</div>
+            <div class="returnPolicy">Return policy</div>
+            <div class="warrantyPolicy">Warranty policy</div>
+            <div class="privacyPolicy">Privacy policy</div>
+            <div class="shippingPolicy">Shipping policy</div>
+            <div class="termsOfService">Terms of service</div>
+          </div>
+          <div class="followUs">
+            <div class="title">FOLLOW US</div>
+            <div class="contactLogo">
+              <div class="logoFacebook">
+                <a href="https://www.facebook.com/vo.gia.huy.622929"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+              </div>
+              <div class="logoInstagram">
+                <a href="https://www.instagram.com"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+              </div>
+              <div class="logoYoutube">
+                <a href="https://www.youtube.com/@HuyVo-62"
+                  ><i class="fab fa-youtube"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyrightMeme">©️ MEMESHIRT</div>
+      </footer>
     </div>
     <!-- code -->
     <!-- script -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script type="module" src="client/assets/js/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide/dist/js/splide.min.js"></script>
     <script src="/client/assets/js/api.js"></script>
   </body>
 </html>

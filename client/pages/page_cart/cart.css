@@ -1,0 +1,267 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem;
+  background-color: #f8f5ed;
+}
+header {
+  width: 100%;
+  height: 7rem;
+  background-color: #000000;
+}
+.tabBars {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* toolBarLeft */
+.tabBars .toolBarLeft {
+  display: flex;
+  gap: 1rem;
+}
+.toolBarLeft img {
+  width: 5rem;
+  height: 5rem;
+}
+.toolBarLeft .titleMemeShirt {
+  color: #fff;
+  font-size: 5.4rem;
+  font-family: "Black Ops One";
+}
+
+/* toolBarCenter */
+.tabBars .toolBarCenter {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+  /* margin: auto 0rem; */
+}
+.toolBarCenter ul {
+  list-style: none;
+  display: flex;
+  margin: auto 0;
+}
+.toolBarCenter li {
+  font-size: 4rem;
+  font-family: "inter", sans-serif;
+  margin: 0rem 2.5rem;
+  margin-bottom: 1rem;
+}
+.toolBarCenter li a {
+  text-decoration: none;
+  color: #fff;
+}
+.toolBarCenter li:hover {
+  color: #3ba7e6;
+  text-shadow: 0 0 15px #fefefe;
+  transform: translateY(-4px);
+  transition: all 0.2s;
+}
+
+/* toolBarRight */
+.tabBars .toolBarRight {
+  display: flex;
+}
+.toolBarRight .searchBar,
+.userAccount,
+.notification {
+  margin: 2rem 0.5rem;
+}
+.iconSearch,
+.iconNoti,
+.iconAccount {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+}
+.cart {
+  /* Full màn hình trừ header */
+  min-height: calc(100vh - 7rem);
+  width: 90%; /* Gom gọn nội dung lại chút cho đẹp */
+  max-width: 1200px;
+  margin: 0 auto; /* Căn giữa trang web */
+  padding-top: 2rem;
+}
+
+.shipping-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.shipping-title-group h1 {
+  font-family: "Black Ops One", sans-serif; /* Font hầm hố */
+  font-size: 4rem;
+  color: #000000;
+}
+.big-logo-m {
+  width: 6rem;
+  height: auto;
+}
+
+.search-group {
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.search-bar {
+  background: #e0e0e0;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  width: 300px;
+}
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 1.4rem;
+}
+.fa-search {
+  font-size: 1.5rem;
+}
+.item-count {
+  font-family: cursive;
+  font-size: 2rem;
+}
+
+.main-content {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.cart-list {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background-color: #eeeeee;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  justify-content: space-between;
+  font-family: "inter", sans-serif;
+}
+
+.product-check-img {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.product-check-img input {
+  transform: scale(1.5);
+}
+
+.product-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  background-color: #fff;
+}
+
+.details p {
+  font-size: 1.4rem;
+  color: #333;
+  max-width: 250px;
+  margin: 0 1.5rem;
+  font-weight: 500;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: #d4d4d4;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 1.6rem;
+  margin: 0 1.5rem;
+}
+
+.remove-btn {
+  cursor: pointer;
+  color: #555;
+  font-size: 1.5rem;
+}
+
+.continue-btn {
+  padding: 1rem 2rem;
+  background-color: #ddd;
+  border: none;
+  border-radius: 2rem;
+  color: #116396;
+  font-weight: bold;
+  cursor: pointer;
+  width: fit-content;
+  font-size: 2rem;
+}
+
+.order-summary {
+  flex: 1;
+  background-color: #116396;
+  color: white;
+  padding: 3rem;
+  border-radius: 2rem;
+  height: fit-content;
+  position: sticky;
+  top: 18%;
+  right: auto;
+  font-family: "inter", sans-serif;
+}
+
+.order-summary h2 {
+  font-family: "Black Ops One";
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 1.5rem;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.checkout-btn:hover {
+  background-color: #000;
+}

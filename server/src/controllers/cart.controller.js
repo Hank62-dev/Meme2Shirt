@@ -12,7 +12,7 @@ export const getCart = async (req, res) => {
     const userId = req.user.id;
 
     // Tìm giỏ hàng của người dùng, điền thông tin chi tiết của sản phẩm (populate)
-    const cart = await Cart.findOne({ user: userId }).populate(
+    const cart = await User.findOne({ user: userId }).populate(
       "items.product",
       "name price imageURL"
     ); // Lấy chi tiết sản phẩm
@@ -44,9 +44,9 @@ export const addItemToCart = async (req, res) => {
     }
 
     // 2. Tìm hoặc tạo Giỏ hàng mới cho người dùng
-    let cart = await Cart.findOne({ user: userId });
+    let cart = await User.findOne({ user: userId });
     if (!cart) {
-      cart = await Cart.create({ user: userId, items: [] });
+      cart = await User.create({ user: userId, items: [] });
     }
 
     // 3. Kiểm tra sản phẩm đã có trong giỏ hàng chưa
@@ -84,7 +84,7 @@ export const updateItemQuantity = async (req, res) => {
     const userId = req.user.id;
     const { productId, quantity } = req.body;
 
-    const cart = await Cart.findOne({ user: userId });
+    const cart = await User.findOne({ user: userId });
     if (!cart) {
       return res.status(404).json({ message: "Giỏ hàng không tồn tại." });
     }
@@ -119,7 +119,7 @@ export const removeItemFromCart = async (req, res) => {
     const userId = req.user.id;
     const { productId } = req.body; // Hoặc dùng req.params nếu route là DELETE /cart/:productId
 
-    const cart = await Cart.findOne({ user: userId });
+    const cart = await User.findOne({ user: userId });
     if (!cart) {
       return res.status(404).json({ message: "Giỏ hàng không tồn tại." });
     }

@@ -1,0 +1,437 @@
+/* --- Global Resets & Vars --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem;
+  background-color: #f8f5ed;
+  display: flex;
+  font-family: sans-serif;
+}
+:root {
+  --primary-blue: #116396;
+  --bg-ivory: #f8f5ed;
+  --dark-black: #2a2a2a;
+  --shadow-hover: rgba(45, 71, 76, 0.7);
+  --panel-bg: #4a8db7;
+}
+
+/* --- Header --- */
+header {
+  width: 100%;
+  height: 7rem;
+  background-color: #000000;
+  flex-shrink: 0;
+}
+.tabBars {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.tabBars .toolBarLeft {
+  display: flex;
+  gap: 1rem;
+  padding-left: 2rem;
+  align-items: center;
+}
+.toolBarLeft img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+}
+.toolBarLeft .titleMemeShirt {
+  color: #fff;
+  margin: auto 0;
+}
+.toolBarLeft .titleMemeShirt h1 {
+  font-family: "Black Ops One";
+  margin: 0;
+  line-height: 1;
+  font-size: 3.3rem !important;
+}
+.tabBars .toolBarCenter {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+}
+.toolBarCenter ul {
+  list-style: none;
+  display: flex;
+  margin: auto 0;
+  padding: 0 !important;
+}
+.toolBarCenter li {
+  font-size: 4rem;
+  font-family: "inter", sans-serif;
+  margin: 0rem 2.5rem;
+}
+.toolBarCenter li a {
+  text-decoration: none;
+  color: #fff;
+}
+.toolBarCenter li:hover {
+  color: #3ba7e6;
+  text-shadow: 0 0 15px #fefefe;
+  transform: translateY(-4px);
+  transition: all 0.2s;
+}
+.tabBars .toolBarRight {
+  display: flex;
+  margin-left: auto;
+  padding-right: 2rem;
+  align-items: center;
+}
+.toolBarRight .searchBar,
+.userAccount,
+.notification {
+  margin: 0 0.5rem;
+  display: flex;
+  align-items: center;
+}
+.iconSearch,
+.iconNoti,
+.iconAccount {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+}
+
+/* --- Layout --- */
+.design-wrapper {
+  width: 100%;
+  height: 93rem;
+  background-color: var(--bg-ivory);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+.body-container {
+  display: flex;
+  height: 776px;
+  width: 100%;
+  position: relative;
+}
+
+/* --- Toolbar --- */
+.toolbar {
+  width: 123px;
+  height: 798px;
+  background-color: var(--primary-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: 10;
+}
+.tool-box {
+  width: 123px;
+  height: 123px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s;
+}
+.tool-box:hover,
+.tool-box.active {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.tool-box i {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+.cursive-txt {
+  font-family: "Freehand", cursive;
+  font-size: 50px;
+  line-height: 1;
+}
+.meme-text-icon {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 5px;
+  letter-spacing: 1px;
+}
+
+/* --- Panels --- */
+.panels-container {
+  position: absolute;
+  left: 123px;
+  top: 0;
+  width: 323px;
+  height: 798px;
+  z-index: 20;
+  background-color: var(--panel-bg);
+  border-right: 1px solid #e0e0e0;
+  display: none;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+}
+.control-panel {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  background-color: #4a8db7;
+  overflow-y: auto;
+  overflow-x: hidden;
+  animation: fadeIn 0.3s ease-in-out;
+}
+.control-panel::-webkit-scrollbar {
+  width: 6px;
+}
+.control-panel::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+.control-panel.active {
+  display: flex;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Draggable Items */
+.text-style-item {
+  width: 267px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  color: white;
+  cursor: grab;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.text-style-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.text-style-item span {
+  font-size: 5rem;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.grid-container-2col {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+.square-item {
+  width: 127px;
+  height: 127px;
+  background-color: #e0e0e0;
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s;
+  overflow: hidden;
+  flex-shrink: 0;
+  -webkit-user-select: none;
+  user-select: none;
+  position: relative;
+}
+.square-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.square-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Image Panel Specific */
+.panel-image-item {
+  background-color: white;
+  color: #333;
+  text-align: center;
+}
+.panel-image-item i {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  color: #000;
+  pointer-events: none;
+}
+.panel-image-item .fa-cloud-arrow-up {
+  color: #00acee;
+}
+.panel-image-label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: white;
+  margin-top: 5px;
+  text-align: center;
+  width: 127px;
+}
+.image-tool-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* --- Main Content Area --- */
+.main-content {
+  width: 1192px;
+  height: 776px;
+  background-color: var(--bg-ivory);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.page-title {
+  font-family: "Black Ops One", "Stencil", "Impact", sans-serif;
+  font-size: 48px;
+  text-align: center;
+  margin: 0 0 40px 0;
+  color: var(--dark-black);
+  letter-spacing: 2px;
+}
+.content-layout {
+  display: flex;
+  justify-content: right;
+  gap: 30px;
+}
+.col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.col-right {
+  display: flex;
+  flex-direction: column;
+}
+.grey-box {
+  background-color: #d9d9d9;
+  border-radius: 4px;
+}
+
+/* Drop Zones */
+div.box-small {
+  width: 210px;
+  height: 210px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 20px;
+  color: #555;
+  font-weight: 500;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+  overflow: hidden;
+  position: relative;
+}
+div.box-small:hover {
+  background-color: #e6e6e6;
+}
+div.box-small.drag-over {
+  background-color: #c1e1c1;
+  border: 2px dashed #4caf50;
+  transform: scale(1.02);
+}
+/* Style cho nội dung sau khi drop */
+.dropped-content-text {
+  font-size: 3.5rem;
+  text-align: center;
+  word-break: break-word;
+  pointer-events: none;
+}
+.dropped-content-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Result Area */
+.box-large {
+  width: 554px;
+  height: 445px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+#result-canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: none;
+}
+
+.buttons-group {
+  margin-top: 58px;
+  display: flex;
+  gap: 36px;
+}
+.btn-design {
+  width: 259px;
+  height: 78px;
+  border-radius: 50px;
+  font-size: 24px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.btn-design:hover {
+  box-shadow: 0 4px 15px var(--shadow-hover);
+  transform: translateY(-2px);
+}
+.btn-blue {
+  background-color: var(--primary-blue);
+  color: white;
+}
+.btn-blue:hover {
+  background-color: #0f5482;
+}
+.btn-white {
+  background-color: white;
+  color: var(--dark-black);
+  border: 1px solid #ccc;
+}
+.btn-white:hover {
+  background-color: #f8f9fa;
+}

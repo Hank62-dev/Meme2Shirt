@@ -30,7 +30,7 @@ const calculateDiscount = (items) => {
   }
   return discount;
 };
-// 2 hiện đơn hàng trước khi nôn tiền
+// 2 Hiện đơn hàng
 const displaycFinalBill = async (req, res) => {
   try {
     const userID = req.user.id;
@@ -51,6 +51,37 @@ const displaycFinalBill = async (req, res) => {
       shipFee: shipFee,
       discount: discount,
       finalTotal: finalTotal,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: " ERROR!!!" });
+  }
+};
+// 3. Lên đơn hàng
+const placeOrder = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { shipAddress, paymentMethod } = req.body;
+    // shipAddress: địa chỉ giao hàng
+    // paymentMethod: hình thức thanh toán(ck, cod)
+    const cart = findCartById(userId);
+    const cartItems = cart.items;
+    if (!cart) {
+      // nếu rỗng thì báo
+      return res.status(400).json({ message: "Cart is empty!!" });
+    }
+    const total = calculateTotal(cartItems);
+    const newOrderBill = await Order.createCart(userId, cartItems);
+    const newDetailOrder = await Order.addInfor(
+      shipAddress,
+      total,
+      paymentMethod
+    ); //hàm này sẽ đc viết rõ trong Order luôn nha
+    cart.items = [];
+    await cart.save();
+    res.status(201).json({
+      message: "New cart!Please check your cart!!",
+      orderId=newOrderBil.userId
     });
   } catch (error) {
     console.log(error);

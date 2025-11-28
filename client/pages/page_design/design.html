@@ -31,8 +31,8 @@
       href="https://fonts.googleapis.com/css2?family=Freehand&family=Black+Ops+One&family=Inter:wght@400;500;600&family=Lobster&family=Oswald&family=Pacifico&family=Anton&family=Dancing+Script&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/client/pages/page_design/design.css">
-    
+    <link rel="stylesheet" href="/client/pages/page_design/design.css" />
+    <link rel="stylesheet" href="./design.css" />
   </head>
   <body>
     <div class="design-wrapper">
@@ -41,7 +41,7 @@
           <div class="toolBarLeft">
             <div class="logoMeme">
               <img
-                src="/client/assets/img/logo/logoMemeShirt.png"
+                src="../../assets/img/logo/logoMemeShirt.png"
                 alt="Logo Meme Shirt"
               />
             </div>
@@ -52,11 +52,11 @@
           <div class="toolBarCenter">
             <nav>
               <ul>
-                <li><a href="/client/pages/page_home/index.html">Home</a></li>
+                <li><a href="../../pages/page_home/index.html">Home</a></li>
                 <li><a href="/">Menu</a></li>
                 <li><a href="#designNow">Design</a></li>
-                <li><a href="/client/pages/page_cart/cart.html">Cart</a></li>
-                <li><a href="/client/pages/">Orders</a></li>
+                <li><a href="../../pages/page_cart/cart.html">Cart</a></li>
+                <li><a href="../../pages/">Orders</a></li>
               </ul>
             </nav>
           </div>
@@ -250,6 +250,21 @@
                 </div>
               </div>
             </div>
+            <div style="padding: 15px; text-align: center">
+              <button
+                id="load-more-btn"
+                style="
+                  padding: 10px 20px;
+                  background: white;
+                  border: none;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  font-size: 1.4rem;
+                "
+              >
+                📥 Load More Memes
+              </button>
+            </div>
           </div>
 
           <!-- Panel 3: Image Tools (Có Camera) -->
@@ -268,7 +283,7 @@
                     onchange="handlePanelFileUpload(this)"
                     accept="image/*"
                   />
-                  <img src="../../assets/img/design_page/uploadImage.png"></img>
+                  <img src="../../assets/img/design_page/uploadImage.png" />
                 </label>
                 <div class="panel-image-label">
                   Upload <i class="far fa-image"></i>
@@ -283,7 +298,7 @@
                   ondragstart="handleDragStart(event)"
                   onclick="handleUrlInput(this)"
                 >
-                  <img src="../../assets/img/design_page/url.png"></img>
+                  <img src="../../assets/img/design_page/url.png" />
                 </div>
                 <div class="panel-image-label">
                   URL <i class="far fa-image"></i>
@@ -297,7 +312,7 @@
                   draggable="true"
                   ondragstart="handleDragStart(event)"
                 >
-                  <img src="../../assets/img/design_page/camera.png"></img>
+                  <img src="../../assets/img/design_page/camera.png" />
                 </div>
                 <div class="panel-image-label">Camera</div>
               </div>
@@ -315,7 +330,7 @@
                     onchange="handlePanelFileUpload(this)"
                     accept="image/*"
                   />
-                  <img src="../../assets/img/design_page/meme.png"></img>
+                  <img src="../../assets/img/design_page/meme.png" />
                 </label>
                 <div class="panel-image-label">Upload meme</div>
               </div>
@@ -362,7 +377,7 @@
                   Gender
                 </button>
                 <button class="btn-design btn-white" onclick="downloadMeme()">
-                 Add to cart
+                  Add to cart
                 </button>
               </div>
             </div>
@@ -372,165 +387,162 @@
     </div>
 
     <!-- Script Logic -->
-    <script>
-      const canvasData = {
-        zone1: null,
-        zone2: null,
-      };
+    <script src="../../assets/js/designer.js">
 
-      // 1. Navigation
-      function activatePanel(panelId, element) {
-        document
-          .querySelectorAll(".control-panel")
-          .forEach((p) => p.classList.remove("active"));
-        document
-          .querySelectorAll(".tool-box")
-          .forEach((t) => t.classList.remove("active"));
 
-        document.getElementById("panels-container").style.display = "block";
+      // // 1. Navigation
+      // function activatePanel(panelId, element) {
+      //   document
+      //     .querySelectorAll(".control-panel")
+      //     .forEach((p) => p.classList.remove("active"));
+      //   document
+      //     .querySelectorAll(".tool-box")
+      //     .forEach((t) => t.classList.remove("active"));
 
-        const target = document.getElementById(`panel-${panelId}`);
-        if (target) target.classList.add("active");
-        if (element) element.classList.add("active");
-      }
+      //   document.getElementById("panels-container").style.display = "block";
 
-      // 2. Upload & URL
-      function handlePanelFileUpload(input) {
-        if (input.files && input.files[0]) {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            const parentLabel = input.closest(".square-item");
-            parentLabel.querySelectorAll("i, span").forEach((i) => i.remove());
+      //   const target = document.getElementById(`panel-${panelId}`);
+      //   if (target) target.classList.add("active");
+      //   if (element) element.classList.add("active");
+      // }
 
-            let existingImg = parentLabel.querySelector("img");
-            if (existingImg) {
-              existingImg.src = e.target.result;
-            } else {
-              const imgHTML = `<img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover; pointer-events:none;">`;
-              parentLabel.insertAdjacentHTML("beforeend", imgHTML);
-            }
-          };
-          reader.readAsDataURL(input.files[0]);
-        }
-      }
+      // // 2. Upload & URL
+      // function handlePanelFileUpload(input) {
+      //   if (input.files && input.files[0]) {
+      //     const reader = new FileReader();
+      //     reader.onload = function (e) {
+      //       const parentLabel = input.closest(".square-item");
+      //       parentLabel.querySelectorAll("i, span").forEach((i) => i.remove());
 
-      function handleUrlInput(element) {
-        const url = prompt(
-          "Please enter image URL:",
-          "https://via.placeholder.com/150"
-        );
-        if (url) {
-          element.innerHTML = "";
-          const imgHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover; pointer-events:none;" onerror="this.src=''; alert('Invalid URL');">`;
-          element.innerHTML = imgHTML;
-        }
-      }
+      //       let existingImg = parentLabel.querySelector("img");
+      //       if (existingImg) {
+      //         existingImg.src = e.target.result;
+      //       } else {
+      //         const imgHTML = `<img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover; pointer-events:none;">`;
+      //         parentLabel.insertAdjacentHTML("beforeend", imgHTML);
+      //       }
+      //     };
+      //     reader.readAsDataURL(input.files[0]);
+      //   }
+      // }
 
-      // 3. Drag
-      function handleDragStart(e) {
-        const target =
-          e.target.closest(".text-style-item") ||
-          e.target.closest(".square-item");
-        if (!target) return;
+      // function handleUrlInput(element) {
+      //   const url = prompt(
+      //     "Please enter image URL:",
+      //     "https://via.placeholder.com/150"
+      //   );
+      //   if (url) {
+      //     element.innerHTML = "";
+      //     const imgHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover; pointer-events:none;" onerror="this.src=''; alert('Invalid URL');">`;
+      //     element.innerHTML = imgHTML;
+      //   }
+      // }
 
-        let dragData = { type: "unknown", content: "" };
+      // // 3. Drag
+      // function handleDragStart(e) {
+      //   const target =
+      //     e.target.closest(".text-style-item") ||
+      //     e.target.closest(".square-item");
+      //   if (!target) return;
 
-        if (target.classList.contains("text-style-item")) {
-          dragData.type = "text";
-          dragData.content = target.innerText.trim();
-          dragData.font = target.style.fontFamily.replace(/['"]/g, "");
-        } else if (target.classList.contains("square-item")) {
-          const imgInside = target.querySelector("img");
-          if (imgInside) {
-            dragData.type = "image";
-            dragData.src = imgInside.src;
-          } else {
-            dragData.type = "element";
-            // CLONE & CLEAN INPUTS
-            let clone = target.cloneNode(true);
-            let inputs = clone.querySelectorAll("input");
-            inputs.forEach((i) => i.remove());
-            dragData.content = clone.innerHTML;
+      //   let dragData = { type: "unknown", content: "" };
 
-            const coloredDiv = target.querySelector("div[style*='background']");
-            if (coloredDiv) {
-              dragData.bgColor = coloredDiv.style.backgroundColor;
-            }
-          }
-        }
+      //   if (target.classList.contains("text-style-item")) {
+      //     dragData.type = "text";
+      //     dragData.content = target.innerText.trim();
+      //     dragData.font = target.style.fontFamily.replace(/['"]/g, "");
+      //   } else if (target.classList.contains("square-item")) {
+      //     const imgInside = target.querySelector("img");
+      //     if (imgInside) {
+      //       dragData.type = "image";
+      //       dragData.src = imgInside.src;
+      //     } else {
+      //       dragData.type = "element";
+      //       // CLONE & CLEAN INPUTS
+      //       let clone = target.cloneNode(true);
+      //       let inputs = clone.querySelectorAll("input");
+      //       inputs.forEach((i) => i.remove());
+      //       dragData.content = clone.innerHTML;
 
-        e.dataTransfer.setData("text/plain", JSON.stringify(dragData));
-        e.dataTransfer.effectAllowed = "copy";
-      }
+      //       const coloredDiv = target.querySelector("div[style*='background']");
+      //       if (coloredDiv) {
+      //         dragData.bgColor = coloredDiv.style.backgroundColor;
+      //       }
+      //     }
+      //   }
 
-      // 4. Drop
-      function handleDragOver(e) {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = "copy";
-        e.currentTarget.classList.add("drag-over");
-      }
+      //   e.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+      //   e.dataTransfer.effectAllowed = "copy";
+      // }
 
-      function handleDragLeave(e) {
-        e.currentTarget.classList.remove("drag-over");
-      }
+      // // 4. Drop
+      // function handleDragOver(e) {
+      //   e.preventDefault();
+      //   e.dataTransfer.dropEffect = "copy";
+      //   e.currentTarget.classList.add("drag-over");
+      // }
 
-      function handleDrop(e, zoneId) {
-        e.preventDefault();
-        const dropZone = e.currentTarget;
-        dropZone.classList.remove("drag-over");
+      // function handleDragLeave(e) {
+      //   e.currentTarget.classList.remove("drag-over");
+      // }
 
-        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-          const file = e.dataTransfer.files[0];
-          if (!file.type.startsWith("image/")) return;
+      // function handleDrop(e, zoneId) {
+      //   e.preventDefault();
+      //   const dropZone = e.currentTarget;
+      //   dropZone.classList.remove("drag-over");
 
-          const reader = new FileReader();
-          reader.onload = (evt) => {
-            dropZone.innerHTML = "";
-            const img = document.createElement("img");
-            img.src = evt.target.result;
-            img.className = "dropped-content-img";
-            dropZone.appendChild(img);
-            canvasData[zoneId] = { type: "image", src: evt.target.result };
-          };
-          reader.readAsDataURL(file);
-          return;
-        }
+      //   if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      //     const file = e.dataTransfer.files[0];
+      //     if (!file.type.startsWith("image/")) return;
 
-        try {
-          const rawData = e.dataTransfer.getData("text/plain");
-          if (!rawData) return;
-          const data = JSON.parse(rawData);
+      //     const reader = new FileReader();
+      //     reader.onload = (evt) => {
+      //       dropZone.innerHTML = "";
+      //       const img = document.createElement("img");
+      //       img.src = evt.target.result;
+      //       img.className = "dropped-content-img";
+      //       dropZone.appendChild(img);
+      //       canvasData[zoneId] = { type: "image", src: evt.target.result };
+      //     };
+      //     reader.readAsDataURL(file);
+      //     return;
+      //   }
 
-          dropZone.innerHTML = "";
+      //   try {
+      //     const rawData = e.dataTransfer.getData("text/plain");
+      //     if (!rawData) return;
+      //     const data = JSON.parse(rawData);
 
-          if (data.type === "text") {
-            const textEl = document.createElement("div");
-            textEl.className = "dropped-content-text";
-            textEl.innerText = data.content;
-            textEl.style.fontFamily = data.font;
-            dropZone.appendChild(textEl);
-            canvasData[zoneId] = data;
-          } else if (data.type === "image") {
-            const img = document.createElement("img");
-            img.src = data.src;
-            img.className = "dropped-content-img";
-            dropZone.appendChild(img);
-            canvasData[zoneId] = data;
-          } else if (data.type === "element") {
-            const elContainer = document.createElement("div");
-            elContainer.style.width = "100%";
-            elContainer.style.height = "100%";
-            elContainer.style.display = "flex";
-            elContainer.style.justifyContent = "center";
-            elContainer.style.alignItems = "center";
-            elContainer.innerHTML = data.content;
-            dropZone.appendChild(elContainer);
-            canvasData[zoneId] = data;
-          }
-        } catch (err) {
-          console.error("Drop error:", err);
-        }
-      }
+      //     dropZone.innerHTML = "";
+
+      //     if (data.type === "text") {
+      //       const textEl = document.createElement("div");
+      //       textEl.className = "dropped-content-text";
+      //       textEl.innerText = data.content;
+      //       textEl.style.fontFamily = data.font;
+      //       dropZone.appendChild(textEl);
+      //       canvasData[zoneId] = data;
+      //     } else if (data.type === "image") {
+      //       const img = document.createElement("img");
+      //       img.src = data.src;
+      //       img.className = "dropped-content-img";
+      //       dropZone.appendChild(img);
+      //       canvasData[zoneId] = data;
+      //     } else if (data.type === "element") {
+      //       const elContainer = document.createElement("div");
+      //       elContainer.style.width = "100%";
+      //       elContainer.style.height = "100%";
+      //       elContainer.style.display = "flex";
+      //       elContainer.style.justifyContent = "center";
+      //       elContainer.style.alignItems = "center";
+      //       elContainer.innerHTML = data.content;
+      //       dropZone.appendChild(elContainer);
+      //       canvasData[zoneId] = data;
+      //     }
+      //   } catch (err) {
+      //     console.error("Drop error:", err);
+      //   }
+      // }
     </script>
   </body>
 </html>

@@ -1,17 +1,161 @@
+// ==================== IMGFLIP API INTEGRATION ====================
+
+// Biến cache
+let cachedMemes = null;
+
+// Hàm fetch từ API
+async function fetchMemesFromImgflip() {
+  if (cachedMemes) {
+    return cachedMemes;
+  }
+
+  try {
+    console.log("Fetching memes from Imgflip...");
+    const response = await fetch("https://api.imgflip.com/get_memes");
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.success && data.data.memes) {
+      cachedMemes = data.data.memes;
+      console.log(`Load successful ${cachedMemes.length} memes`);
+      return cachedMemes;
+    } else {
+      throw new Error("API error");
+    }
+  } catch (error) {
+    console.error("Error fetch memes:", error);
+    return [];
+  }
+}
+
+// Hàm render MỚI (thay thế hàm cũ)
+async function renderMemePanel(limit = 40) {
+  const gridContainer = document.querySelector(
+    "#panel-meme .grid-container-2col"
+  );
+
+  // Hiển thị loading
+  gridContainer.innerHTML =
+    '<div style="color: white; padding: 20px; text-align: center;">⏳ Đang tải memes...</div>';
+
+  // Fetch từ API
+  const allMemes = await fetchMemesFromImgflip();
+
+  // Xử lý lỗi
+  if (allMemes.length === 0) {
+    gridContainer.innerHTML = `
+      <div style="color: white; padding: 20px; text-align: center;">
+        <p>Cant loaded memes</p>
+        <button onclick="location.reload()" style="padding: 8px 16px; cursor: pointer;">
+          Tryagain
+        </button>
+      </div>
+    `;
+    return;
+  }
+
+  // Xóa loading
+  gridContainer.innerHTML = "";
+
+  // Render memes
+  const memesToShow = allMemes.slice(0, limit);
+
+  memesToShow.forEach((meme, index) => {
+    const div = document.createElement("div");
+    div.className = "square-item";
+    div.draggable = true;
+    div.ondragstart = handleDragStart;
+    div.title = meme.name; // Tooltip hiện tên meme
+
+    div.innerHTML = `
+      <img src="${meme.url}" 
+           alt="${meme.name}"
+           loading="lazy"
+           style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+    `;
+
+    gridContainer.appendChild(div);
+  });
+
+  console.log(`Completed render ${memesToShow.length} memes`);
+}
+
+// Gọi khi trang load
+window.addEventListener("DOMContentLoaded", async () => {
+  console.log("Start load memes...");
+  await renderMemePanel(40); // Load 40 memes đầu tiên
+});
+
+let currentLimit = 30;
+
+document.getElementById("load-more-btn").addEventListener("click", async () => {
+  currentLimit += 20; // Tăng thêm 20 meme
+
+  const allMemes = await fetchMemesFromImgflip();
+  const gridContainer = document.querySelector(
+    "#panel-meme .grid-container-2col"
+  );
+
+  // Render từ meme thứ (currentLimit - 20) đến currentLimit
+  const newMemes = allMemes.slice(currentLimit - 20, currentLimit);
+
+  newMemes.forEach((meme) => {
+    const div = document.createElement("div");
+    div.className = "square-item";
+    div.draggable = true;
+    div.ondragstart = handleDragStart;
+    div.title = meme.name;
+    div.innerHTML = `<img src="${meme.url}" alt="${meme.name}" loading="lazy" style="width:100%; height:100%; object-fit:cover; pointer-events:none;">`;
+    gridContainer.appendChild(div);
+  });
+
+  // Ẩn nút nếu đã hết meme
+  if (currentLimit >= allMemes.length) {
+    document.getElementById("load-more-btn").style.display = "none";
+  }
+});
+// ==================== END IMGFLIP INTEGRATION ====================
+
 // 1. Điều hướng Panel
 function activatePanel(panelId, element) {
-  document
-    .querySelectorAll(".control-panel")
-    .forEach((p) => p.classList.remove("active"));
-  document
-    .querySelectorAll(".tool-box")
-    .forEach((t) => t.classList.remove("active"));
+  const panelsContainer = document.getElementById("panels-container");
+  const targetPanel = document.getElementById(`panel-${panelId}`);
 
-  document.getElementById("panels-container").style.display = "block";
+  // Kiểm tra xem panel hiện tại có đang active không
+  const isCurrentlyActive = targetPanel.classList.contains("active");
 
-  const target = document.getElementById(`panel-${panelId}`);
-  if (target) target.classList.add("active");
-  if (element) element.classList.add("active");
+  if (isCurrentlyActive) {
+    // NẾU ĐANG BẬT → TẮT ĐI
+    targetPanel.classList.remove("active");
+    element.classList.remove("active");
+
+    // Kiểm tra xem còn panel nào active không
+    const anyPanelActive = document.querySelector(".control-panel.active");
+    if (!anyPanelActive) {
+      panelsContainer.style.display = "none"; // Ẩn container nếu không còn panel nào
+    }
+  } else {
+    // NẾU ĐANG TẮT → BẬT LÊN (và tắt các panel khác)
+
+    // 1. Tắt tất cả panel khác
+    document
+      .querySelectorAll(".control-panel")
+      .forEach((p) => p.classList.remove("active"));
+    document
+      .querySelectorAll(".tool-box")
+      .forEach((t) => t.classList.remove("active"));
+
+    // 2. Hiện container
+    panelsContainer.style.display = "block";
+
+    // 3. Bật panel được chọn
+    targetPanel.classList.add("active");
+    element.classList.add("active");
+  }
 }
 
 // 2. Xử lý Upload & URL trong Panel Image
@@ -164,3 +308,24 @@ function handleDrop(e, zoneId) {
     console.error("Drop error:", err);
   }
 }
+
+const memeLibrary = [
+  {
+    type: "icon",
+    icon: "fa-star",
+    color: "gold",
+    bg: "#a03030",
+  },
+  {
+    type: "icon",
+    icon: "fa-smile",
+    color: "white",
+    bg: "#4a8db7",
+  },
+  {
+    type: "image",
+    src: "https://i.imgflip.com/30b1gx.jpg", // Ví dụ URL meme
+    alt: "Success Kid",
+  },
+  // Thêm meme khác tại đây...
+];

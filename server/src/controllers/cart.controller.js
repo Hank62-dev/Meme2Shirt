@@ -1,6 +1,7 @@
 // dùng models để tương tác với db
 import Product from "../models/Product";
 import User from "../models/User";
+import Order from "../models/Order";
 // 1 Lấy thông tin để hiện thị giỏ hàng
 export const getCart = async (req, res) => {
   try {
@@ -33,7 +34,7 @@ export const addItemToCart = async (req, res) => {
     const cart = await User.findUser(userID);
     if (!cart) {
       // không thấy thì tạo mới
-      cart = await User.createCart(userID, []); //hàm nhận vào id ng dùng và giỏ hàng sẽ là rỗng
+      cart = await Order.createCart(userID, []); //hàm nhận vào id ng dùng và giỏ hàng sẽ là rỗng
     }
     // nếu thêm trùng sản phẩm thì số lượng tăng thêm
     const itemIndex = cart.items.findIndex((item) => {
@@ -80,6 +81,7 @@ export const updateItem = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+    git;
     res.status(500).json({ message: " ERROR!!!" });
   }
 };

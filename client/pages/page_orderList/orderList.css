@@ -1,0 +1,315 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem;
+  background-color: #f8f5ed;
+}
+header {
+  width: 100%;
+  height: 7rem;
+  background-color: #000000;
+  position: fixed;
+  z-index: 5;
+}
+.tabBars {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* toolBarLeft */
+.tabBars .toolBarLeft {
+  display: flex;
+  gap: 1rem;
+}
+.toolBarLeft img {
+  width: 5rem;
+  height: 5rem;
+}
+.toolBarLeft .titleMemeShirt {
+  color: #fff;
+  font-size: 5.4rem;
+  font-family: "Black Ops One";
+}
+
+/* toolBarCenter */
+.tabBars .toolBarCenter {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+  /* margin: auto 0rem; */
+}
+.toolBarCenter ul {
+  list-style: none;
+  display: flex;
+  margin: auto 0;
+}
+.toolBarCenter li {
+  font-size: 4rem;
+  font-family: "inter", sans-serif;
+  margin: 0rem 2.5rem;
+  margin-bottom: 1rem;
+}
+.toolBarCenter li a {
+  text-decoration: none;
+  color: #fff;
+}
+.toolBarCenter li:hover {
+  color: #3ba7e6;
+  text-shadow: 0 0 15px #fefefe;
+  transform: translateY(-4px);
+  transition: all 0.2s;
+}
+
+/* toolBarRight */
+.tabBars .toolBarRight {
+  display: flex;
+}
+.toolBarRight .searchBar,
+.userAccount,
+.notification {
+  margin: 2rem 0.5rem;
+}
+.iconSearch,
+.iconNoti,
+.iconAccount {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+}
+
+.orderList {
+  min-height: calc(100vh - 7rem);
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 12rem;
+  padding-bottom: 5rem;
+}
+
+.orderList h1 {
+  font-family: "Black Ops One", sans-serif; /* Font hầm hố */
+  font-size: 4rem;
+  color: #000000;
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar {
+  background: #e0e0e0;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+}
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 1.4rem;
+}
+.fa-search {
+  font-size: 1.5rem;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-block: 2rem;
+  font-family: "inter", sans-serif;
+}
+
+/* Từng thẻ sản phẩm (Card) */
+.order-card {
+  background-color: #eeeeee; /* Màu nền xám của từng item */
+  padding: 2rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Hiệu ứng bóng nhẹ cho đẹp */
+  /* box-shadow: 0 2px 5px rgba(0,0,0,0.05); */
+}
+
+/* Phần bên trái: Ảnh + Tên */
+.card-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1; /* Chiếm hết phần dư bên trái */
+}
+
+.img-wrapper {
+  background-color: #fff;
+
+  border-radius: 0.5rem;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-wrapper img {
+  width: 100%;
+  height: 100%;
+}
+
+.info-wrapper h3 {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 1rem;
+  max-width: 500px;
+  line-height: 1.4;
+}
+
+.info-wrapper .qty {
+  font-size: 1.8rem;
+  color: #555;
+}
+
+/* Phần bên phải: Giá + Nút bấm */
+.card-right {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.card-right .price {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.buy-again-btn {
+  background-color: #3b5d8f; /* Màu xanh nút */
+  color: #fff;
+  border: none;
+  padding: 1.2rem 3rem;
+  border-radius: 2rem; /* Bo tròn nút */
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Đổ bóng nút */
+  transition: all 0.2s ease;
+}
+
+.buy-again-btn:hover {
+  background-color: #2c466b;
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+  .order-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .card-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* footer */
+footer {
+  width: 100%;
+  height: 30rem;
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20rem;
+}
+.allInformation {
+  width: 100%;
+  height: 80%;
+  color: #fff;
+  font-size: 4.6rem;
+  display: flex;
+  gap: 5rem;
+  font-family: "inter", sans-serif;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+.inforContact .title,
+.information .title,
+.policy .title,
+.followUs .title {
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+.inforContact > div:not(.title):hover,
+.information > div:not(.title):hover,
+.policy > div:not(.title):hover,
+.followUs > div:not(.title):hover {
+  color: #3ba7e6;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.inforContact,
+.information,
+.policy {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* chỉnh số px tùy bạn */
+}
+.copyrightMeme {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.4rem;
+  font-family: "inter", sans-serif;
+  font-weight: bold;
+}
+.contactLogo {
+  display: flex;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.contactLogo i.fab {
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.contactLogo .logoFacebook,
+.logoInstagram,
+.logoYoutube {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+.contactLogo .logoFacebook:hover {
+  background-color: #3ba7e6;
+  box-shadow: 0 0 15px #3ba7e6;
+  transition: all 0.3s;
+}
+.contactLogo .logoInstagram:hover {
+  background-color: #e1306c;
+  box-shadow: 0 0 15px #e1306c;
+  transition: all 0.3s;
+}
+.contactLogo .logoYoutube:hover {
+  background-color: #ff0000;
+  box-shadow: 0 0 15px #ff0000;
+  transition: all 0.3s;
+}

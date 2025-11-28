@@ -85,11 +85,10 @@ header {
 }
 
 .cart {
-  /* Full màn hình trừ header */
   min-height: calc(100vh - 7rem);
-  width: 90%; /* Gom gọn nội dung lại chút cho đẹp */
+  width: 90%;
   max-width: 1200px;
-  margin: 0 auto; /* Căn giữa trang web */
+  margin: 0 auto;
   padding-top: 12rem;
   padding-bottom: 5rem;
 }

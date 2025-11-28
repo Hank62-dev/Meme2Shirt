@@ -35,7 +35,7 @@
   <body>
     <!-- code -->
     <div class="container">
-      <header>
+      <header id="header">
         <div class="tabBars">
           <div class="toolBarLeft">
             <div class="logoMeme">
@@ -51,11 +51,15 @@
           <div class="toolBarCenter">
             <nav>
               <ul>
-                <li><a href="/client/pages/page_home/index.html">Home</a></li>
-                <li><a href="/">Menu</a></li>
+                <li><a href="#homeIntro">Home</a></li>
+                <li><a href="#cartClothesT_Shirt">Menu</a></li>
                 <li><a href="#designNow">Design</a></li>
                 <li><a href="/client/pages/page_cart/cart.html">Cart</a></li>
-                <li><a href="/client/pages/">Orders</a></li>
+                <li>
+                  <a href="/client/pages/page_orderList/orderList.html"
+                    >Orders</a
+                  >
+                </li>
               </ul>
             </nav>
           </div>
@@ -114,7 +118,7 @@
           </div>
         </div>
       </header>
-      <div class="homeIntro">
+      <div class="homeIntro" id="homeIntro">
         <div id="particles-js"></div>
         <div class="containerHome">
           <div class="boxHomeLeft">
@@ -204,7 +208,7 @@
       </div>
 
       <!-- itemCartClothes -->
-      <div class="cartClothesT_Shirt">
+      <div class="cartClothesT_Shirt" id="cartClothesT_Shirt">
         <div class="titleCartTShirt">T-Shirt</div>
         <!-- Cards -->
         <div class="splide" id="spildeTShirt">

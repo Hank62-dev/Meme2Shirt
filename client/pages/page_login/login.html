@@ -106,7 +106,7 @@
 
           setTimeout(() => {
             window.location.href = "../page_register/register.html";
-          }, 4500);
+          }, 4000);
         });
 
       // Logic cho nút Login
@@ -142,7 +142,7 @@
               alert(result.message); // Thông báo thành công
               // Tùy chọn: chuyển hướng sau khi đăng nhập thành công
               setTimeout(() => {
-                window.location.href = "https://daihoc.fpt.edu.vn/"; // Hoặc trang khác sau login
+                window.location.href = "../../page_home/index.html";
               }, 1000);
             } else {
               alert(result.message || "Login failed");

@@ -17,6 +17,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
     <link rel="stylesheet" href="./cart.css" />
   </head>
   <body>
@@ -42,7 +46,11 @@
                 <li><a href="/">Menu</a></li>
                 <li><a href="#designNow">Design</a></li>
                 <li><a href="/client/pages/page_cart/cart.html">Cart</a></li>
-                <li><a href="/client/pages/">Orders</a></li>
+                <li>
+                  <a href="/client/pages/page_orderList/orderList.html"
+                    >Orders</a
+                  >
+                </li>
               </ul>
             </nav>
           </div>
@@ -275,7 +283,11 @@
               <span id="total-price">610.000</span>
             </div>
 
-            <button class="checkout-btn" id="btn-checkout">Check Out</button>
+            <a href="../page_checkout/checkout.html"
+              ><button class="checkout-btn" id="btn-checkout">
+                Check Out
+              </button></a
+            >
           </div>
         </div>
       </div>

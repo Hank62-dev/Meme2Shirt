@@ -1,6 +1,6 @@
 import express from "express";
 const cart_router = express.Router();
-import * as cart_controller from "../controllers/cart.controller.js";
+import * as cart_controller from "../controllers/cart.controller";
 //1. Lấy thông tin giỏ hàng
 cart_router.get("/", cart_controller.getCart);
 //2.Thêm sản phẩm vào giỏ hàng

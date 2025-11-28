@@ -1,0 +1,334 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+body {
+  font-size: 1.6rem;
+  background-color: #f8f5ed;
+}
+
+header {
+  width: 100%;
+  height: 7rem;
+  background-color: #000000;
+  position: fixed;
+  z-index: 5;
+}
+.tabBars {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* toolBarLeft */
+.tabBars .toolBarLeft {
+  display: flex;
+  gap: 1rem;
+}
+.toolBarLeft img {
+  width: 5rem;
+  height: 5rem;
+}
+.toolBarLeft .titleMemeShirt {
+  color: #fff;
+  font-size: 5.4rem;
+  font-family: "Black Ops One";
+}
+
+/* toolBarCenter */
+.tabBars .toolBarCenter {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+  /* margin: auto 0rem; */
+}
+.toolBarCenter ul {
+  list-style: none;
+  display: flex;
+  margin: auto 0;
+}
+.toolBarCenter li {
+  font-size: 4rem;
+  font-family: "inter", sans-serif;
+  margin: 0rem 2.5rem;
+  margin-bottom: 1rem;
+}
+.toolBarCenter li a {
+  text-decoration: none;
+  color: #fff;
+}
+.toolBarCenter li:hover {
+  color: #3ba7e6;
+  text-shadow: 0 0 15px #fefefe;
+  transform: translateY(-4px);
+  transition: all 0.2s;
+}
+
+/* toolBarRight */
+.tabBars .toolBarRight {
+  display: flex;
+}
+.toolBarRight .searchBar,
+.userAccount,
+.notification {
+  margin: 2rem 0.5rem;
+}
+.iconSearch,
+.iconNoti,
+.iconAccount {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+}
+
+/* design option */
+.designOption {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+}
+.imageProduct {
+  width: 45%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5rem;
+  gap: 1rem;
+}
+.mainProduct img {
+  width: 41.5rem;
+  height: 41.5rem;
+}
+.extraInforProduct {
+  display: flex;
+  gap: 0.5rem;
+}
+.extraInforProduct img {
+  width: 10rem;
+  height: 10rem;
+}
+.optionChoice {
+  width: 55%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #000;
+  padding-top: 4.5rem;
+}
+.nameProduct {
+  width: 80%;
+  font-size: 3.2rem;
+  font-family: "inter", sans-serif;
+  margin-top: 4.5rem;
+}
+.priceProduct {
+  width: 40%;
+  height: 5.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 3rem;
+  font-family: "inter", sans-serif;
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+  border-radius: 3rem;
+  background-color: #d9d9d9;
+}
+.chooseOrder {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  font-size: 3.5rem;
+  font-family: "inter", sans-serif;
+}
+.titleOrder,
+.titlePrintSide,
+.titleSize,
+.titleColor {
+  font-size: 1.8rem;
+  font-family: "inter", sans-serif;
+}
+.chooseOrder .orderMethod {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+.orderMethod .selfDesign,
+.noDesign {
+  width: 13rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5rem;
+  background-color: #d9d9d9;
+}
+
+.orderMethod .selfDesign:hover,
+.noDesign:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #116393;
+  transition: all 0.2s;
+}
+
+.choosePrintSide {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  font-size: 3.5rem;
+  font-family: "inter", sans-serif;
+}
+.choosePrintSide .printSideMethod {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+.printSideMethod .printFront,
+.printBack,
+.printBothSide {
+  width: 15rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5rem;
+  background-color: #d9d9d9;
+}
+.printSideMethod .printFront:hover,
+.printBack:hover,
+.printBothSide:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #116393;
+  transition: all 0.2s;
+}
+
+.chooseSize {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  font-size: 3.5rem;
+  font-family: "inter", sans-serif;
+}
+.chooseSize .sizeMethod {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+.sizeMethod .sizeOption {
+  width: 10rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5rem;
+  background-color: #d9d9d9;
+}
+.sizeMethod .sizeOption:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #116393;
+  transition: all 0.2s;
+}
+.chooseColor {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  font-size: 3.5rem;
+  font-family: "inter", sans-serif;
+}
+.chooseColor .colorMethod {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.colorOption {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.designNow {
+  width: 35%;
+  height: 5.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-family: "inter", sans-serif;
+  margin-top: 2rem;
+  border-radius: 3rem;
+  background-color: #116393;
+  color: #fff;
+}
+.designNow:hover {
+  background-color: #2a2a2a;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.addToCart {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 3.2rem;
+  font-family: "inter", sans-serif;
+  margin-top: 3.5rem;
+  padding-bottom: 0.5rem;
+}
+.addToCart .chooseQuantity {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  gap: 1rem;
+  cursor: pointer;
+}
+.addCartButton {
+  width: 50%;
+  height: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-family: "inter", sans-serif;
+  border-radius: 3rem;
+  background-color: #2a2a2a;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.addCartButton:hover {
+  background-color: #116393;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+}

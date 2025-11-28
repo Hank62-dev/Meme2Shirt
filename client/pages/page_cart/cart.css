@@ -12,12 +12,14 @@ header {
   width: 100%;
   height: 7rem;
   background-color: #000000;
+  position: fixed;
+  z-index: 5;
 }
 .tabBars {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 /* toolBarLeft */
@@ -81,13 +83,14 @@ header {
   height: 3rem;
   cursor: pointer;
 }
+
 .cart {
-  /* Full màn hình trừ header */
   min-height: calc(100vh - 7rem);
-  width: 90%; /* Gom gọn nội dung lại chút cho đẹp */
+  width: 90%;
   max-width: 1200px;
-  margin: 0 auto; /* Căn giữa trang web */
-  padding-top: 2rem;
+  margin: 0 auto;
+  padding-top: 12rem;
+  padding-bottom: 5rem;
 }
 
 .shipping-title-group {

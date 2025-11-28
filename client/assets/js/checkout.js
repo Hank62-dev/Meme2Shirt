@@ -168,7 +168,7 @@ document.querySelector(".btn-submit").addEventListener("click", (event) => {
     alert("Order Successful! Redirecting...");
 
     // Chuyển trang (bạn thay đổi đường dẫn bên dưới)
-    window.location.href = "../page_home/index.html";
+    window.location.href = "../page_orderList/orderList.html";
   }
 });
 

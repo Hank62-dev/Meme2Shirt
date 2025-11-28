@@ -186,6 +186,14 @@ header {
   overflow-x: hidden;
   animation: fadeIn 0.3s ease-in-out;
 }
+
+.panels-container {
+  transition: all 0.3s ease;
+}
+
+.control-panel {
+  transition: opacity 0.3s ease;
+}
 .control-panel::-webkit-scrollbar {
   width: 6px;
 }

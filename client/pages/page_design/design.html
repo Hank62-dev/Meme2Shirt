@@ -138,6 +138,40 @@
           <!-- Panel 1: Text Items -->
           <div id="panel-text" class="control-panel">
             <div
+              style="
+                padding: 20px 10px;
+                width: 100%;
+                position: sticky;
+                top: 0;
+                background: #4a8db7;
+                z-index: 10;
+              "
+            >
+              <input
+                type="text"
+                id="global-text-input"
+                placeholder="Nhập chữ vào đây..."
+                value="Meme shirt"
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  border-radius: 5px;
+                  border: none;
+                  font-size: 1.6rem;
+                  outline: none;
+                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                "
+              />
+            </div>
+            <div
+              class="text-style-item"
+              draggable="true"
+              ondragstart="handleDragStart(event)"
+              style="font-family: 'Black Ops One'"
+            >
+              <span>Meme shirt</span>
+            </div>
+            <div
               class="text-style-item"
               draggable="true"
               ondragstart="handleDragStart(event)"

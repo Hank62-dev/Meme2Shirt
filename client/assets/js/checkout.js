@@ -189,11 +189,15 @@ document.querySelector(".btn-submit").addEventListener("click", (event) => {
 
   // Nếu tất cả đều hợp lệ
   if (isValid) {
-    alert("Order Successful! Redirecting...");
-
-    // Chuyển trang (bạn thay đổi đường dẫn bên dưới)
-    window.location.href = "../page_orderList/orderList.html";
+    const modal = document.getElementById("successModal");
+    modal.classList.add("show");
   }
+});
+
+// --- THÊM ĐOẠN NÀY ĐỂ XỬ LÝ NÚT OK ---
+document.getElementById("btn-modal-ok").addEventListener("click", () => {
+  // Khi nhấn OK mới chuyển trang
+  window.location.href = "../page_orderList/orderList.html";
 });
 
 // Thêm sự kiện để khi người dùng bắt đầu gõ lại, màu đỏ tự mất đi (tùy chọn cho UX tốt hơn)

@@ -74,7 +74,7 @@ async function renderMemePanel(limit = 40) {
 // Load memes khi trang tải xong
 window.addEventListener("DOMContentLoaded", async () => {
   await renderMemePanel(40);
-  enableTextEditing();
+  setupRealTimeTextSync();
 });
 
 // Nút Load More
@@ -301,37 +301,23 @@ function getMemeSources() {
   };
 }
 
-// ==================== 7. TEXT EDITING FEATURE (DOUBLE CLICK) ====================
-function enableTextEditing() {
-  // Lấy tất cả các ô chữ trong panel text
-  const textItems = document.querySelectorAll(".text-style-item");
+// ==================== 7. REAL-TIME TEXT SYNC (NEW) ====================
+function setupRealTimeTextSync() {
+  const inputEl = document.getElementById("global-text-input");
 
-  textItems.forEach((item) => {
-    // Gán sự kiện nháy đúp chuột
-    item.ondblclick = function () {
-      const span = this.querySelector("span");
-      const currentText = span.innerText;
+  // Kiểm tra nếu input tồn tại
+  if (!inputEl) return;
 
-      // Hiện bảng nhập liệu (Prompt)
-      // Bạn có thể thay bằng Custom Modal đẹp hơn nếu muốn
-      const newText = prompt(
-        "Nhập nội dung mới cho kiểu chữ này:",
-        currentText
-      );
+  // Lắng nghe sự kiện 'input' (tốt hơn 'keydown' vì nó bắt được cả paste, cut, tiếng Việt có dấu)
+  inputEl.addEventListener("input", function (e) {
+    const newText = e.target.value;
 
-      // Nếu người dùng có nhập và không bấm Cancel
-      if (newText !== null && newText.trim() !== "") {
-        span.innerText = newText;
+    // Lấy tất cả các thẻ span nằm trong text-style-item
+    const textSpans = document.querySelectorAll(".text-style-item span");
 
-        // Hiệu ứng nháy nhẹ để báo hiệu đã đổi thành công
-        this.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
-        setTimeout(() => {
-          this.style.backgroundColor = "";
-        }, 300);
-      }
-    };
-
-    // Thêm title để người dùng biết có thể nháy đúp
-    item.title = "Nháy đúp chuột để sửa nội dung";
+    textSpans.forEach((span) => {
+      // Nếu input trống thì hiển thị text mặc định, ngược lại thì hiển thị text đang nhập
+      span.innerText = newText.trim() === "" ? "Meme shirt" : newText;
+    });
   });
 }

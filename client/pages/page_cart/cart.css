@@ -156,10 +156,16 @@ header {
   background-color: #eeeeee;
   padding: 1.5rem 2rem;
   border-radius: 1rem;
+  margin-bottom: 2rem;
   justify-content: space-between;
   font-family: "inter", sans-serif;
 }
-
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Khoảng cách giữa checkbox, ảnh và chữ */
+  width: 60%;
+}
 .product-check-img {
   display: flex;
   align-items: center;
@@ -175,6 +181,7 @@ header {
   object-fit: cover;
   border-radius: 0.5rem;
   background-color: #fff;
+  flex-shrink: 0;
 }
 
 .details p {
@@ -185,6 +192,13 @@ header {
   font-weight: 500;
 }
 
+.item-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Đẩy các phần tử sang phải */
+  gap: 3rem; /* Khoảng cách giữa bộ đếm, giá và thùng rác */
+  width: 40%; /* Chiếm 40% chiều rộng */
+}
 .quantity-control {
   display: flex;
   align-items: center;
@@ -218,6 +232,7 @@ header {
   cursor: pointer;
   width: fit-content;
   font-size: 2rem;
+  margin-left: 8.5rem;
 }
 
 .order-summary {

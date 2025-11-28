@@ -52,7 +52,7 @@ class RenderUI {
   renderProvinces(provinces) {
     let content = "";
     provinces.forEach((province) => {
-      content += `<option value=${province.code}>${province.name}</option>`;
+      content += `<option value=${province.code} style="font-size: 2rem;">${province.name}</option>`;
     });
     document.querySelector("select#province").innerHTML = content;
   }
@@ -144,21 +144,45 @@ document.querySelector(".btn-submit").addEventListener("click", (event) => {
 
   fieldsToCheck.forEach((fieldId) => {
     const element = document.getElementById(fieldId);
+    if (!element) return;
 
-    // Kiểm tra nếu element tồn tại và không có giá trị (rỗng)
-    if (element && !element.value.trim()) {
-      isValid = false; // Đánh dấu là có lỗi
+    const val = element.value.trim();
+    let isFieldValid = true;
+    let errorMessage = "";
 
-      // 1. Thêm class để hiện viền đỏ (đã định nghĩa bên CSS)
-      element.classList.add("input-error");
-
-      // 2. Hiện dòng thông báo bên trong (thay đổi placeholder)
-      // Lấy tên field viết hoa chữ cái đầu cho đẹp
+    // 1. Kiểm tra Rỗng (Empty) trước
+    if (!val) {
+      isFieldValid = false;
+      // Viết hoa chữ cái đầu
       const fieldName = fieldId.charAt(0).toUpperCase() + fieldId.slice(1);
-      element.value = ""; // Xóa sạch để hiện placeholder
-      element.placeholder = `${fieldName} can't valid`;
-    } else if (element) {
-      // Nếu đã nhập đúng thì bỏ class lỗi đi
+      errorMessage = `${fieldName} mustn't be empty`;
+    }
+    // 2. Kiểm tra riêng cho Phone (nếu không rỗng)
+    else if (fieldId === "phone") {
+      // Regex: Bắt đầu bằng 0, theo sau là 9 chữ số bất kỳ (tổng 10 số)
+      const phoneRegex = /^0\d{9}$/;
+      if (!phoneRegex.test(val)) {
+        isFieldValid = false;
+        errorMessage = "Phonenumber invalid";
+      }
+    }
+    // 3. Kiểm tra riêng cho Email (nếu không rỗng)
+    else if (fieldId === "email") {
+      // Regex: Kiểm tra định dạng email cơ bản (text@domain.extension)
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(val)) {
+        isFieldValid = false;
+        errorMessage = "Email invalid";
+      }
+    }
+
+    // Xử lý hiển thị lỗi hoặc thành công
+    if (!isFieldValid) {
+      isValid = false; // Đánh dấu form bị lỗi
+      element.classList.add("input-error");
+      element.value = ""; // Xóa nội dung sai
+      element.placeholder = errorMessage; // Hiện thông báo lỗi
+    } else {
       element.classList.remove("input-error");
     }
   });

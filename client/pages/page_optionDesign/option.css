@@ -261,6 +261,10 @@ header {
   font-size: 3.5rem;
   font-family: "inter", sans-serif;
 }
+.titleAndColorSelected {
+  gap: 1rem;
+  display: flex;
+}
 .chooseColor .colorMethod {
   width: 40%;
   display: flex;
@@ -328,7 +332,12 @@ header {
   border-radius: 5rem;
   background: #9f9f9f7e;
 }
-
+.chooseQuantity .number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+}
 .addCartButton {
   text-decoration: none;
   width: 50%;

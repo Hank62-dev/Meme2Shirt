@@ -62,7 +62,7 @@ class RenderUI {
     // Check kỹ nếu wards có dữ liệu mới chạy loop
     if (wards && wards.length > 0) {
       wards.forEach((ward) => {
-        content += `<option value=${ward.code}>${ward.name}</option>`;
+        content += `<option value=${ward.code} style="font-size: 2rem;">${ward.name}</option>`;
       });
     }
     document.querySelector("select#ward").innerHTML = content;

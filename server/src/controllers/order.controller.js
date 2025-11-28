@@ -81,10 +81,11 @@ const placeOrder = async (req, res) => {
     await cart.save();
     res.status(201).json({
       message: "New cart!Please check your cart!!",
-      orderId=newOrderBil.userId
+      orderId: newOrderBill.userId,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: " ERROR!!!" });
   }
 };
+export default Order;

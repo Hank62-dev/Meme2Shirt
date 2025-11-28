@@ -349,3 +349,10 @@ header {
   cursor: pointer;
   transition: all 0.2s;
 }
+.buttonOrder.active,
+.buttonPrint.active,
+.buttonSize.active,
+.buttonColor.active {
+  background: #116393;
+  color: #fff;
+}

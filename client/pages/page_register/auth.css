@@ -304,3 +304,14 @@ button:hover {
   flex: 45;
   background-color: var(--blue-background);
 }
+
+/* Style cho input khi bị lỗi - Copy từ checkout.css sang */
+.input-error {
+  border: 2px solid red !important;
+  background-color: #ffe6e6 !important;
+}
+
+.input-error::placeholder {
+  color: red;
+  font-style: italic;
+}

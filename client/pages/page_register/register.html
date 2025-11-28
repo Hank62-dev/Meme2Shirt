@@ -69,14 +69,15 @@
     </div>
 
     <script>
+      <script>
+      // --- 1. PHẦN ANIMATION & LOGIN (GIỮ NGUYÊN CỦA BẠN) ---
       window.addEventListener("load", () => {
         setTimeout(() => {
           document.querySelector(".right_frame").classList.add("show");
           document.querySelector(".register_frame").classList.add("show");
-        }, 500); // chờ 0.5 giây mới fade in
+        }, 500);
       });
 
-      // Logic cho nút Login
       document.getElementById("login").addEventListener("click", function () {
         document.querySelector(".right").classList.add("element_slide_out");
         document.querySelector(".left").classList.add("fade_out");
@@ -106,50 +107,98 @@
         }, 4500);
       });
 
-      // Logic cho nút Register
+      // --- 2. LOGIC REGISTER (SỬA THEO CHUẨN CHECKOUT) ---
       document
         .getElementById("btn_register")
         .addEventListener("click", async function (e) {
-          e.preventDefault(); // Ngăn form reload trang nếu có
+          e.preventDefault();
 
-          // Lấy giá trị từ input
-          const username = document.getElementById("username").value;
-          const email = document.getElementById("email").value;
-          const password = document.getElementById("password").value;
+          // Danh sách các ID cần kiểm tra
+          const fieldsToCheck = ["username", "email", "password"];
+          let isValid = true; // Cờ kiểm tra tổng
 
-          // Kiểm tra các trường có rỗng không
-          if (!username || !email || !password) {
-            alert("Please fill in all fields");
-            return;
-          }
+          // Vòng lặp kiểm tra từng ô input
+          fieldsToCheck.forEach((fieldId) => {
+            const element = document.getElementById(fieldId);
+            if (!element) return;
 
-          // Gửi POST request
-          try {
-            const response = await fetch("/register", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ username, email, password }),
-            });
+            const val = element.value.trim();
+            let isFieldValid = true;
+            let errorMessage = "";
 
-            const result = await response.json();
-            console.log("Response:", result);
-
-            if (response.ok) {
-              alert(result.message); // Thông báo thành công
-              // Tùy chọn: chuyển hướng sau khi đăng ký thành công
-              setTimeout(() => {
-                window.location.href = "../page_login/login.html";
-              }, 1000);
-            } else {
-              alert(result.message || "Registration failed");
+            // A. Kiểm tra Rỗng (Empty)
+            if (!val) {
+              isFieldValid = false;
+              // Viết hoa chữ cái đầu: username -> Username
+              const fieldName =
+                fieldId.charAt(0).toUpperCase() + fieldId.slice(1);
+              errorMessage = `${fieldName} mustn't be empty`;
             }
-          } catch (error) {
-            console.error("Error:", error);
-            alert("An error occurred during registration");
+            // B. Kiểm tra riêng cho Email (nếu không rỗng)
+            else if (fieldId === "email") {
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              if (!emailRegex.test(val)) {
+                isFieldValid = false;
+                errorMessage = "Email invalid";
+              }
+            }
+
+            // C. Xử lý hiển thị lỗi (Giống mẫu Checkout)
+            if (!isFieldValid) {
+              isValid = false;
+              element.classList.add("input-error"); // Thêm viền đỏ
+              element.value = ""; // Xóa nội dung sai
+              element.placeholder = errorMessage; // Hiện lỗi vào placeholder
+            } else {
+              // Nếu đúng thì xóa lỗi
+              element.classList.remove("input-error");
+            }
+          });
+
+          // Nếu TẤT CẢ hợp lệ thì mới gửi dữ liệu đi
+          if (isValid) {
+            // Lấy lại giá trị chính xác lần nữa để gửi
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            try {
+              const response = await fetch("/register", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username, email, password }),
+              });
+
+              const result = await response.json();
+              console.log("Response:", result);
+
+              if (response.ok) {
+                alert(result.message);
+                // Chuyển hướng
+                setTimeout(() => {
+                  window.location.href = "../page_login/login.html";
+                }, 1000);
+              } else {
+                alert(result.message || "Registration failed");
+              }
+            } catch (error) {
+              console.error("Error:", error);
+              alert("An error occurred during registration");
+            }
           }
         });
+
+      // --- 3. SỰ KIỆN FOCUS ĐỂ XÓA LỖI ---
+      // Khi bấm vào ô input đang đỏ, nó sẽ mất màu đỏ đi
+      const inputs = document.querySelectorAll("input");
+      inputs.forEach((input) => {
+        input.addEventListener("focus", function () {
+          this.classList.remove("input-error");
+        });
+      });
+    </script>
     </script>
   </body>
 </html>

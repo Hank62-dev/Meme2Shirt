@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <title>MemeShirt.vn - Design Options</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="../../assets/img/logo/logoMemeShirt.png"
+    />
     <link rel="stylesheet" href="./option.css" />
   </head>
   <body>
@@ -25,15 +31,13 @@
           <div class="toolBarCenter">
             <nav>
               <ul>
-                <li><a href="/client/pages/page_home/index.html">Home</a></li>
-                <li><a href="/">Menu</a></li>
-                <li><a href="#designNow">Design</a></li>
-                <li><a href="/client/pages/page_cart/cart.html">Cart</a></li>
+                <li><a href="../page_home/index.html">Home</a></li>
+                <li><a href="../page_home/index.html#designNow">Menu</a></li>
                 <li>
-                  <a href="/client/pages/page_orderList/orderList.html"
-                    >Orders</a
-                  >
+                  <a href="../page_design/design.html">Design</a>
                 </li>
+                <li><a href="../page_cart/cart.html">Cart</a></li>
+                <li><a href="../page_orderList/orderList.html">Orders</a></li>
               </ul>
             </nav>
           </div>
@@ -119,52 +123,55 @@
           <div class="chooseOrder">
             <div class="titleOrder">Choose how to order</div>
             <div class="orderMethod">
-              <div class="selfDesign">Self-design</div>
-              <div class="noDesign">Don't design</div>
+              <div class="buttonOrder selfDesign">Self-design</div>
+              <div class="buttonOrder noDesign">Don't design</div>
             </div>
           </div>
           <div class="choosePrintSide">
             <div class="titlePrintSide">Choose print side</div>
             <div class="printSideMethod">
-              <div class="printFront">Frontside</div>
-              <div class="printBack">Backside</div>
-              <div class="printBothSide">Both sides</div>
+              <div class="buttonPrint printFront">Frontside</div>
+              <div class="buttonPrint printBack">Backside</div>
+              <div class="buttonPrint printBothSide">Both sides</div>
             </div>
           </div>
           <div class="chooseSize">
             <div class="titleSize">Choose size</div>
             <div class="sizeMethod">
-              <div class="sizeOption">S</div>
-              <div class="sizeOption">M</div>
-              <div class="sizeOption">L</div>
-              <div class="sizeOption">XL</div>
-              <div class="sizeOption">XXL</div>   
+              <div class="buttonSize sizeOption">S</div>
+              <div class="buttonSize sizeOption">M</div>
+              <div class="buttonSize sizeOption">L</div>
+              <div class="buttonSize sizeOption">XL</div>
+              <div class="buttonSize sizeOption">XXL</div>   
           </div>
         </div>
         <div class="chooseColor">
-            <div class="titleColor">Color</div>
+            <div class="titleAndColorSelected">
+              <div class="titleColor">Color</div>
+              <div class="colorSelected colorOption" style="background-color: rgba(255, 255, 255, 0)"></div>
+            </div>
             <div class="colorMethod">
-                <div class="colorOption" style="background-color: white"></div>
-                <div class="colorOption" style="background-color: black"></div>
-                <div class="colorOption" style="background-color: red"></div>
-                <div class="colorOption" style="background-color: blue"></div>
-                <div class="colorOption" style="background-color: green"></div>
-                <div class="colorOption" style="background-color: yellow"></div>
+                <div class="buttonColor colorOption" style="background-color: rgb(230, 229, 229)"></div>
+                <div class="buttonColor colorOption" style="background-color: black"></div>
+                <div class="buttonColor colorOption" style="background-color: red"></div>
+                <div class="buttonColor colorOption" style="background-color: blue"></div>
+                <div class="buttonColor colorOption" style="background-color: green"></div>
+                <div class="buttonColor colorOption" style="background-color: yellow"></div>
             </div>
         </div>
-        <div class="designNow">Designing now</div>
+        <a class="designNow" href="../page_design/design.html"><div class="btnDesignNow">Designing now</div></a>
         <div class="addToCart">
             <div class="chooseQuantity">
                 <div class="minus">-</div>
                 <div class="number">1</div>
                 <div class="plus">+</div>
             </div>
-            <div class="addCartButton">Add to cart</div>
+            <a class="addCartButton" href="../page_cart/cart.html"><div class="btnAddCart">Add to cart</div></a>
         </div>
       </div>
     </div>
     <!-- code here -->
     <!-- script -->
-    <script src="/client/assets/js/option.js"></script>
+    <script src="../../assets/js/optionDesign.js"></script>
   </body>
 </html>

@@ -31,7 +31,7 @@ const calculateDiscount = (items) => {
   return discount;
 };
 // 2 Hiện đơn hàng
-const displaycFinalBill = async (req, res) => {
+export const displayFinalBill = async (req, res) => {
   try {
     const userID = req.user.id;
     const cart = await User.findCartById(userID);
@@ -58,7 +58,7 @@ const displaycFinalBill = async (req, res) => {
   }
 };
 // 3. Lên đơn hàng
-const placeOrder = async (req, res) => {
+export const placeOrder = async (req, res) => {
   try {
     const userId = req.user.id;
     const { shipAddress, paymentMethod } = req.body;
@@ -81,7 +81,7 @@ const placeOrder = async (req, res) => {
     await cart.save();
     res.status(201).json({
       message: "New cart!Please check your cart!!",
-      orderId=newOrderBil.userId
+      orderId: newOrderBill.userId,
     });
   } catch (error) {
     console.log(error);

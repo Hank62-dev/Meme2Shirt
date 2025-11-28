@@ -1,0 +1,799 @@
+/* =========================================
+   1. UTILITIES & RESET & BASE STYLES
+   ========================================= */
+
+/* Reset mặc định */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%; /* 1rem = 10px */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1.6rem;
+  background-color: #0a051c;
+  font-family: "inter", sans-serif; /* Đặt font mặc định ở đây để kế thừa */
+}
+
+/* Class validate lỗi form (JS thêm vào) */
+.input-error {
+  border: 2px solid red !important;
+  background-color: #ffe6e6 !important;
+}
+
+.input-error::placeholder {
+  color: red;
+  font-style: italic;
+}
+
+/* Animations */
+@keyframes floating {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes floatingText {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* =========================================
+   2. HEADER & NAVIGATION
+   ========================================= */
+header {
+  width: 100%;
+  height: 7rem;
+  background-color: #000000;
+  position: fixed;
+  z-index: 5;
+}
+
+.tabBars {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* --- Toolbar Left (Logo) --- */
+.tabBars .toolBarLeft {
+  display: flex;
+  gap: 1rem;
+}
+
+.toolBarLeft img {
+  width: 5rem;
+  height: 5rem;
+}
+
+.toolBarLeft .titleMemeShirt {
+  color: #fff;
+  font-size: 5.4rem;
+  font-family: "Black Ops One";
+}
+
+/* --- Toolbar Center (Nav Links) --- */
+.tabBars .toolBarCenter {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+}
+
+.toolBarCenter ul {
+  list-style: none;
+  display: flex;
+  margin: auto 0;
+}
+
+.toolBarCenter li {
+  font-size: 4rem;
+  font-family: "inter", sans-serif;
+  margin: 0rem 2.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s;
+}
+
+.toolBarCenter li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.toolBarCenter li:hover {
+  color: #3ba7e6;
+  text-shadow: 0 0 15px #fefefe;
+  transform: translateY(-4px);
+}
+
+/* --- Toolbar Right (Icons) --- */
+.tabBars .toolBarRight {
+  display: flex;
+}
+
+.toolBarRight .searchBar,
+.userAccount,
+.notification {
+  margin: 2rem 0.5rem;
+}
+
+.iconSearch,
+.iconNoti,
+.iconAccount {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+}
+
+/* =========================================
+   3. HOME / HERO SECTION
+   ========================================= */
+.homeIntro {
+  padding-top: 7rem;
+}
+
+.containerHome {
+  width: 100%;
+  height: calc(100vh - 7rem);
+  background-color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Home Left (Text & CTA) --- */
+.boxHomeLeft {
+  width: 50%;
+  height: 70%;
+}
+
+.boxHomeLeft .titleHome {
+  color: #fff;
+  font-size: 5rem;
+  font-family: "Black Ops One";
+  animation: floatingText 4s ease-in-out infinite;
+}
+
+.boxHomeLeft .description {
+  color: #fff;
+  font-size: 3rem;
+  margin-top: 2rem;
+}
+
+/* Social Icons */
+.contactLogo {
+  display: flex;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.contactLogo i.fab {
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.contactLogo .logoFacebook,
+.logoInstagram,
+.logoYoutube {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.contactLogo .logoFacebook:hover {
+  background-color: #3ba7e6;
+  box-shadow: 0 0 15px #3ba7e6;
+}
+.contactLogo .logoInstagram:hover {
+  background-color: #e1306c;
+  box-shadow: 0 0 15px #e1306c;
+}
+.contactLogo .logoYoutube:hover {
+  background-color: #ff0000;
+  box-shadow: 0 0 15px #ff0000;
+}
+
+/* Button CTA */
+.boxHomeLeft .btnDesignNow {
+  width: 20rem;
+  height: 5rem;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 4px #fefefe;
+  box-shadow: 0 0px 15px #116396;
+  background-color: #116396;
+  border-radius: 10px;
+  margin: 3rem 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.boxHomeLeft .btnDesignNow:hover {
+  color: #116396;
+  background-color: #fff;
+  box-shadow: 0 0 15px #fefefe;
+}
+
+/* --- Home Right (3D Model & Background) --- */
+.boxHomeRight {
+  width: 35%;
+  height: 70%;
+  position: relative;
+}
+
+.boxHomeRight #model3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  animation: floating 3s ease-in-out infinite;
+}
+
+.boxHomeRight .textMemeShirt {
+  color: transparent;
+  font-size: 13.4rem;
+  font-family: "Alfa Slab One";
+  text-shadow: 0px 0px 10000px #116396b7;
+  position: absolute;
+  margin-top: 5rem;
+  z-index: 1;
+  -webkit-text-stroke: 4px #116396;
+}
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* =========================================
+   4. INSTRUCTION STEPS SECTION
+   ========================================= */
+.instruction .titleInstruction {
+  width: 100%;
+  color: #fff;
+  font-size: 3rem;
+  font-family: "Black Ops One";
+  text-align: center;
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.threeStep {
+  display: flex;
+  justify-content: center;
+  gap: 10rem;
+  margin-top: 3rem;
+}
+
+/* Step Layout Chung */
+.stepOne,
+.stepTwo,
+.stepThree {
+  width: 35rem;
+  height: 25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Badge số thứ tự (Step Title) */
+.threeStep .stepOne .titleStep1,
+.threeStep .stepTwo .titleStep2,
+.threeStep .stepThree .titleStep3 {
+  background-color: black;
+  width: 6.5rem;
+  height: 2.5rem;
+  color: #fff;
+  border-radius: 5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 4rem;
+  right: -4rem;
+}
+
+/* Icons chung */
+.threeStep i.fa-solid {
+  font-size: 5rem;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* Vòng tròn chứa Icon */
+.stepOne .iconHand,
+.stepTwo .iconTShirt,
+.stepThree .iconCart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  width: 11rem;
+  height: 11rem;
+  border-radius: 10rem;
+  transition: all 0.3s;
+}
+
+/* Màu riêng cho từng bước */
+/* Step 1 */
+.stepOne .iconHand {
+  border: 0.3rem solid #116396;
+}
+.stepOne .iconHand:hover {
+  background-color: #116396;
+  box-shadow: 0 0 15px #116396;
+}
+
+/* Step 2 */
+.stepTwo .iconTShirt {
+  border: 0.3rem solid #f0c013;
+}
+.stepTwo .iconTShirt:hover {
+  background-color: #f0c013;
+  box-shadow: 0 0 15px #f0c013;
+}
+
+/* Step 3 */
+.stepThree .iconCart {
+  border: 0.3rem solid #08882c;
+}
+.stepThree .iconCart:hover {
+  background-color: #08882c;
+  box-shadow: 0 0 15px #08882c;
+}
+
+/* Description Text */
+.stepOne .descriptStep1,
+.stepTwo .descriptStep2,
+.stepThree .descriptStep3 {
+  color: #fff;
+  font-size: 1.6rem;
+  text-align: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* =========================================
+   5. PRODUCT CARDS & CAROUSEL (SPLIDE)
+   ========================================= */
+.splide__list {
+  width: 126%;
+  display: flex;
+}
+
+.splide__arrow {
+  width: 5rem;
+  height: 5rem;
+  background: #000000;
+}
+
+.splide__arrow svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  fill: white;
+}
+
+/* Tiêu đề chung cho các section sản phẩm */
+.cartClothesT_Shirt .titleCartTShirt,
+.cartClothesGraphicTees .titleCartGraphicTees {
+  font-size: 4rem;
+  font-family: "Black Ops One";
+  color: #116396;
+  text-align: center;
+  margin-top: 14rem;
+}
+
+/* Card Sản Phẩm */
+.cartClothesT_Shirt .card,
+.cartClothesGraphicTees .card {
+  width: 28rem;
+  height: 40rem;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.cartClothesT_Shirt img,
+.cartClothesGraphicTees img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.cartClothesT_Shirt .card-infor,
+.cartClothesGraphicTees .card-infor {
+  width: 28.2rem;
+  height: 14rem;
+  margin-top: 25.1rem;
+  position: absolute;
+  background-color: #000000;
+  border-radius: 5px;
+}
+
+.cartClothesT_Shirt .card-detail,
+.cartClothesGraphicTees .card-detail {
+  color: #fff;
+  font-size: 2rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Nút bấm trong card */
+.card-control {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.card-control button {
+  background-color: #116396;
+  color: #fff;
+  width: 12.5rem;
+  height: 3.3rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.card-control button:hover {
+  background-color: #fff;
+  color: #116396;
+}
+
+/* =========================================
+   6. FOOTER
+   ========================================= */
+footer {
+  width: 100%;
+  height: 30rem;
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20rem;
+}
+
+.allInformation {
+  width: 100%;
+  height: 80%;
+  color: #fff;
+  font-size: 4.6rem;
+  display: flex;
+  gap: 5rem;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+/* Columns in Footer */
+.inforContact,
+.information,
+.policy {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inforContact .title,
+.information .title,
+.policy .title,
+.followUs .title {
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.inforContact > div:not(.title):hover,
+.information > div:not(.title):hover,
+.policy > div:not(.title):hover,
+.followUs > div:not(.title):hover {
+  color: #3ba7e6;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.copyrightMeme {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+/* =========================================
+   7. CHECKOUT PAGE
+   ========================================= */
+.checkout-body {
+  background-color: #fcfbf4; /* Nền kem */
+  min-height: 100vh;
+  padding-top: 9rem;
+  padding-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkout-title {
+  font-family: "Black Ops One", cursive;
+  font-size: 5rem;
+  text-transform: uppercase;
+  color: #222;
+  margin-bottom: 3rem;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.checkout-container {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  gap: 4rem;
+  justify-content: center;
+}
+
+.customer-section {
+  flex: 1.2;
+}
+.product-section {
+  flex: 0.8;
+}
+
+.section-header {
+  font-family: "Black Ops One", cursive;
+  font-size: 2.8rem;
+  color: #222;
+  margin-bottom: 2rem;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+}
+.form-col {
+  flex: 1;
+}
+
+label {
+  font-size: 1.8rem;
+  color: #333;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  background-color: #e6e4dc;
+  border: none;
+  border-radius: 8px;
+  padding: 1.2rem;
+  font-size: 1.6rem;
+  font-family: "Inter", sans-serif;
+  color: #333;
+  outline: none;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  background-color: #fff;
+  box-shadow: 0 0 0 2px #116396;
+}
+
+textarea {
+  resize: vertical;
+  height: 12rem;
+}
+
+/* Product Box Styles */
+.product-box {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 2rem;
+  background-color: #f2f2f2;
+}
+
+.product-item {
+  display: flex;
+  gap: 1.5rem;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.product-img {
+  width: 100px;
+  height: 100px;
+  background-color: #000;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-img img {
+  width: 100%;
+  height: auto;
+}
+
+.product-details {
+  flex: 1;
+  font-size: 2.4rem;
+  line-height: 1.4;
+  color: #333;
+}
+
+.product-details p {
+  margin-bottom: 0.2rem;
+}
+
+.total-price {
+  font-size: 2.4rem;
+  font-weight: bold;
+  margin: 1.5rem 0;
+  color: #000;
+}
+
+.shipping-select {
+  margin-bottom: 2rem;
+}
+
+/* Payment & QR */
+.payment-options {
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 2rem;
+  font-size: 1.6rem;
+  align-items: center;
+}
+
+.payment-options input {
+  margin-right: 0.5rem;
+  transform: scale(1.2);
+}
+
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.qr-section > label {
+  align-self: flex-start;
+}
+
+.qr-placeholder {
+  align-self: center;
+  width: 150px;
+  height: 150px;
+  background-color: #fff;
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.qr-placeholder img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+.qr-section > div:last-child {
+  align-self: center;
+}
+
+/* Buttons */
+.btn-upload {
+  background-color: #116396;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 20px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(17, 99, 150, 0.3);
+}
+
+.btn-upload:hover {
+  background-color: #0d4e7a;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.btn-submit {
+  background-color: #116396;
+  color: #fff;
+  border: none;
+  padding: 1rem 4rem;
+  border-radius: 30px;
+  font-size: 2.2rem;
+  font-family: "inter", sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(17, 99, 150, 0.4);
+  transition: all 0.3s;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(17, 99, 150, 0.6);
+}
+
+/* =========================================
+   8. RESPONSIVE MEDIA QUERIES
+   ========================================= */
+@media (max-width: 900px) {
+  .checkout-container {
+    flex-direction: column;
+  }
+  .checkout-title {
+    font-size: 3.5rem;
+  }
+}

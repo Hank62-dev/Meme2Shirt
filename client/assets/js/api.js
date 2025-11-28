@@ -52,7 +52,7 @@ function initScene() {
   // Load GLB model
   const loader = new THREE.GLTFLoader();
   loader.load(
-    "/client/assets/img/model3D/tshirts.glb", // Thay đổi đường dẫn này
+    "../../assets/img/model3D/tshirts.glb", // Thay đổi đường dẫn này
     function (gltf) {
       // xoay quanh tâm
       const pivot = new THREE.Group();

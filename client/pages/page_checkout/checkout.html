@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/Meme2Shirt/client/assets/img/logo/logoMemeShirt.png"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@splidejs/splide/dist/css/splide.min.css"
+    />
+
+    <link rel="stylesheet" href="./checkout.css" />
+  </head>
+  <body>
+    <!-- code -->
+    <div class="container">
+      <header>
+        <div class="tabBars">
+          <div class="toolBarLeft">
+            <div class="logoMeme">
+              <img
+                src="/Meme2Shirt/client/assets/img/logo/logoMemeShirt.png"
+                alt="Logo Meme Shirt"
+              />
+            </div>
+            <!-- <div class="titleMemeShirt" style="margin: auto 0">
+              <h1>Meme Shirt</h1>
+            </div> -->
+          </div>
+          <div class="toolBarCenter">
+            <nav>
+              <ul>
+                <li><a href="../page_home/index.html">Home</a></li>
+                <li><a href="/">Menu</a></li>
+                <li><a href="../">Design</a></li>
+                <li><a href="../../pages/page_cart/cart.html">Cart</a></li>
+                <li><a href="../pages/">Orders</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="toolBarRight">
+            <div class="searchBar">
+              <svg
+                class="iconSearch"
+                width="35"
+                height="35"
+                viewBox="0 0 35 35"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M30.625 30.625L24.2812 24.2812M27.7083 16.0417C27.7083 22.485 22.485 27.7083 16.0417 27.7083C9.59834 27.7083 4.375 22.485 4.375 16.0417C4.375 9.59834 9.59834 4.375 16.0417 4.375C22.485 4.375 27.7083 9.59834 27.7083 16.0417Z"
+                  stroke="#F3F3F3"
+                  stroke-width="4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <div class="userAccount">
+              <svg
+                class="iconAccount"
+                width="35"
+                height="35"
+                viewBox="0 0 35 35"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M29.1667 30.625V27.7083C29.1667 26.1612 28.5521 24.6775 27.4582 23.5835C26.3642 22.4896 24.8805 21.875 23.3334 21.875H11.6667C10.1196 21.875 8.63588 22.4896 7.54192 23.5835C6.44796 24.6775 5.83337 26.1612 5.83337 27.7083V30.625M23.3334 10.2083C23.3334 13.43 20.7217 16.0417 17.5 16.0417C14.2784 16.0417 11.6667 13.43 11.6667 10.2083C11.6667 6.98667 14.2784 4.375 17.5 4.375C20.7217 4.375 23.3334 6.98667 23.3334 10.2083Z"
+                  stroke="#F3F3F3"
+                  stroke-width="4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <div class="notification">
+              <svg
+                class="iconNoti"
+                width="35"
+                height="35"
+                viewBox="0 0 35 35"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5.83337 27.7084V24.7917H8.75004V14.5834C8.75004 12.5661 9.35768 10.7796 10.573 9.22404C11.7882 7.64418 13.3681 6.61119 15.3125 6.12508V5.10425C15.3125 4.49661 15.5191 3.98619 15.9323 3.573C16.3698 3.1355 16.8924 2.91675 17.5 2.91675C18.1077 2.91675 18.6181 3.1355 19.0313 3.573C19.4688 3.98619 19.6875 4.49661 19.6875 5.10425V6.12508C21.632 6.61119 23.2118 7.64418 24.4271 9.22404C25.6424 10.7796 26.25 12.5661 26.25 14.5834V24.7917H29.1667V27.7084H5.83337ZM17.5 32.0834C16.698 32.0834 16.0053 31.8039 15.4219 31.2449C14.8629 30.6615 14.5834 29.9688 14.5834 29.1667H20.4167C20.4167 29.9688 20.125 30.6615 19.5417 31.2449C18.9827 31.8039 18.3021 32.0834 17.5 32.0834ZM11.6667 24.7917H23.3334V14.5834C23.3334 12.9792 22.7622 11.606 21.6198 10.4636C20.4775 9.32126 19.1042 8.75008 17.5 8.75008C15.8959 8.75008 14.5226 9.32126 13.3802 10.4636C12.2379 11.606 11.6667 12.9792 11.6667 14.5834V24.7917Z"
+                  fill="#FEF7FF"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- NEW CONTENT START: CHECKOUT BODY -->
+      <div class="checkout-body">
+        <h1 class="checkout-title">Checkout</h1>
+
+        <div class="checkout-container">
+          <!-- LEFT COLUMN: Customer Information -->
+          <section class="customer-section">
+            <h2 class="section-header">Customer Information</h2>
+            <form action="">
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="" />
+              </div>
+
+              <div class="form-row">
+                <div class="form-col">
+                  <label for="phone">Phonenumber:</label>
+                  <input type="text" id="phone" />
+                </div>
+                <div class="form-col">
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-row">
+                <div class="form-col">
+                  <label for="province">Province:</label>
+                  <select id="province" name="province">
+                    <option value="">Select Province</option>
+                  </select>
+                </div>
+                <div class="form-col">
+                  <label for="ward">Ward:</label>
+                  <select id="ward" name="ward">
+                    <option value="">Select Ward</option>
+                  </select>
+                </div>
+              </div>
+              <br />
+
+              <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" />
+              </div>
+
+              <div class="form-group">
+                <label for="note">Note:</label>
+                <textarea id="note"></textarea>
+              </div>
+
+              <div class="submit-container">
+                <button type="submit" class="btn-submit">Submit</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- RIGHT COLUMN: Product Information -->
+          <section class="product-section">
+            <h2 class="section-header">Product Information</h2>
+            <div class="product-box">
+              <!-- Product Item 1 -->
+              <div class="product-item">
+                <div class="product-img">
+                  <img
+                    src="../../assets/img/mockups/T-ShirtBlack.png"
+                    alt="Product Image"
+                  />
+                </div>
+                <div class="product-details">
+                  <p><strong>Type:</strong> T-Shirt</p>
+                  <p><strong>Size:</strong> L</p>
+                  <p><strong>Height:</strong> 175cm</p>
+                  <p><strong>Width:</strong> 50cm</p>
+                  <p><strong>Color:</strong> Black</p>
+                  <p><strong>Price:</strong> 25$</p>
+                </div>
+              </div>
+
+              <!-- Product Item 2 -->
+              <div class="product-item">
+                <div class="product-img">
+                  <img
+                    src="../../assets/img/mockups/T-ShirtBlack.png"
+                    alt="Product Image"
+                  />
+                </div>
+                <div class="product-details">
+                  <p><strong>Type:</strong> T-Shirt</p>
+                  <p><strong>Size:</strong> M</p>
+                  <p><strong>Height:</strong> 165cm</p>
+                  <p><strong>Width:</strong> 45cm</p>
+                  <p><strong>Color:</strong> Black</p>
+                  <p><strong>Price:</strong> 25$</p>
+                </div>
+              </div>
+
+              <div class="total-price">Total: 50$</div>
+
+              <div class="form-group">
+                <label style="font-size: 1.6rem">Shipping option:</label>
+                <select class="shipping-select">
+                  <option value="standard">Standard Shipping</option>
+                  <option value="express">Express Shipping</option>
+                </select>
+              </div>
+
+              <label style="font-size: 1.6rem">Choose pay upfront:</label>
+              <div class="payment-options">
+                <label
+                  ><input type="radio" name="payment" value="50" /> 50%</label
+                >
+                <label
+                  ><input type="radio" name="payment" value="100" checked />
+                  100%</label
+                >
+              </div>
+
+              <div class="qr-section">
+                <label style="font-size: 1.6rem">QR:</label>
+                <div class="qr-placeholder">
+                  <img src="../../assets/img/checkout/qr.jpg" alt="QR Code" />
+                </div>
+                <label style="font-size: 1.6rem; font-weight: bold"
+                  >Check:</label
+                >
+
+                <div style="display: flex; align-items: center; gap: 1rem">
+                  <label for="upload-receipt" class="btn-upload">
+                    <i class="fas fa-image"></i> Upload here!!
+                    <input
+                      type="file"
+                      id="upload-receipt"
+                      accept="image/*"
+                      style="display: none"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- NEW CONTENT END -->
+      <!-- footer information -->
+      <footer class="informationAboutUS">
+        <div class="allInformation">
+          <div class="inforContact">
+            <div class="title">INFORMATION CONTACT</div>
+            <div class="inforZalo">Zalo: 0123456789</div>
+            <div class="inforEmail">Email: abc@gmail.com</div>
+            <div class="inforAddress1">
+              Address 1: 9 Award, Ho Chi Minh City
+            </div>
+            <div class="inforAddress2">Address 2: USA</div>
+            <div class="Operator">Vo Gia Huy</div>
+          </div>
+          <div class="information">
+            <div class="title">INFORMATION</div>
+            <div class="article">Article</div>
+            <div class="aboutUs">About Us</div>
+            <div class="orderingInstructions">Ordering instructions</div>
+            <div class="paymentMethod">Payment method</div>
+            <div class="Frequently">Frequently asked questions</div>
+          </div>
+          <div class="policy">
+            <div class="title">POLICY</div>
+            <div class="returnPolicy">Return policy</div>
+            <div class="warrantyPolicy">Warranty policy</div>
+            <div class="privacyPolicy">Privacy policy</div>
+            <div class="shippingPolicy">Shipping policy</div>
+            <div class="termsOfService">Terms of service</div>
+          </div>
+          <div class="followUs">
+            <div class="title">FOLLOW US</div>
+            <div class="contactLogo">
+              <div class="logoFacebook">
+                <a href="https://www.facebook.com/vo.gia.huy.622929"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+              </div>
+              <div class="logoInstagram">
+                <a href="https://www.instagram.com"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+              </div>
+              <div class="logoYoutube">
+                <a href="https://www.youtube.com/@HuyVo-62"
+                  ><i class="fab fa-youtube"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyrightMeme">©️ MEMESHIRT</div>
+      </footer>
+    </div>
+    <!-- code -->
+    <!-- script -->
+    <script src="../../assets/js/checkout.js"></script>
+  </body>
+</html>

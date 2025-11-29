@@ -5,12 +5,14 @@
   box-sizing: border-box;
   font-size: 62.5%;
   /* overflow: hidden; */
+  scroll-behavior: none;
 }
 body {
   font-size: 1.6rem;
   background-color: #f8f5ed;
   display: flex;
   font-family: sans-serif;
+  overflow: hidden;
 }
 :root {
   --primary-blue: #116396;
@@ -117,7 +119,7 @@ header {
   width: 12.3rem;
   height: 104.5vh;
   margin-top: 6.9rem;
-  background-color: var(--primary-blue);
+  background-color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -138,7 +140,7 @@ header {
 }
 .tool-box:hover,
 .tool-box.active {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #676565;
 }
 .tool-box i {
   font-size: 40px;
@@ -166,7 +168,7 @@ header {
   width: 323px;
   height: 104.4vh;
   z-index: 2;
-  background-color: var(--panel-bg);
+  background-color: rgb(227, 221, 221);
   border-right: 1px solid #e0e0e0;
   display: none;
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
@@ -181,7 +183,7 @@ header {
   flex-direction: column;
   align-items: center;
 
-  background-color: #4a8db7;
+  background-color: #2a2a2aab;
   overflow-y: auto;
   overflow-x: hidden;
   animation: fadeIn 0.3s ease-in-out;

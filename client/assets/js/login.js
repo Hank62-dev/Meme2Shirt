@@ -32,21 +32,30 @@ document.getElementById("register").addEventListener("click", function () {
   }, 3000);
 
   setTimeout(() => {
-    window.location.href = "../page_register/register.html";
+    window.location.href = "/page_register";
   }, 4000);
 });
+
+function showToast(message, type = "success") {
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+  toast.className = "toast show " + type;
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
+}
 
 // --- 3. LOGIC NÚT LOGIN (CẬP NHẬT VALIDATION) ---
 document
   .getElementById("btn_login")
   .addEventListener("click", async function (e) {
-    e.preventDefault(); // Ngăn hành vi mặc định
+    e.preventDefault();
 
-    // Danh sách các ID cần kiểm tra
     const fieldsToCheck = ["username", "password"];
-    let isValid = true; // Cờ kiểm tra tổng
+    let isValid = true;
 
-    // Vòng lặp kiểm tra từng ô input
     fieldsToCheck.forEach((fieldId) => {
       const element = document.getElementById(fieldId);
       if (!element) return;
@@ -55,33 +64,29 @@ document
       let isFieldValid = true;
       let errorMessage = "";
 
-      // Kiểm tra Rỗng (Empty)
       if (!val) {
         isFieldValid = false;
-        // Viết hoa chữ cái đầu: username -> Username
         const fieldName = fieldId.charAt(0).toUpperCase() + fieldId.slice(1);
         errorMessage = `${fieldName} mustn't be empty`;
       }
 
-      // Xử lý hiển thị lỗi (Thêm viền đỏ, đổi placeholder)
       if (!isFieldValid) {
         isValid = false;
         element.classList.add("input-error");
-        element.value = ""; // Xóa nội dung
-        element.placeholder = errorMessage; // Hiện lỗi vào placeholder
+        element.value = "";
+        element.placeholder = errorMessage;
       } else {
         element.classList.remove("input-error");
       }
     });
 
-    // Nếu HỢP LỆ thì mới gọi API Login
     if (isValid) {
-      // Lấy lại giá trị để gửi đi
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value;
 
       try {
-        const response = await fetch("/login", {
+        // Thêm URL đầy đủ với /api
+        const response = await fetch("http://localhost:3000/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -93,13 +98,12 @@ document
         console.log("Response:", result);
 
         if (response.ok) {
-          alert(result.message); // Thông báo thành công
-          // Chuyển hướng sau khi đăng nhập thành công
+          showToast(result.message, "success");
           setTimeout(() => {
-            window.location.href = "../../page_home/index.html";
+            window.location.href = "/page_home";
           }, 1000);
         } else {
-          alert(result.message || "Login failed");
+          showToast(result.message || "Login failed", "error");
         }
       } catch (error) {
         console.error("Error:", error);
@@ -109,7 +113,6 @@ document
   });
 
 // --- 4. SỰ KIỆN FOCUS ĐỂ XÓA LỖI ---
-// Khi bấm vào ô input, xóa class lỗi đi
 const inputs = document.querySelectorAll("input");
 inputs.forEach((input) => {
   input.addEventListener("focus", function () {

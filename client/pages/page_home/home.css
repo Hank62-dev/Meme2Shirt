@@ -480,15 +480,15 @@ header {
   cursor: pointer;
 }
 
-/* CartGraphicTees */
-.cartClothesGraphicTees .titleCartGraphicTees {
+/* CartPoloShirt */
+.cartClothesPoloShirt .titleCartPoloShirt {
   font-size: 4rem;
   font-family: "Black Ops One";
   color: #116396;
   text-align: center;
   margin-top: 14rem;
 }
-.cartClothesGraphicTees .card {
+.cartClothesPoloShirt .card {
   width: 28rem;
   height: 40rem;
   background-color: #fff;
@@ -500,12 +500,12 @@ header {
   /* justify-content: ; */
   padding: 1rem;
 }
-.cartClothesGraphicTees img {
+.cartClothesPoloShirt img {
   width: 100%;
   height: 100%;
   border-radius: 5px;
 }
-.cartClothesGraphicTees .card-infor {
+.cartClothesPoloShirt .card-infor {
   width: 28.2rem;
   height: 14rem;
   margin-top: 25.1rem;
@@ -513,7 +513,7 @@ header {
   background-color: #000000;
   border-radius: 5px;
 }
-.cartClothesGraphicTees .card-detail {
+.cartClothesPoloShirt .card-detail {
   color: #fff;
   font-size: 2rem;
   font-family: "inter", sans-serif;

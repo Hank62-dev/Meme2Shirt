@@ -1,4 +1,4 @@
-const BASE_URL = "https://provinces.open-api.vn/api"; // Đổi sang HTTPS để tránh lỗi network
+const BASE_URL = "https://provinces.open-api.vn/api/v2"; // Đổi sang HTTPS để tránh lỗi network
 
 class Http {
   send(method, url, body) {
@@ -39,8 +39,7 @@ class Store {
     return this.http
       .get(`${BASE_URL}/p/${code}/?depth=2`)
       .then((province) => {
-        // API trả về mảng districts ở level này, return nó về để renderWards nhận được mảng
-        return province.districts;
+        return province.wards;
       })
       .catch((error) => {
         console.log("Quá trình getWards thất bại : " + error);

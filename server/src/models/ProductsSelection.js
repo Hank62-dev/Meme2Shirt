@@ -7,7 +7,8 @@ const productSelectionSchema = new mongoose.Schema({
   isDesign: { type: Boolean, default: false },
   printSide: { type: String, default: "" },
   color: { type: String },
-  newPrice: { type: String },
+  newPrice: { type: Number },
+  quantities: { type: Number },
 });
 
 export default mongoose.model(

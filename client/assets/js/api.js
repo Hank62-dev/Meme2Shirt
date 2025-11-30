@@ -188,33 +188,33 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // hiệu ứng slider cho T-Shirt và Graphic Tees
-document.addEventListener("DOMContentLoaded", function () {
-  var splide = new Splide("#spildeTShirt", {
-    perPage: 5,
-    rewind: true,
-    perMove: 1,
-    type: "loop",
-    wheel: true,
-    breakpoints: {
-      1004: {
-        perPage: 4,
-      },
-      804: {
-        perPage: 3,
-      },
-      604: {
-        perPage: 2,
-      },
-      404: {
-        perPage: 1,
-      },
-    },
-  });
-  splide.mount();
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   var splide = new Splide("#spildeTShirt", {
+//     perPage: 5,
+//     rewind: true,
+//     perMove: 1,
+//     type: "loop",
+//     wheel: true,
+//     breakpoints: {
+//       1004: {
+//         perPage: 4,
+//       },
+//       804: {
+//         perPage: 3,
+//       },
+//       604: {
+//         perPage: 2,
+//       },
+//       404: {
+//         perPage: 1,
+//       },
+//     },
+//   });
+//   splide.mount();
+// });
 
 document.addEventListener("DOMContentLoaded", function () {
-  var splide = new Splide("#spildeGraphicTees", {
+  var splide = new Splide("#spildePoloShirt", {
     perPage: 5,
     rewind: true,
     perMove: 1,
@@ -239,3 +239,100 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // lấy thông tin card product
+
+const formatCurrency = (amount) => {
+  return new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  }).format(amount);
+};
+
+async function loadAndInitProductSlider() {
+  const sliderId = "#spildeTShirt"; // ID của Slider muốn đổ dữ liệu
+  const listContainer = document.querySelector(`${sliderId} .splide__list`);
+
+  // Kiểm tra nếu không có container thì dừng lại để tránh lỗi
+  if (!listContainer) return;
+
+  try {
+    // 1. Gọi API lấy dữ liệu (Đường dẫn route bạn đã tạo ở Backend)
+    const response = await fetch("http://localhost:3000/api/products"); // Sửa port nếu cần
+    const products = await response.json();
+
+    // 2. Tạo chuỗi HTML từ dữ liệu
+    let htmlContent = "";
+
+    products.forEach((product) => {
+      // Xử lý hiển thị giá
+      const oldPriceShow = product.oldPrice
+        ? formatCurrency(product.oldPrice)
+        : "";
+      const newPriceShow = product.newPrice
+        ? formatCurrency(product.newPrice)
+        : "Liên hệ";
+
+      // Template HTML khớp với mẫu bạn đưa
+      htmlContent += `
+        <li class="splide__slide" id="${product.idProduct}">
+          <div class="card">
+            <div class="card-img">
+              <img
+                class="imageURL"
+                src="${product.imageURL}"
+                alt="${product.nameProduct}"
+              />
+            </div>
+            <div class="card-infor">
+              <div class="card-detail">
+                <p class="typeClothes" style="color: #116396; font-size: 2rem; font-weight: bold;">
+                  T - Shirt
+                </p>
+                <p class="nameProduct" style="font-size: 1.5rem; font-weight: 500">
+                  ${product.nameProduct}
+                </p>
+                <p class="oldPrice" style="font-size: 1.5rem; font-weight: 500; text-decoration: line-through; color: gray;">
+                  ${oldPriceShow}
+                </p>
+                <p class="newPrice" style="font-size: 1.8rem; font-weight: 500">
+                  ${newPriceShow}
+                </p>
+              </div>
+              <div class="card-control">
+                <a href="../page_optionDesign/option.html?id=${product.idProduct}">
+                    <button class="btnDesign">DESIGN</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+      `;
+    });
+
+    // 3. Đẩy HTML vào trong thẻ <ul> của Splide
+    listContainer.innerHTML = htmlContent;
+
+    // 4. KHỞI TẠO SPLIDE (Chỉ chạy sau khi đã có dữ liệu)
+    // Copy cấu hình cũ của bạn vào đây
+    var splide = new Splide(sliderId, {
+      perPage: 5,
+      rewind: true,
+      perMove: 1,
+      type: "loop",
+      wheel: true,
+      breakpoints: {
+        1004: { perPage: 4 },
+        804: { perPage: 3 },
+        604: { perPage: 2 },
+        404: { perPage: 1 },
+      },
+    });
+
+    splide.mount();
+  } catch (error) {
+    console.error("Lỗi khi tải sản phẩm:", error);
+    listContainer.innerHTML = "<p>Không tải được dữ liệu sản phẩm.</p>";
+  }
+}
+
+// Gọi hàm này khi trang tải xong
+document.addEventListener("DOMContentLoaded", loadAndInitProductSlider);

@@ -358,3 +358,37 @@ document.addEventListener("DOMContentLoaded", function () {
     retina_detect: true,
   });
 });
+
+let currentActive = null; // lưu ô đang được chọn
+
+function activatePanel(name, el) {
+  const selector = document.querySelector(".selector");
+  const toolBoxes = document.querySelectorAll(".tool-box");
+  const panelsContainer = document.getElementById("panels-container");
+  const panels = document.querySelectorAll(".control-panel");
+
+  if (currentActive === el) {
+    // tắt active
+    el.classList.remove("active");
+
+    panelsContainer.style.display = "none";
+
+    selector.classList.remove("show");
+
+    currentActive = null;
+    return;
+  }
+
+  currentActive = el;
+
+  panelsContainer.style.display = "block";
+  panels.forEach((p) => (p.style.display = "none"));
+  document.getElementById(`panel-${name}`).style.display = "flex";
+  toolBoxes.forEach((box) => box.classList.remove("active"));
+  el.classList.add("active");
+
+  selector.classList.add("show");
+
+  // Trượt selector
+  selector.style.top = el.offsetTop + "px";
+}

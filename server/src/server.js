@@ -6,6 +6,7 @@ import connectDB from "./config/db.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import authRoutes from "./routes/auth.routes.js";
+import productRoutes from "./routes/home.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // API Routes - ĐẶT TRƯỚC static files để ưu tiên
 app.use("/api", authRoutes);
+app.use("/api", productRoutes);
 
 // Test route - kiểm tra users trong database
 app.get("/test-db", async (req, res) => {

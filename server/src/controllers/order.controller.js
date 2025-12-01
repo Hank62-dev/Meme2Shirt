@@ -2,10 +2,11 @@
 // lên đơn hàng
 // thanh toán
 // API với sọp pe
+
 import express from "express";
-import User from "../models/User";
-import Product from "../models/Product";
-import Order from "../models/Order";
+import User from "../models/Users.js";
+import Product from "../models/ProductsDefault.js";
+import Order from "../models/OrderList.js";
 // 1 tính tổng số tiền
 const calculateTotal = (items) => {
   let total = items.reduce((sum, item) => {

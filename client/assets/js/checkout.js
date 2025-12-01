@@ -207,3 +207,45 @@ inputs.forEach((input) => {
     // Tùy chọn: trả lại placeholder gốc nếu muốn, ở đây chỉ cần xóa viền đỏ là đủ
   });
 });
+
+console.log("checkout.js loaded");
+
+const form = document.querySelector(".customer-section form");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  // Lấy dữ liệu từ form
+  const data = {
+    name: document.getElementById("name").value.trim(),
+    phone: document.getElementById("phone").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    province: document.getElementById("province").value,
+    ward: document.getElementById("ward").value,
+    address: document.getElementById("address").value.trim(),
+    note: document.getElementById("note").value.trim(),
+  };
+
+  console.log("Submitting data:", data);
+
+  try {
+    const res = await fetch("http://localhost:3000/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+    console.log("Server response:", result);
+
+    if (res.ok) {
+      alert("Submit thành công! Dữ liệu đã được lưu vào database.");
+      form.reset();
+    } else {
+      alert("Lỗi rồi: " + result.error);
+    }
+  } catch (error) {
+    console.error("Error gửi form:", error);
+    alert("Không thể gửi dữ liệu!");
+  }
+});

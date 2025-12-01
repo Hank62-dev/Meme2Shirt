@@ -6,6 +6,7 @@ import connectDB from "./config/db.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import authRoutes from "./routes/auth.routes.js";
+import orderRoutes from "./routes/inforUsersOrders.routes.js";
 import productRoutes from "./routes/home.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -156,6 +157,9 @@ app.use(
   "/page_orderList",
   express.static(path.join(clientDir, "pages", "page_orderList"))
 );
+
+// use for inforUsersOrders
+app.use("/assets", express.static(path.join(clientDir, "assets")));
 
 // Start server
 app.listen(PORT, () => {

@@ -365,3 +365,10 @@ header {
   background: #116393;
   color: #fff;
 }
+
+.disabled {
+  opacity: 0.4; /* Làm mờ đi (trong suốt 40%) */
+  pointer-events: none; /* Ngăn chặn mọi hành động click chuột */
+  filter: grayscale(100%); /* Chuyển màu sang xám hoàn toàn */
+  cursor: not-allowed;
+}

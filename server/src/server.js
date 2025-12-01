@@ -7,6 +7,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import authRoutes from "./routes/auth.routes.js";
 import orderRoutes from "./routes/inforUsersOrders.routes.js";
+import selectionRoutes from "./routes/optionDesign.routes.js";
 import productRoutes from "./routes/home.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 // API Routes - ĐẶT TRƯỚC static files để ưu tiên
 app.use("/api", authRoutes);
 app.use("/api", productRoutes);
+app.use("/api", selectionRoutes);
 
 // Test route - kiểm tra users trong database
 app.get("/test-db", async (req, res) => {

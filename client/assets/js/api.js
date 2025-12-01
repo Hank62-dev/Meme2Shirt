@@ -388,9 +388,9 @@ function createCardHTML(product, labelType) {
 }
 
 async function loadAllProductsAndSplit() {
-  const tShirtContainer = document.querySelector("#spildeTShirt .splide__list");
+  const tShirtContainer = document.querySelector("#splideTShirt .splide__list");
   const poloContainer = document.querySelector(
-    "#spildePoloShirt .splide__list"
+    "#splidePoloShirt .splide__list"
   );
 
   try {
@@ -442,11 +442,11 @@ async function loadAllProductsAndSplit() {
 
     // Chỉ khởi tạo nếu slider đó có dữ liệu
     if (tShirtContainer && tShirtHTML) {
-      new Splide("#spildeTShirt", splideConfig).mount();
+      new Splide("#splideTShirt", splideConfig).mount();
     }
 
     if (poloContainer && poloHTML) {
-      new Splide("#spildePoloShirt", splideConfig).mount();
+      new Splide("#splidePoloShirt", splideConfig).mount();
     }
   } catch (error) {
     // console.error("Lỗi tải sản phẩm:", error);

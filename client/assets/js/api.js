@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // hiệu ứng slider cho T-Shirt và Graphic Tees
 // document.addEventListener("DOMContentLoaded", function () {
-//   var splide = new Splide("#spildeTShirt", {
+//   var splide = new Splide("#splideTShirt", {
 //     perPage: 5,
 //     rewind: true,
 //     perMove: 1,
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // });
 
 document.addEventListener("DOMContentLoaded", function () {
-  var splide = new Splide("#spildePoloShirt", {
+  var splide = new Splide("#splidePoloShirt", {
     perPage: 5,
     rewind: true,
     perMove: 1,
@@ -240,6 +240,107 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // lấy thông tin card product
 
+// const formatCurrency = (amount) => {
+//   return new Intl.NumberFormat("vi-VN", {
+//     style: "currency",
+//     currency: "VND",
+//   }).format(amount);
+// };
+
+// async function loadAndInitProductSlider() {
+//   const sliderId = "#splideTShirt"; // ID của Slider muốn đổ dữ liệu
+//   const listContainer = document.querySelector(`${sliderId} .splide__list`);
+
+//   // Kiểm tra nếu không có container thì dừng lại để tránh lỗi
+//   if (!listContainer) return;
+
+//   try {
+//     // 1. Gọi API lấy dữ liệu (Đường dẫn route bạn đã tạo ở Backend)
+//     const response = await fetch("http://localhost:3000/api/products"); // Sửa port nếu cần
+//     const products = await response.json();
+
+//     // 2. Tạo chuỗi HTML từ dữ liệu
+//     let htmlContent = "";
+
+//     products.forEach((product) => {
+//       // Xử lý hiển thị giá
+//       const oldPriceShow = product.oldPrice
+//         ? formatCurrency(product.oldPrice)
+//         : "";
+//       const newPriceShow = product.newPrice
+//         ? formatCurrency(product.newPrice)
+//         : "Liên hệ";
+
+//       // Template HTML khớp với mẫu bạn đưa
+//       htmlContent += `
+//         <li class="splide__slide" id="${product.idProduct}">
+//           <div class="card">
+//             <div class="card-img">
+//               <img
+//                 class="imageURL"
+//                 src="${product.imageURL}"
+//                 alt="${product.nameProduct}"
+//               />
+//             </div>
+//             <div class="card-infor">
+//               <div class="card-detail">
+//                 <p class="typeClothes" style="color: #116396; font-size: 2rem; font-weight: bold;">
+//                   T - Shirt
+//                 </p>
+//                 <p class="nameProduct" style="font-size: 1.5rem; font-weight: 500">
+//                   ${product.nameProduct}
+//                 </p>
+//                 <p class="oldPrice" style="font-size: 1.5rem; font-weight: 500; text-decoration: line-through; color: gray;">
+//                   ${oldPriceShow}
+//                 </p>
+//                 <p class="newPrice" style="font-size: 1.8rem; font-weight: 500">
+//                   ${newPriceShow}
+//                 </p>
+//               </div>
+//               <div class="card-control">
+//                 <a href="../page_optionDesign/option.html?id=${product.idProduct}">
+//                     <button class="btnDesign">DESIGN</button>
+//                 </a>
+//               </div>
+//             </div>
+//           </div>
+//         </li>
+//       `;
+//     });
+
+//     // 3. Đẩy HTML vào trong thẻ <ul> của Splide
+//     listContainer.innerHTML = htmlContent;
+
+//     // 4. KHỞI TẠO SPLIDE (Chỉ chạy sau khi đã có dữ liệu)
+//     // Copy cấu hình cũ của bạn vào đây
+//     var splide = new Splide(sliderId, {
+//       perPage: 5,
+//       rewind: true,
+//       perMove: 1,
+//       type: "loop",
+//       wheel: true,
+//       breakpoints: {
+//         1004: { perPage: 4 },
+//         804: { perPage: 3 },
+//         604: { perPage: 2 },
+//         404: { perPage: 1 },
+//       },
+//     });
+
+//     splide.mount();
+//   } catch (error) {
+//     console.error("Lỗi khi tải sản phẩm:", error);
+//     listContainer.innerHTML = "<p>Không tải được dữ liệu sản phẩm.</p>";
+//   }
+// }
+
+// // Gọi hàm này khi trang tải xong
+// document.addEventListener("DOMContentLoaded", loadAndInitProductSlider);
+
+// ============================================================
+// HÀM: PHÂN LOẠI SẢN PHẨM DỰA TRÊN ĐƯỜNG DẪN ẢNH (imageURL)
+// ============================================================
+
 const formatCurrency = (amount) => {
   return new Intl.NumberFormat("vi-VN", {
     style: "currency",
@@ -247,45 +348,23 @@ const formatCurrency = (amount) => {
   }).format(amount);
 };
 
-async function loadAndInitProductSlider() {
-  const sliderId = "#spildeTShirt"; // ID của Slider muốn đổ dữ liệu
-  const listContainer = document.querySelector(`${sliderId} .splide__list`);
+// Hàm tạo HTML thẻ Card
+function createCardHTML(product, labelType) {
+  const oldPriceShow = product.oldPrice ? formatCurrency(product.oldPrice) : "";
+  const newPriceShow = product.newPrice
+    ? formatCurrency(product.newPrice)
+    : "Liên hệ";
 
-  // Kiểm tra nếu không có container thì dừng lại để tránh lỗi
-  if (!listContainer) return;
-
-  try {
-    // 1. Gọi API lấy dữ liệu (Đường dẫn route bạn đã tạo ở Backend)
-    const response = await fetch("http://localhost:3000/api/products"); // Sửa port nếu cần
-    const products = await response.json();
-
-    // 2. Tạo chuỗi HTML từ dữ liệu
-    let htmlContent = "";
-
-    products.forEach((product) => {
-      // Xử lý hiển thị giá
-      const oldPriceShow = product.oldPrice
-        ? formatCurrency(product.oldPrice)
-        : "";
-      const newPriceShow = product.newPrice
-        ? formatCurrency(product.newPrice)
-        : "Liên hệ";
-
-      // Template HTML khớp với mẫu bạn đưa
-      htmlContent += `
+  return `
         <li class="splide__slide" id="${product.idProduct}">
           <div class="card">
             <div class="card-img">
-              <img
-                class="imageURL"
-                src="${product.imageURL}"
-                alt="${product.nameProduct}"
-              />
+              <img class="imageURL" src="${product.imageURL}" alt="${product.nameProduct}" />
             </div>
             <div class="card-infor">
               <div class="card-detail">
                 <p class="typeClothes" style="color: #116396; font-size: 2rem; font-weight: bold;">
-                  T - Shirt
+                  ${labelType}
                 </p>
                 <p class="nameProduct" style="font-size: 1.5rem; font-weight: 500">
                   ${product.nameProduct}
@@ -305,15 +384,49 @@ async function loadAndInitProductSlider() {
             </div>
           </div>
         </li>
-      `;
+    `;
+}
+
+async function loadAllProductsAndSplit() {
+  const tShirtContainer = document.querySelector("#spildeTShirt .splide__list");
+  const poloContainer = document.querySelector(
+    "#spildePoloShirt .splide__list"
+  );
+
+  try {
+    // 1. Gọi API lấy TOÀN BỘ sản phẩm
+    const response = await fetch("http://localhost:3000/api/products");
+    const products = await response.json();
+
+    let tShirtHTML = "";
+    let poloHTML = "";
+
+    // 2. DUYỆT VÀ PHÂN LOẠI THEO imageURL
+    products.forEach((product) => {
+      // Lấy đường dẫn ảnh và chuyển về chữ thường để so sánh cho chắc ăn
+      // Ví dụ: "../../assets/img/mockups/PoloShirt_01.png"
+      const imgLink = product.imageURL.toLowerCase();
+
+      // LOGIC LỌC MỚI Ở ĐÂY:
+      if (imgLink.includes("poloshirt") || imgLink.includes("polo")) {
+        // Nếu link ảnh có chữ "poloshirt" hoặc "polo"
+        poloHTML += createCardHTML(product, "Polo Shirt");
+      } else if (imgLink.includes("t-shirt") || imgLink.includes("tshirt")) {
+        // Nếu link ảnh có chữ "t-shirt" hoặc "tshirt"
+        tShirtHTML += createCardHTML(product, "T - Shirt");
+      } else {
+        // Trường hợp ảnh không có từ khóa nào (mặc định cho vào T-Shirt hoặc xử lý riêng)
+        // Ở đây mình tạm cho vào T-Shirt luôn cho đỡ sót
+        tShirtHTML += createCardHTML(product, "T - Shirt");
+      }
     });
 
-    // 3. Đẩy HTML vào trong thẻ <ul> của Splide
-    listContainer.innerHTML = htmlContent;
+    // 3. Đẩy HTML vào đúng container
+    if (tShirtContainer) tShirtContainer.innerHTML = tShirtHTML;
+    if (poloContainer) poloContainer.innerHTML = poloHTML;
 
-    // 4. KHỞI TẠO SPLIDE (Chỉ chạy sau khi đã có dữ liệu)
-    // Copy cấu hình cũ của bạn vào đây
-    var splide = new Splide(sliderId, {
+    // 4. Khởi tạo Slider (Cấu hình chung)
+    const splideConfig = {
       perPage: 5,
       rewind: true,
       perMove: 1,
@@ -325,14 +438,20 @@ async function loadAndInitProductSlider() {
         604: { perPage: 2 },
         404: { perPage: 1 },
       },
-    });
+    };
 
-    splide.mount();
+    // Chỉ khởi tạo nếu slider đó có dữ liệu
+    if (tShirtContainer && tShirtHTML) {
+      new Splide("#spildeTShirt", splideConfig).mount();
+    }
+
+    if (poloContainer && poloHTML) {
+      new Splide("#spildePoloShirt", splideConfig).mount();
+    }
   } catch (error) {
-    console.error("Lỗi khi tải sản phẩm:", error);
-    listContainer.innerHTML = "<p>Không tải được dữ liệu sản phẩm.</p>";
+    // console.error("Lỗi tải sản phẩm:", error);
   }
 }
 
-// Gọi hàm này khi trang tải xong
-document.addEventListener("DOMContentLoaded", loadAndInitProductSlider);
+// Chạy hàm
+document.addEventListener("DOMContentLoaded", loadAllProductsAndSplit);

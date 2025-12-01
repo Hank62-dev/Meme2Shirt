@@ -1,10 +1,17 @@
 import express from "express";
-import { getProductById } from "../controllers/productController.js";
+import {
+  getAllProducts,
+  getProductById,
+} from "../controllers/productController.js";
 
 const router = express.Router();
 
-// Route: GET /api/product/:id
-// Ví dụ gọi: http://localhost:3000/api/product/TSHIRT01
+// Route lấy danh sách (Frontend đang gọi cái này)
+// http://localhost:3000/api/products
+router.get("/products", getAllProducts);
+
+// Route lấy chi tiết
+// http://localhost:3000/api/product/TSHIRT-01
 router.get("/product/:id", getProductById);
 
 export default router;

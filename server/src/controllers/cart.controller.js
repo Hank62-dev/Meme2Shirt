@@ -1,4 +1,4 @@
-import ShippingCart from "../models/ShippingCart.js";
+import ShippingCart from "../models/ShippingCart";
 // Xuất lỗi
 const logError = (error, context = "Cart Controller") => {
   console.error(`[${context}] Error:`, error.message);

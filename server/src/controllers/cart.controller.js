@@ -1,35 +1,33 @@
 import ShippingCart from "../models/ShippingCart";
-// Xuất lỗi
 const logError = (error, context = "Cart Controller") => {
   console.error(`[${context}] Error:`, error.message);
 };
-// Hàm tính tổng
-const calculateTotal = (items) => {
-  if (!items || items.length === 0) return 0;
-  return items.reduce((sum, item) => {
-    return sum + item.newPrice * item.quantities;
-  }, 0);
-};
-// 1. Lấy giỏ hàng của User đang đăng nhập
+// 1. GET CART (Lấy toàn bộ giỏ hàng của User)
 export const getCart = async (req, res) => {
-  const userID = req.user.id; // Lấy ID để dô đc giỏ hàng của người đó
-  console.log(`[GET CART] Fetching for User: ${userID}`);
+  const userID = req.user.id;
+  console.log(`[GET CART] User: ${userID}`);
 
   try {
+    // Tìm tất cả sản phẩm thuộc về User này
     const cartItems = await ShippingCart.find({ owner: userID });
-    const totalAmount = calculateTotal(cartItems);
 
+    // Trả về danh sách (dù rỗng cũng trả về 200 OK để Frontend xử lý)
     return res.status(200).json({
-      items: cartItems,
-      total: totalAmount,
-      message: cartItems.length === 0 ? "Nothing in cart." : "Your cart.",
+      items: cartItems || [],
+      message:
+        cartItems.length === 0
+          ? "Cart is empty."
+          : "Cart retrieved successfully.",
     });
   } catch (error) {
     logError(error, "GET CART");
-    return res.status(500).json({ message: "ERROR!!!." });
+    return res
+      .status(500)
+      .json({ message: "Server error while retrieving cart." });
   }
 };
-// 2. Thêm sản phẩm vào giỏ hàng
+
+// 2. ADD ITEM (Thêm sản phẩm vào giỏ)
 export const addItemToCart = async (req, res) => {
   const userID = req.user.id;
   const {
@@ -45,32 +43,34 @@ export const addItemToCart = async (req, res) => {
   } = req.body;
 
   try {
+    // Validate dữ liệu đầu vào
     if (!idCart || !quantities || Number(quantities) <= 0) {
-      return res.status(400).json({ message: "ERROR!!." });
+      return res.status(400).json({ message: "Invalid product data." });
     }
 
-    // Tìm đã có sản phẩm y hệt trong giỏ chưa
+    // Tìm xem sản phẩm này (với cùng size, màu, mặt in) đã có trong giỏ chưa
     const existingItem = await ShippingCart.findOne({
-      owner: userID, // Của user này
-      idCart: idCart, // Cùng ID sản phẩm
-      size: size, // Cùng size
-      color: color, // Cùng màu
-      printSide: printSide, // Cùng mặt in
+      owner: userID,
+      idCart: idCart,
+      size: size,
+      color: color,
+      printSide: printSide,
     });
 
     if (existingItem) {
-      // Nếu có rồi thì cộng dồn số lượng
+      // Nếu đã có thì cập nhật số lượng
       console.log(`[ADD ITEM] Item exists. Updating quantity...`);
       existingItem.quantities += Number(quantities);
       await existingItem.save();
+
       return res
         .status(200)
-        .json({ message: "Update success!", item: existingItem });
+        .json({ message: "Item quantity updated", item: existingItem });
     } else {
-      // Nếu chưa có -> Tạo mới
+      // Nếu chưa có thì tạo mới
       console.log(`[ADD ITEM] Creating new item...`);
       const newItem = new ShippingCart({
-        owner: userID, // Quan trọng: Gắn chủ sở hữu
+        owner: userID, // Gắn ID người dùng vào item
         idCart,
         imageURL,
         nameProduct,
@@ -81,26 +81,29 @@ export const addItemToCart = async (req, res) => {
         newPrice: Number(newPrice),
         quantities: Number(quantities),
       });
+
       await newItem.save();
-      return res.status(201).json({ message: "Added to cart", item: newItem });
+      return res
+        .status(201)
+        .json({ message: "Item added to cart", item: newItem });
     }
   } catch (error) {
     logError(error, "ADD ITEM");
-    return res.status(500).json({ message: "ERROR!!!." });
+    return res.status(500).json({ message: "Server error while adding item." });
   }
 };
-// 3. Cập nhật số lượng item
+// 3. UPDATE ITEM (Cập nhật số lượng)
 export const updateItem = async (req, res) => {
   const userID = req.user.id;
-  // Cần đầy đủ thông tin để tìm đúng item cần sửa
+  // Cần đủ thông tin để định danh sản phẩm cần sửa
   const { idCart, size, color, printSide, quantities } = req.body;
 
   try {
-    if (Number(quantities) <= 0) {
-      return res.status(400).json({ message: "Số lượng phải lớn hơn 0." });
+    if (!idCart || Number(quantities) <= 0) {
+      return res.status(400).json({ message: "Invalid quantity." });
     }
 
-    // Tìm và cập nhật
+    // Tìm và cập nhật số lượng
     const updatedItem = await ShippingCart.findOneAndUpdate(
       {
         owner: userID,
@@ -109,27 +112,33 @@ export const updateItem = async (req, res) => {
         color,
         printSide, // Điều kiện tìm kiếm
       },
-      { $set: { quantities: Number(quantities) } }, // Dữ liệu update
-      { new: true } // Trả về data mới sau khi update
+      { $set: { quantities: Number(quantities) } }, // Dữ liệu cập nhật
+      { new: true } // Trả về document mới sau khi update
     );
 
     if (!updatedItem) {
-      return res.status(404).json({ message: "Don't find anything in cart" });
+      return res.status(404).json({ message: "Item not found in cart." });
     }
 
-    return res.status(200).json({ message: "UPDATED", item: updatedItem });
+    return res
+      .status(200)
+      .json({ message: "Item updated successfully", item: updatedItem });
   } catch (error) {
     logError(error, "UPDATE ITEM");
-    return res.status(500).json({ message: "ERROR!!" });
+    return res
+      .status(500)
+      .json({ message: "Server error while updating item." });
   }
 };
-// 4.Xóa sản phẩm khỏi giỏ
+
+// 4. REMOVE ITEM (Xóa sản phẩm)
 export const removeItem = async (req, res) => {
   const userID = req.user.id;
   const { idCart, size, color, printSide } = req.body;
 
   try {
-    const result = await ShippingCart.deleteOne({
+    // Tìm và xóa item khớp với các tiêu chí
+    const deleteResult = await ShippingCart.deleteOne({
       owner: userID,
       idCart,
       size,
@@ -137,13 +146,15 @@ export const removeItem = async (req, res) => {
       printSide,
     });
 
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ message: "Don't find anything in cart" });
+    if (deleteResult.deletedCount === 0) {
+      return res.status(404).json({ message: "Item not found to delete." });
     }
 
-    return res.status(200).json({ message: "Deleted" });
+    return res.status(200).json({ message: "Item removed successfully." });
   } catch (error) {
     logError(error, "REMOVE ITEM");
-    return res.status(500).json({ message: "ERROR!!!" });
+    return res
+      .status(500)
+      .json({ message: "Server error while removing item." });
   }
 };

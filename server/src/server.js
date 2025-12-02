@@ -35,6 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", authRoutes);
 app.use("/api", productRoutes);
 app.use("/api", selectionRoutes);
+app.use("/api", orderRoutes);
 
 // Test route - kiểm tra users trong database
 app.get("/test-db", async (req, res) => {

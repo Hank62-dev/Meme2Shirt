@@ -1,91 +1,161 @@
-// xem tổng số tièn trước khi thanh toán
-// lên đơn hàng
-// thanh toán
-// API với sọp pe
+import ShippingCart from "../models/ShippingCart";
+import Order from "../models/OrderList";
+const logError = (error, context = "Order Controller") => {
+  console.error(`[${context}] Error:`, error.message);
+};
 
-import express from "express";
-import User from "../models/Users.js";
-import Product from "../models/ProductsDefault.js";
-import Order from "../models/OrderList.js";
-// 1 tính tổng số tiền
-const calculateTotal = (items) => {
-  let total = items.reduce((sum, item) => {
-    // lấy từng mục gồm só tiền từng món vs số lượng từng món, r giảm cho tới khi giỏ rỗng
-    const itemPrice = item.product.price || 0;
-    // itemPrice là giá từng sản phẩm,z nên lấy giá từng cái nhân cho số lượng
-    return sum + itemPrice * item.quantity;
+// Tính tổng tiền hàng (Subtotal)
+const calculateSubTotal = (items) => {
+  if (!items || items.length === 0) return 0;
+  return items.reduce((sum, item) => {
+    const price = Number(item.newPrice) || 0;
+    const qty = Number(item.quantities) || 0;
+    return sum + price * qty;
   }, 0);
-  return total;
-  //   sau khi giỏ rỗng tức là tính xong tổng tiền
 };
-// tính discount
-const calculateDiscount = (items) => {
-  let quantities = items.quantity;
-  let discount = 0;
-  if (quantities > 10) {
-    discount = 0.1;
-  } else if (quantities >= 20) {
-    discount = 0.2;
-  } else if (quantities >= 30) {
-    discount = 0.4;
-  }
-  return discount;
+
+// Tính tỉ lệ giảm giá dựa trên số lượng
+const calculateDiscountRate = (items) => {
+  // Tính tổng số lượng item
+  const totalQuantity = items.reduce(
+    (sum, item) => sum + (item.quantities || 0),
+    0
+  );
+
+  if (totalQuantity >= 30) return 0.4; // Giảm 40%
+  if (totalQuantity >= 20) return 0.2; // Giảm 20%
+  if (totalQuantity > 10) return 0.1; // Giảm 10%
+  return 0;
 };
-// 2 Hiện đơn hàng
+// 1.Xem trước hóa đơn cho các món đã chọn
 export const displayFinalBill = async (req, res) => {
   try {
     const userID = req.user.id;
-    const cart = await User.findCartById(userID);
-    if (!cart) {
-      // nếu rỗng thì báo
-      return res.status(200).json({ cart: [], total: 0 });
-    }
-    const cartItems = cart.items;
-    const subTotal = calculateTotal(cartItems);
+    // Lấy danh sách ID các sản phẩm được tick chọn từ Frontend
+    const { selectedItemIds } = req.body;
 
-    const shipFee = 2000; //cho đại tới đó tính
-    const discount = calculateDiscount(cartItems);
-    const finalTotal = subTotal * (1 - discount) + shipFee;
+    // Kiểm tra dữ liệu đầu vào
+    if (
+      !selectedItemIds ||
+      !Array.isArray(selectedItemIds) ||
+      selectedItemIds.length === 0
+    ) {
+      return res.status(200).json({
+        items: [],
+        subTotal: 0,
+        finalTotal: 0,
+        message: "No items selected.",
+      });
+    }
+
+    // Tìm các sản phẩm trong giỏ hàng khớp với danh sách ID đã chọn
+    const selectedItems = await ShippingCart.find({
+      owner: userID, // Phải thuộc về User hiện tại
+      _id: { $in: selectedItemIds }, // ID phải nằm trong danh sách selectedItemIds
+    });
+
+    if (!selectedItems || selectedItems.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "Selected items not found in cart." });
+    }
+
+    // Tính toán các loại phí
+    const subTotal = calculateSubTotal(selectedItems);
+    const discountRate = calculateDiscountRate(selectedItems);
+    const discountAmount = subTotal * discountRate;
+    const shippingFee = 30000; // Phí ship cố định (có thể thay đổi logic sau này)
+
+    // Tính tổng cuối cùng
+    const finalTotal = subTotal - discountAmount + shippingFee;
+
+    // Trả về kết quả cho Frontend hiển thị
     res.status(200).json({
-      items: cartItems,
+      items: selectedItems,
       subTotal: subTotal,
-      shipFee: shipFee,
-      discount: discount,
+      shippingFee: shippingFee,
+      discountRate: discountRate,
+      discountAmount: discountAmount,
       finalTotal: finalTotal,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: " ERROR!!!" });
+    logError(error, "Display Bill");
+    res.status(500).json({ message: "Server error while calculating bill." });
   }
 };
-// 3. Lên đơn hàng
+// 2. PLACE ORDER (Đặt hàng & Xóa item đã chọn khỏi giỏ)
 export const placeOrder = async (req, res) => {
   try {
-    const userId = req.user.id;
-    const { shipAddress, paymentMethod } = req.body;
-    // shipAddress: địa chỉ giao hàng
-    // paymentMethod: hình thức thanh toán(ck, cod)
-    const cart = findCartById(userId);
-    const cartItems = cart.items;
-    if (!cart) {
-      // nếu rỗng thì báo
-      return res.status(400).json({ message: "Cart is empty!!" });
+    const userID = req.user.id;
+    // Frontend gửi thông tin giao hàng và danh sách ID sản phẩm được chọn
+    const { shipAddress, paymentMethod, selectedItemIds } = req.body;
+
+    // Validate thông tin bắt buộc
+    if (!shipAddress || !paymentMethod) {
+      return res
+        .status(400)
+        .json({ message: "Shipping address and payment method are required." });
     }
-    const total = calculateTotal(cartItems);
-    const newOrderBill = await Order.createCart(userId, cartItems);
-    const newDetailOrder = await Order.addInfor(
-      shipAddress,
-      total,
-      paymentMethod
-    ); //hàm này sẽ đc viết rõ trong Order luôn nha
-    cart.items = [];
-    await cart.save();
+    if (
+      !selectedItemIds ||
+      !Array.isArray(selectedItemIds) ||
+      selectedItemIds.length === 0
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Please select at least one item to checkout." });
+    }
+
+    // Lấy dữ liệu thực tế từ DB dựa trên ID đã chọn (Bảo mật: Không tin dữ liệu giá từ Frontend)
+    const selectedCartItems = await ShippingCart.find({
+      owner: userID,
+      _id: { $in: selectedItemIds },
+    });
+
+    if (selectedCartItems.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "Selected items no longer exist." });
+    }
+
+    // Tính toán lại tiền (Server-side calculation)
+    const subTotal = calculateSubTotal(selectedCartItems);
+    const discountRate = calculateDiscountRate(selectedCartItems);
+    const discountAmount = subTotal * discountRate;
+    const shippingFee = 30000;
+    const finalTotal = subTotal - discountAmount + shippingFee;
+
+    // Tạo đối tượng Order mới
+    const newOrder = new Order({
+      owner: userID,
+      items: selectedCartItems, // Mongoose tự động copy cấu trúc JSON
+      shipAddress: shipAddress,
+      paymentMethod: paymentMethod,
+      subTotal: subTotal,
+      shippingFee: shippingFee,
+      discount: discountAmount,
+      finalTotal: finalTotal,
+      status: "Pending", // Trạng thái mặc định
+    });
+
+    // Lưu đơn hàng vào DB
+    const savedOrder = await newOrder.save();
+
+    // QUAN TRỌNG: Chỉ xóa những sản phẩm ĐÃ CHỌN khỏi giỏ hàng
+    // Các sản phẩm không được chọn sẽ giữ nguyên trong giỏ
+    await ShippingCart.deleteMany({
+      owner: userID,
+      _id: { $in: selectedItemIds },
+    });
+
+    // Trả về kết quả thành công
     res.status(201).json({
-      message: "New cart!Please check your cart!!",
-      orderId: newOrderBill.userId,
+      message: "Order placed successfully!",
+      orderId: savedOrder._id,
+      finalTotal: savedOrder.finalTotal,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: " ERROR!!!" });
+    logError(error, "Place Order");
+    res.status(500).json({ message: "Server error while placing order." });
   }
 };

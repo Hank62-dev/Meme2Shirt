@@ -35,6 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", authRoutes);
 app.use("/api", productRoutes);
 app.use("/api", selectionRoutes);
+app.use("/api", orderRoutes);
 
 mongoose.connection.once("open", async () => {
   console.log("========================================");

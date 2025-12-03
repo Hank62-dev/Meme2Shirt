@@ -1,18 +1,25 @@
 import mongoose from "mongoose";
 
-const productSelectionSchema = new mongoose.Schema({
-  idProduct: { type: String },
-  imageURL: { type: String },
-  nameProduct: { type: String },
-  isDesign: { type: Boolean, default: false },
-  printSide: { type: String, default: "" },
-  color: { type: String },
-  newPrice: { type: Number },
-  quantities: { type: Number },
-});
+const productSelectionSchema = new mongoose.Schema(
+  {
+    idProduct: { type: String },
+    imageURL: { type: String },
+    nameProduct: { type: String },
+    isDesign: { type: Boolean, default: true },
+    printSide: { type: String, default: "" },
+    color: { type: String },
+    newPrice: { type: Number },
+    quantities: { type: Number },
+  },
+  {
+    versionKey: false,
+  }
+);
 
-export default mongoose.model(
+const ProductSelection = mongoose.model(
   "ProductsSelection",
   productSelectionSchema,
-  "productSeleciton"
+  "productSelection"
 );
+
+export default ProductSelection;

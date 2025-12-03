@@ -1,5 +1,4 @@
-import ProductsSelection from "../models/ProductsSelection.js"; // Import schema bạn đã cung cấp
-
+import ProductsSelection from "../models/ProductsSelection.js";
 export const createSelection = async (req, res) => {
   try {
     const {
@@ -31,14 +30,13 @@ export const createSelection = async (req, res) => {
     });
 
     const savedSelection = await newSelection.save();
-
     res.status(201).json({
-      message: "Đã lưu lựa chọn sản phẩm thành công",
+      message: "Your order request was successful.",
       data: savedSelection,
     });
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Lỗi khi lưu sản phẩm", error: error.message });
+      .json({ message: "Error sending request.", error: error.message });
   }
 };

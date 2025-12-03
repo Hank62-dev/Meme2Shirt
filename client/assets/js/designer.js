@@ -392,3 +392,17 @@ function activatePanel(name, el) {
   // Trượt selector
   selector.style.top = el.offsetTop + "px";
 }
+//
+document.addEventListener("DOMContentLoaded", () => {
+  // Lấy dữ liệu từ kho
+  const savedDataString = localStorage.getItem("pendingDesignData");
+
+  if (savedDataString) {
+    const savedData = JSON.parse(savedDataString);
+
+    console.log("Dữ liệu nhận được:", savedData);
+
+    // Dọn dẹp sau khi dùng xong
+    localStorage.removeItem("pendingDesignData");
+  }
+});

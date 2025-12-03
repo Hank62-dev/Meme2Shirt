@@ -6,7 +6,7 @@ let selectionData = {
   nameProduct: "",
   imageURL: "",
   newPrice: 0,
-  isDesign: false,
+  isDesign: true,
   printSide: "",
   color: "",
   size: "",
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const productId = urlParams.get("id");
 
   if (!productId) {
-    alert("Thiếu ID sản phẩm trên URL!");
+    showToast("Missing product ID in the URL!", "error");
     return;
   }
 
@@ -41,13 +41,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelector(".nameProduct").innerText =
       "Lỗi kết nối hoặc không tìm thấy sản phẩm";
   }
+  const btnSelf = document.querySelector(".selfDesign");
+  const btnNo = document.querySelector(".noDesign");
+  const sectionPrint = document.querySelector(".choosePrintSide");
+  const btnDesignNow = document.querySelector(".designNow"); // Thẻ a
+  const btnCart = document.querySelector(".addCartButton");
 
+  btnSelf.classList.add("active");
+  // Mở khóa UI
+  btnCart.classList.add("disabled");
   // --- B. GÁN SỰ KIỆN CLICK (LOGIC UI & DATA) ---
   setupEventHandlers();
 });
-
-// --- HÀM 1: Đổ dữ liệu vào HTML dựa trên Class Name ---
-// optionDesign.js
 
 // --- HÀM 1: Đổ dữ liệu vào HTML dựa trên Class Name ---
 function renderProductByClass(product) {
@@ -107,6 +112,7 @@ function setupEventHandlers() {
   const btnNo = document.querySelector(".noDesign");
   const sectionPrint = document.querySelector(".choosePrintSide");
   const btnDesignNow = document.querySelector(".designNow"); // Thẻ a
+  const btnCart = document.querySelector(".addCartButton");
 
   // Helper: Reset active class cho nhóm order
   const resetOrder = () => {
@@ -124,6 +130,7 @@ function setupEventHandlers() {
     sectionPrint.classList.remove("disabled");
     // Xóa class disabled để nút Design hoạt động
     btnDesignNow.classList.remove("disabled");
+    btnCart.classList.add("disabled");
 
     console.log("Current Data:", selectionData);
   });
@@ -138,6 +145,7 @@ function setupEventHandlers() {
     sectionPrint.classList.add("disabled");
     // Thêm class disabled để chặn click
     btnDesignNow.classList.add("disabled");
+    btnCart.classList.remove("disabled");
 
     // Reset lựa chọn in
     selectionData.printSide = "";
@@ -225,16 +233,11 @@ function setupEventHandlers() {
   btnAddToCart.addEventListener("click", async (e) => {
     // Validation
     if (!selectionData.color) {
-      alert("Vui lòng chọn màu sắc!");
+      showToast("Color mustn't empty!", "error");
       return;
     }
     if (!selectionData.size) {
-      alert("Vui lòng chọn kích thước!");
-      return;
-    }
-    // Nếu chọn thiết kế riêng thì bắt buộc phải chọn mặt in
-    if (selectionData.isDesign && !selectionData.printSide) {
-      alert("Vui lòng chọn mặt in (Front/Back/Both)!");
+      showToast("Size mustn't empty!", "error");
       return;
     }
 
@@ -243,20 +246,46 @@ function setupEventHandlers() {
   });
 
   // --- 7. CHUYỂN TRANG DESIGN ---
+
   btnDesignNow.addEventListener("click", (e) => {
     if (btnDesignNow.classList.contains("disabled")) {
-      e.preventDefault(); // Chặn click nếu đang disable
+      e.preventDefault();
       return;
     }
-    // Logic chuyển trang (nếu cần mang theo ID)
-    const currentHref = btnDesignNow.getAttribute("href");
-    if (currentHref === "javascript:void(0)") {
-      // Nếu chưa set href, tự động chuyển
-      window.location.href = `../page_design/design.html?id=${selectionData.idProduct}`;
+
+    // --- VALIDATION (Kiểm tra xem chọn đủ chưa) ---
+    if (!selectionData.color) {
+      alert("Color mustn't empty!");
+      return;
     }
+    if (!selectionData.size) {
+      alert("Color mustn't empty!");
+      return;
+    }
+
+    // Nếu chọn thiết kế riêng thì bắt buộc phải chọn mặt in
+    if (selectionData.isDesign && !selectionData.printSide) {
+      alert("Choose printSide (Front/Back/Both)!");
+      return;
+    }
+
+    // --- ĐÓNG GÓI DỮ LIỆU ---
+    const dataToSend = {
+      idProduct: selectionData.idProduct,
+      imageURL: selectionData.imageURL,
+      color: selectionData.color,
+      printSide: selectionData.printSide,
+
+      size: selectionData.size, // 👈 QUAN TRỌNG: Gửi size đi ở đây
+    };
+
+    // Lưu vào localStorage
+    localStorage.setItem("pendingDesignData", JSON.stringify(dataToSend));
+
+    // Chuyển trang
+    window.location.href = `../page_design/design.html?id=${selectionData.idProduct}`;
   });
 }
-
 // Hàm gửi API
 async function saveToCart(data) {
   try {
@@ -266,14 +295,27 @@ async function saveToCart(data) {
       body: JSON.stringify(data),
     });
     const res = await response.json();
+    console.log(res);
+
     if (response.ok) {
-      alert("Đã thêm vào giỏ hàng thành công!");
-      window.location.href = "../page_cart/cart.html";
-    } else {
-      alert("Lỗi: " + res.message);
+      showToast(res.message, "success");
+      setTimeout(() => {
+        window.location.href = "../page_cart/cart.html";
+      }, 1000);
     }
   } catch (err) {
     console.error(err);
-    alert("Lỗi kết nối server!");
+    alert("Disconnect server!");
   }
+}
+
+function showToast(message, type = "success") {
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+  toast.className = "toast show " + type;
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
 }

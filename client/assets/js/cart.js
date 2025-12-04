@@ -126,6 +126,23 @@ function updateItemCount() {
     countSpan.innerText = `${items.length} items`;
   }
 }
+function setupSelectAll() {
+  const selectAll = document.getElementById("selectedItemIds ");
+  const checkboxes = document.querySelectorAll(".item-checkbox");
+
+  selectAll.addEventListener("change", () => {
+    checkboxes.forEach((cb) => (cb.checked = selectAll.checked));
+    updateSummary();
+  });
+
+  checkboxes.forEach((cb) => {
+    cb.addEventListener("change", () => {
+      const allChecked = [...checkboxes].every((c) => c.checked);
+      selectAll.checked = allChecked;
+      updateSummary();
+    });
+  });
+}
 
 function initCartPage() {
   setupQuantityButtons();
@@ -134,6 +151,7 @@ function initCartPage() {
   checkAllItemsByDefault();
   setupSearch();
   updateItemCount();
+  setupSelectAll();
   updateSummary();
 }
 

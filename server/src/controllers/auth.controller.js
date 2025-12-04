@@ -52,8 +52,6 @@ export const login = async (req, res) => {
     const { username, password } = req.body || {};
 
     console.log("Login attempt:", { username, password });
-    console.log("Username length:", username?.length);
-    console.log("Username chars:", JSON.stringify(username));
 
     // Validate input
     if (!username || !password) {
@@ -65,14 +63,6 @@ export const login = async (req, res) => {
     const user = await User.findOne({ name: username });
     console.log("User found:", user ? "Yes" : "No");
 
-    // Debug: In ra thông tin user tìm được
-    if (user) {
-      console.log("DB username:", user.name);
-      console.log("DB username length:", user.name.length);
-      console.log("DB username chars:", JSON.stringify(user.name));
-      console.log("DB password:", user.password);
-    }
-
     if (!user) {
       return res.status(401).json({ message: "Invalid username or password" });
     }
@@ -80,7 +70,6 @@ export const login = async (req, res) => {
     // So sánh password trực tiếp (KHÔNG AN TOÀN!)
     console.log("Input password:", password);
     console.log("DB password:", user.password);
-    console.log("Passwords match:", password === user.password);
 
     if (password === user.password) {
       console.log("Password valid: true");

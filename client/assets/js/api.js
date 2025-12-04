@@ -168,37 +168,52 @@ function createCardHTML(product, labelType) {
     ? formatCurrency(product.newPrice)
     : "Liên hệ";
 
-  // SỬA: Đường dẫn href trỏ đúng đến page_optionDesign/option.html
+  // Tạo nút theo từng loại
+  let actionButton = `
+  <a href="../page_optionDesign/option.html?id=${product.idProduct}">
+    <button class="btnDesign">
+      <i class="fa-solid fa-pen-nib"></i> DESIGN
+    </button>
+  </a>
+`;
+
+  if (labelType === "Graphic Tees") {
+    actionButton = `
+    <a href="../page_buyNow/buy.html?id=${product.idProduct}">
+      <button class="btnBuyNow">
+        <i class="fa-solid fa-cart-shopping"></i> BUY NOW
+      </button>
+    </a>
+  `;
+  }
   return `
-        <li class="splide__slide" id="${product.idProduct}">
-          <div class="card">
-            <div class="card-img">
-              <img class="imageURL" src="${product.imageURL}" alt="${product.nameProduct}" />
-            </div>
-            <div class="card-infor">
-              <div class="card-detail">
-                <p class="typeClothes" style="color: #116396; font-size: 2rem; font-weight: bold;">
-                  ${labelType}
-                </p>
-                <p class="nameProduct" style="font-size: 1.5rem; font-weight: 500">
-                  ${product.nameProduct}
-                </p>
-                <p class="oldPrice" style="font-size: 1.5rem; font-weight: 500; text-decoration: line-through; color: gray;">
-                  ${oldPriceShow}
-                </p>
-                <p class="newPrice" style="font-size: 1.8rem; font-weight: 500">
-                  ${newPriceShow}
-                </p>
-              </div>
-              <div class="card-control">
-                <a href="../page_optionDesign/option.html?id=${product.idProduct}">
-                    <button class="btnDesign">DESIGN</button>
-                </a>
-              </div>
-            </div>
+    <li class="splide__slide" id="${product.idProduct}">
+      <div class="card">
+        <div class="card-img">
+          <img class="imageURL" src="${product.imageURL}" alt="${product.nameProduct}" />
+        </div>
+        <div class="card-infor">
+          <div class="card-detail">
+            <p class="typeClothes" style="color: #116396; font-size: 2rem; font-weight: bold;">
+              ${labelType}
+            </p>
+            <p class="nameProduct" style="font-size: 1.5rem; font-weight: 500">
+              ${product.nameProduct}
+            </p>
+            <p class="oldPrice" style="font-size: 1.5rem; font-weight: 500; text-decoration: line-through; color: gray;">
+              ${oldPriceShow}
+            </p>
+            <p class="newPrice" style="font-size: 1.8rem; font-weight: 500">
+              ${newPriceShow}
+            </p>
           </div>
-        </li>
-    `;
+          <div class="card-control">
+            ${actionButton}
+          </div>
+        </div>
+      </div>
+    </li>
+  `;
 }
 
 async function loadAllProductsAndSplit() {
@@ -206,9 +221,19 @@ async function loadAllProductsAndSplit() {
   const poloContainer = document.querySelector(
     "#splidePoloShirt .splide__list"
   );
+  const hoodieContainer = document.querySelector("#splideHoodie .splide__list");
+  const graphicTeeContainer = document.querySelector(
+    "#splideGraphicTees .splide__list"
+  );
 
   // Nếu trang hiện tại không có slider nào thì thoát luôn
-  if (!tShirtContainer && !poloContainer) return;
+  if (
+    !tShirtContainer &&
+    !poloContainer &&
+    !hoodieContainer &&
+    !graphicTeeContainer
+  )
+    return;
 
   try {
     // 1. Gọi API lấy TOÀN BỘ sản phẩm
@@ -218,6 +243,8 @@ async function loadAllProductsAndSplit() {
 
     let tShirtHTML = "";
     let poloHTML = "";
+    let hoodieHTML = "";
+    let graphicTeeHTML = "";
 
     // 2. DUYỆT VÀ PHÂN LOẠI
     products.forEach((product) => {
@@ -225,7 +252,25 @@ async function loadAllProductsAndSplit() {
 
       if (imgLink.includes("poloshirt") || imgLink.includes("polo")) {
         poloHTML += createCardHTML(product, "Polo Shirt");
-      } else {
+      }
+
+      if (
+        // imgLink.includes("hoodieshirt") ||
+        // imgLink.includes("hoodie")
+        imgLink.includes("hoodie") ||
+        imgLink.includes("hoodies")
+      ) {
+        hoodieHTML += createCardHTML(product, "Hoodie");
+      }
+
+      if (
+        // imgLink.includes("graphictee")
+        imgLink.includes("graphictee") ||
+        imgLink.includes("graphictees")
+      ) {
+        graphicTeeHTML += createCardHTML(product, "Graphic Tees");
+      }
+      if (imgLink.includes("t-shirt")) {
         // Mặc định còn lại là T-Shirt
         tShirtHTML += createCardHTML(product, "T - Shirt");
       }
@@ -255,6 +300,17 @@ async function loadAllProductsAndSplit() {
     if (poloContainer) {
       poloContainer.innerHTML = poloHTML;
       if (poloHTML) new Splide("#splidePoloShirt", splideConfig).mount();
+    }
+
+    if (hoodieContainer) {
+      hoodieContainer.innerHTML = hoodieHTML;
+      if (hoodieHTML) new Splide("#splideHoodie", splideConfig).mount();
+    }
+
+    if (graphicTeeContainer) {
+      graphicTeeContainer.innerHTML = graphicTeeHTML;
+      if (graphicTeeHTML)
+        new Splide("#splideGraphicTees", splideConfig).mount();
     }
   } catch (error) {
     console.error("Lỗi tải sản phẩm:", error);

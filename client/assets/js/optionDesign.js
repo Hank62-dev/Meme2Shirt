@@ -13,6 +13,8 @@ let selectionData = {
   quantities: 1,
 };
 
+let urlPrefix = "";
+
 document.addEventListener("DOMContentLoaded", async () => {
   // --- A. LẤY DỮ LIỆU TỪ URL & API ---
   const urlParams = new URLSearchParams(window.location.search);
@@ -30,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Gọi API lấy thông tin gốc
     // SỬA: Dùng đường dẫn tương đối và đảm bảo đúng route /api/products/
     const response = await fetch(`/api/product/${productId}`);
-    if (!response.ok) throw new Error("Lỗi tải sản phẩm");
+    if (!response.ok) throw new Error("Connection error occurred.");
 
     const productDefault = await response.json();
 
@@ -39,16 +41,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     console.error(error);
     document.querySelector(".nameProduct").innerText =
-      "Lỗi kết nối hoặc không tìm thấy sản phẩm";
+      "A connection error occurred, or the product could not be found.";
   }
   const btnSelf = document.querySelector(".selfDesign");
-  const btnNo = document.querySelector(".noDesign");
-  const sectionPrint = document.querySelector(".choosePrintSide");
-  const btnDesignNow = document.querySelector(".designNow"); // Thẻ a
   const btnCart = document.querySelector(".addCartButton");
 
   btnSelf.classList.add("active");
-  // Mở khóa UI
   btnCart.classList.add("disabled");
   // --- B. GÁN SỰ KIỆN CLICK (LOGIC UI & DATA) ---
   setupEventHandlers();
@@ -60,6 +58,20 @@ function renderProductByClass(product) {
   selectionData.nameProduct = product.nameProduct;
   selectionData.imageURL = product.imageURL;
   selectionData.newPrice = product.newPrice;
+
+  if (product.imageURL) {
+    const lastUnderscoreIndex = product.imageURL.lastIndexOf("_");
+    if (lastUnderscoreIndex !== -1) {
+      // Lưu phần prefix: "../../assets/img/mockups/T-shirt"
+      urlPrefix = product.imageURL.substring(0, lastUnderscoreIndex);
+    } else {
+      // Fallback: Nếu ảnh không đúng định dạng có dấu _, tạm lấy nguyên link bỏ đuôi mở rộng
+      urlPrefix = product.imageURL.substring(
+        0,
+        product.imageURL.lastIndexOf(".")
+      );
+    }
+  }
 
   // 1. Map tên sản phẩm
   const nameEl = document.querySelector(".nameProduct");
@@ -80,21 +92,17 @@ function renderProductByClass(product) {
   if (product.color) {
     // Chuyển màu về chữ thường để khớp với id trong HTML (ví dụ: "White" -> "white")
     const colorId = product.color.toLowerCase();
-
     // Tìm nút màu có id trùng với màu của sản phẩm
     const targetColorBtn = document.getElementById(colorId);
-
     if (targetColorBtn) {
       // A. Cập nhật State dữ liệu gửi đi
       selectionData.color = colorId;
-
       // B. Cập nhật giao diện (Thêm class active cho nút đó)
       // Trước tiên xóa active ở các nút khác (nếu có)
       document
         .querySelectorAll(".buttonColor")
         .forEach((b) => b.classList.remove("active"));
       targetColorBtn.classList.add("active");
-
       // C. Cập nhật ô tròn hiển thị màu đã chọn
       const colorSelectedDisplay = document.querySelector(".colorSelected");
       if (colorSelectedDisplay) {
@@ -195,19 +203,35 @@ function setupEventHandlers() {
   // --- 4. Xử lý nút COLOR ---
   const colorBtns = document.querySelectorAll(".buttonColor");
   const colorSelectedDisplay = document.querySelector(".colorSelected");
+  const mainImg = document.querySelector(".mainProduct img");
 
   colorBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
+      // a. UI Active
       colorBtns.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
 
-      // Lấy ID màu (white, black...)
-      selectionData.color = btn.id;
+      // b. Lấy ID màu (ví dụ: "blue", "red", "black")
+      const newColor = btn.id;
+      selectionData.color = newColor;
 
-      // Hiển thị màu lên ô tròn nhỏ
+      // c. Hiển thị màu ô tròn nhỏ
       colorSelectedDisplay.style.backgroundColor = btn.style.backgroundColor;
 
-      console.log("Current Data:", selectionData);
+      // 👉 d. TẠO URL ẢNH MỚI VÀ CẬP NHẬT
+      // Logic: prefix + "_" + color + ".png"
+      // Ví dụ: "../../assets/img/mockups/T-shirt" + "_" + "blue" + ".png"
+      if (urlPrefix) {
+        const newImageURL = `${urlPrefix}_${newColor}.png`;
+
+        // Cập nhật thẻ img
+        mainImg.src = newImageURL;
+
+        // Cập nhật data gửi đi
+        selectionData.imageURL = newImageURL;
+
+        console.log("The imageURL has been changed to:", newImageURL);
+      }
     });
   });
 
@@ -255,17 +279,17 @@ function setupEventHandlers() {
 
     // --- VALIDATION (Kiểm tra xem chọn đủ chưa) ---
     if (!selectionData.color) {
-      alert("Color mustn't empty!");
+      alert("Color mustn't empty!", "error");
       return;
     }
     if (!selectionData.size) {
-      alert("Color mustn't empty!");
+      alert("Color mustn't empty!", "error");
       return;
     }
 
     // Nếu chọn thiết kế riêng thì bắt buộc phải chọn mặt in
     if (selectionData.isDesign && !selectionData.printSide) {
-      alert("Choose printSide (Front/Back/Both)!");
+      showToast("Choose printSide (Front/Back/Both)!", "error");
       return;
     }
 
@@ -275,8 +299,7 @@ function setupEventHandlers() {
       imageURL: selectionData.imageURL,
       color: selectionData.color,
       printSide: selectionData.printSide,
-
-      size: selectionData.size, // 👈 QUAN TRỌNG: Gửi size đi ở đây
+      size: selectionData.size,
     };
 
     // Lưu vào localStorage

@@ -37,15 +37,15 @@ app.use("/api", productRoutes);
 app.use("/api", selectionRoutes);
 app.use("/api", orderRoutes);
 
-mongoose.connection.once("open", async () => {
-  console.log("========================================");
-  console.log("🔥 ĐANG KẾT NỐI VÀO DATABASE TÊN LÀ:", mongoose.connection.name);
+// mongoose.connection.once("open", async () => {
+//   console.log("========================================");
+//   console.log("ĐANG KẾT NỐI VÀO DATABASE TÊN LÀ:", mongoose.connection.name);
 
-  const collections = await mongoose.connection.db.listCollections().toArray();
-  console.log("📂 DANH SÁCH COLLECTION ĐANG CÓ TRONG ĐÂY:");
-  collections.forEach((c) => console.log("   - " + c.name));
-  console.log("========================================");
-});
+//   const collections = await mongoose.connection.db.listCollections().toArray();
+//   console.log("DANH SÁCH COLLECTION ĐANG CÓ TRONG ĐÂY:");
+//   collections.forEach((c) => console.log("   - " + c.name));
+//   console.log("========================================");
+// });
 // Test route - kiểm tra users trong database
 app.get("/test-db", async (req, res) => {
   try {

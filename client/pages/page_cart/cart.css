@@ -114,7 +114,22 @@ header {
   display: flex;
   align-items: center;
   gap: 2rem;
+  margin-left: 1rem;
 }
+.select-all-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  font-family: "inter", sans-serif;
+  font-size: 2.5rem;
+}
+.select-all-group input {
+  transform: scale(1.5);
+  cursor: pointer;
+}
+
 .search-bar {
   background: #e0e0e0;
   padding: 1rem 2rem;
@@ -233,7 +248,7 @@ header {
   cursor: pointer;
   width: fit-content;
   font-size: 2rem;
-  margin-left: 8.5rem;
+  margin-left: 43rem;
 }
 
 .order-summary {
